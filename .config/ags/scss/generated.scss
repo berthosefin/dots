@@ -1,0 +1,50 @@
+// THIS FILE IS GENERATED
+$theme: 'dark';
+
+$red: #BF616A;
+$green: #A3BE8C;
+$yellow: #EBCB8B;
+$blue: #81A1C1;
+$magenta: #B48EAD;
+$teal: #88C0D0;
+$orange: #BF616A;
+
+$bg_color: #2E3440;
+$fg_color: #D8DEE9;
+$hover_fg: #ECEFF4;
+
+$wm_gaps: 5px;
+$radii: 5px;
+$spacing: 5px;
+
+$accent: $blue;
+$accent_fg: #141414;
+
+$hover: transparentize($fg_color, 0.8460000000000001);
+$widget_bg: transparentize($fg_color, 0.94);
+$active_gradient: linear-gradient(to right, $accent, lighten($accent, 10%));
+
+$border_color: transparentize($fg_color, 0.97);
+$border_width: 2px;
+$border: $border_width solid $border_color;
+
+$shadow: rgba(0, 0, 0, .6);
+$text_shadow: 2px 2px 2px $shadow;
+$icon_shadow: 2px 2px $shadow;
+
+$popover_radius: 8.5px;
+$popover_border_color: transparentize($fg_color, 0.96);
+$popover_padding: 9px;
+$drop_shadow: true;
+
+$transition: 200ms;
+
+$font_size: 12px;
+$font: 'Ubuntu Nerd Font';
+$mono_font: 'Mononoki Nerd Font', monospace;
+$wallpaper_fg: white;
+$shader_fg: white;
+
+$screen_corners: false;
+$bar_style: separated;
+$layout: topbar;
