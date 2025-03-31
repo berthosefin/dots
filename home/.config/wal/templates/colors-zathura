@@ -1,0 +1,37 @@
+set default-bg                  "{background}" # Background
+set default-fg                  "{foreground}" # Foreground
+
+set completion-bg               "{background}" # Background
+set completion-fg               "{color8}"     # Comment
+set completion-group-bg         "{background}" # Background
+set completion-group-fg         "{color8}"     # Comment
+set completion-highlight-bg     "{color0}"     # Selection
+set completion-highlight-fg     "{foreground}" # Foreground
+
+set statusbar-bg                "{background}" # Background
+set statusbar-fg                "{foreground}" # Foreground
+
+set notification-error-bg       "{color1}"     # Red
+set notification-error-fg       "{foreground}" # Foreground
+set notification-warning-bg     "{color3}"     # Orange
+set notification-warning-fg     "{color0}"     # Selection
+set notification-bg             "{background}" # Background
+set notification-fg             "{foreground}" # Foreground
+
+set inputbar-bg                 "{background}" # Background
+set inputbar-fg                 "{foreground}" # Foreground
+
+set recolor-lightcolor          "{background}" # Background
+set recolor-darkcolor           "{foreground}" # Foreground
+
+set index-bg                    "{background}" # Background
+set index-fg                    "{foreground}" # Foreground
+set index-active-bg             "{color0}"     # Current Line
+set index-active-fg             "{foreground}" # Foreground
+
+set render-loading-fg           "{background}" # Background
+set render-loading-bg           "{foreground}" # Foreground
+
+set highlight-color             "{color3}"     # Orange
+set highlight-active-color      "{color13}"    # Pink
+set highlight-fg                "{color13}"    # Pink

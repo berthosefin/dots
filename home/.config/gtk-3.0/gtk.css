@@ -1,0 +1,29 @@
+*:not(.path-bar-button):not(.rubberband) {
+	border: none;
+}
+
+/**************** terminal **********************/
+VteTerminal, vte-terminal {
+	padding: 16px 16px 16px 16px;
+}
+
+/**************** xfce4-panel **********************/
+
+.xfce4-panel.panel {
+	border-radius: 0;
+}
+  
+.xfce4-panel button {
+	transition: 0.2s;
+	margin: 2px;
+	padding: 2px;
+	border-radius: 2px;
+}
+
+.xfce4-panel .background .tasklist button {
+	font-size: 8px;
+}
+
+.tasklist { 
+	-XfceTasklist-max-button-length: 120; 
+}

@@ -1,0 +1,89 @@
+@import "/home/thos/.cache/wal/colors-waybar.css";
+
+* {
+  border: none;
+  border-radius: 0;
+  font-family: "0xProto";
+  font-size: 8px;
+  padding: 0;
+  border-radius: 4px;
+  min-height: 0;
+}
+
+window#waybar {
+  background: @background;
+  color: @foreground;
+  border: 1px solid @color8;
+}
+
+tooltip {
+  background-color: @background;
+  border: 1px solid @color8;
+}
+
+tooltip label {
+  margin: 10px;
+}
+
+#workspaces {
+  background-color: @color0;
+  margin: 6px 0px 6px 6px;
+  border: 1px solid @color8;
+}
+
+#workspaces button {
+  padding: 0 2px;
+  background: transparent;
+  color: white;
+  border-bottom: 0px solid transparent;
+}
+
+#workspaces button.active {
+  background-color: @color4;
+  color: @background;
+}
+
+#workspaces button.urgent {
+  background-color: @color1;
+  color: @background;
+}
+
+#window {
+  padding: 10px;
+}
+
+#clock,
+#tray,
+#custom-notification,
+#pulseaudio,
+#backlight,
+#network,
+#cpu,
+#memory,
+#battery {
+  margin: 6px 6px 6px 0px;
+  padding: 2px 8px;
+  background-color: @color0;
+  border: 1px solid @color8;
+  color: @color7;
+}
+
+#pulseaudio.muted {
+  background-color: @color1;
+  color: @background;
+}
+
+#pulseaudio.bluetooth {
+  background-color: @color3;
+  color: @background;
+}
+
+#battery.warning:not(.charging) {
+  background-color: @color3;
+  color: @background;
+}
+
+#battery.critical:not(.charging) {
+  background-color: @color1;
+  color: @background;
+}

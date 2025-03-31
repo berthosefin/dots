@@ -1,0 +1,134 @@
+{
+  "layer": "top",
+  "spacing": 0,
+  "height": 0,
+  "margin-top": 2,
+  "margin-right": 5,
+  "margin-bottom": 0,
+  "margin-left": 5,
+
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "tray",
+    "custom/notification",
+    "pulseaudio",
+    "backlight",
+    "network",
+    "cpu",
+    "memory",
+    "battery"
+  ],
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "show-special": true
+  },
+
+  "hyprland/window": {
+    "format": "{}",
+    "rewrite": {
+      "(.*) — Mozilla Firefox": "🌎 $1"
+    },
+    "separate-outputs": true
+  },
+
+  "clock": {
+    "format": " {:%H:%M}",
+    "format-alt": " {:%d %b, %Y}",
+    "tooltip-format": "{calendar}",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "on-scroll": 1,
+      "format": {
+        "today": "<u>{}</u>"
+      }
+    }
+  },
+
+  "tray": {
+    "spacing": 10,
+    "tooltip": false
+  },
+
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} {volume}%",
+    "format-muted": "",
+    "format-icons": {
+      "alsa_output.pci-0000_00_1f.3.analog-stereo": " ",
+      "alsa_output.pci-0000_00_1f.3.analog-stereo-muted": "",
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "phone-muted": "",
+      "portable": "",
+      "car": "",
+      "default": ["", ""]
+    },
+    "scroll-step": 1,
+    "on-click": "pamixer -t",
+    "on-click-right": "pavucontrol",
+    "ignored-sinks": ["Easy Effects Sink"]
+  },
+
+  "backlight": {
+    "device": "intel_backlight",
+    "format": "{icon} {percent}%",
+    "format-icons": ["", ""],
+    "tooltip": false
+  },
+
+  "network": {
+    "interface": "wlo1",
+    "format": "{ifname}",
+    "format-wifi": "  {signalStrength}%",
+    "format-ethernet": "󰊗  {ifname}",
+    "format-disconnected": " !", //An empty format will hide the module.
+    "tooltip-format": "󰊗  {ifname} via {gwaddr}",
+    "tooltip-format-wifi": "  {essid} ({signalStrength}%)",
+    "tooltip-format-ethernet": "  {ipaddr}/{cidr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "max-length": 50,
+    "on-click": "networkmanager_dmenu"
+  },
+
+  "cpu": {
+    "interval": 10,
+    "format": " {usage}%",
+    "max-length": 10
+  },
+
+  "memory": {
+    "interval": 30,
+    "format": " {percentage}%",
+    "max-length": 10
+  },
+
+  "battery": {
+    "bat": "BAT1",
+    "interval": 10,
+    "states": {
+      "full-at": 96,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{icon} {capacity}%",
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 25
+  },
+
+  "custom/notification": {
+    "tooltip": true,
+    "format": "{icon} {0}",
+    "format-icons": "",
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw",
+    "escape": true
+  }
+}

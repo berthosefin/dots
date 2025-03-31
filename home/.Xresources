@@ -1,0 +1,11 @@
+! Colorscheme
+#include "/home/thos/.cache/wal/colors.Xresources"
+
+! Xft Antialiasing
+Xft.dpi: 86
+Xft.autohint: false
+Xft.hinting: true
+Xft.antialias: true
+Xft.lcdfilter: lcddefault
+Xft.hintstyle: hintslight
+Xft.rgba: rgb
