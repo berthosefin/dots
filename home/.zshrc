@@ -71,6 +71,7 @@ plugins=(
     systemadmin
     systemd
     taskwarrior
+    timewarrior
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
@@ -108,10 +109,10 @@ PATH=$HOME/.local/bin:$PATH
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias yt-mp3="yt-dlp -x --audio-format mp3"
-alias yt-480="yt-dlp -S res:480"
-alias yt-720="yt-dlp -S res:720"
-alias yt-playlists="yt-dlp -o \"%(playlist_index)s-%(title)s.%(ext)s\""
+alias yt-mp3="yt-dlp -x --audio-format mp3 --cookies-from-browser firefox"
+alias yt-480="yt-dlp -S res:480 --cookies-from-browser firefox"
+alias yt-720="yt-dlp -S res:720 --cookies-from-browser firefox"
+alias yt-playlists="yt-dlp -o \"%(playlist_index)s-%(title)s.%(ext)s\" --cookies-from-browser firefox"
 
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.

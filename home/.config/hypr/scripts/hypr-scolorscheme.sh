@@ -3,22 +3,22 @@
 # ----------------------------------------------
 # Description : ColorScheme Switcher
 # Author : Berthose Fin (Thos)
-# Date : 2025-03-22
+# Update : 2025-05-27
 # ----------------------------------------------
 
-# Default themes
-default_icon_theme="Papirus-Dark"
-default_cursor_theme="capitaine-cursors"
+# === Directories ===
+theme_dir="$HOME/.config/hypr/scripts/colorschemes"
 
+# === Fonctions ===
 # Function to change GTK settings
 change_gtk_settings() {
-  local theme_name="$1"
-  local icon_theme="${2:-$default_icon_theme}"
-  local cursor_theme="${3:-$default_cursor_theme}"
+  default_gtk_theme="Adwaita-dark"
+  default_icon_theme="Papirus-Dark"
+  default_cursor_theme="capitaine-cursors"
 
-  gsettings set org.gnome.desktop.interface gtk-theme "${theme_name}" &
-  gsettings set org.gnome.desktop.interface icon-theme "${icon_theme}" &
-  gsettings set org.gnome.desktop.interface cursor-theme "${cursor_theme}" &
+  gsettings set org.gnome.desktop.interface gtk-theme "${1:-$default_gtk_theme}"
+  gsettings set org.gnome.desktop.interface icon-theme "${2:-$default_icon_theme}"
+  gsettings set org.gnome.desktop.interface cursor-theme "${3:-$default_cursor_theme}"
 }
 
 # Function to change wallpaper directory
@@ -41,98 +41,48 @@ change_mousepad_colors() {
 
 # Function to change xfce4-terminal colors
 change_xfce4_terminal_colors() {
-  sleep 0.5
+  sleep 0.3
   . "${HOME}/.cache/wal/colors.sh"
 
-  xfconf-query -c xfce4-terminal -p /color-cursor -s "${foreground}" &
-  xfconf-query -c xfce4-terminal -p /color-foreground -s "${foreground}" &
-  xfconf-query -c xfce4-terminal -p /color-background -s "${background}" &
-  xfconf-query -c xfce4-terminal -p /tab-activity-color -s "${color6}" &
-  xfconf-query -c xfce4-terminal -p /color-palette -s "${color0};${color1};${color2};${color3};${color4};${color5};${color6};${color7};${color8};${color9};${color10};${color11};${color12};${color13};${color14};${color15}" &
+  xfconf-query -c xfce4-terminal -p /color-cursor -s "${foreground}"
+  xfconf-query -c xfce4-terminal -p /color-foreground -s "${foreground}"
+  xfconf-query -c xfce4-terminal -p /color-background -s "${background}"
+  xfconf-query -c xfce4-terminal -p /tab-activity-color -s "${color6}"
+  xfconf-query -c xfce4-terminal -p /color-palette -s "${color0};${color1};${color2};${color3};${color4};${color5};${color6};${color7};${color8};${color9};${color10};${color11};${color12};${color13};${color14};${color15}"
 }
 
-# ----------------------------------------------
-# Menu
-# ----------------------------------------------
+# === List of available colorschemes ===
+theme_files=$(find "$theme_dir" -name '*.conf' | sort)
+theme_names=$(basename -a $theme_files | sed 's/\.conf$//')
 
-# Options
-catppuccin_frappe="Catppuccin Frappe"
-catppuccin_latte="Catppuccin Latte"
-catppuccin_macchiato="Catppuccin Macchiato"
-catppuccin_mocha="Catppuccin Mocha"
-dracula="Dracula"
-gruvbox="Gruvbox"
-nord="Nord"
-quit="Quit"
+# === Menu ===
+choice=$(echo "$theme_names" | rofi -dmenu -i -p "Choose a colorscheme")
+[ -z "$choice" ] && exit 0
 
-# Variable passed to menu tool (rofi for i3, wofi for Hyprland)
-options="$catppuccin_frappe\n$catppuccin_latte\n$catppuccin_macchiato\n$catppuccin_mocha\n$dracula\n$gruvbox\n$nord\n\n$quit"
-
-choice=$(echo -e "${options}" | rofi -dmenu -i -l 9 -p 'ColorScheme')
-
-if ! [ "${choice}" ] || [ "${choice}" = $quit ]; then
-  printf 'No theme chosen\n' >&2
+theme_file="$theme_dir/${choice}.conf"
+[ ! -f "$theme_file" ] && {
+  echo "Fichier introuvable : $theme_file"
   exit 1
+}
+
+# === Load the config ===
+eval $(grep -v '^#' "$theme_file" | sed 's/^/export /')
+
+# === Apply the theme ===
+if [ "$is_light" = "true" ]; then
+  wal -l --theme "$theme"
+else
+  wal --theme "$theme"
 fi
-
-# Change parameters based on choice
-case "${choice}" in
-$catppuccin_frappe)
-  wal --theme catppuccin-frappe &&
-  change_gtk_settings "Catppuccin-Frappe-Standard-Blue-Dark" &
-  change_randomwall_image_dir "$HOME/Images/Catppuccin" &
-  papirus-folders -C cat-frappe-blue &
-  kvantummanager --set Catppuccin-Frappe-Blue &
-  ;;
-$catppuccin_latte)
-  wal --theme catppuccin-latte -l &&
-  change_gtk_settings "Catppuccin-Latte-Standard-Blue-Light" "Papirus-Light" "capitaine-cursors-light" &
-  change_randomwall_image_dir "$HOME/Images/Catppuccin-Latte" &
-  papirus-folders -C cat-latte-blue &
-  kvantummanager --set Catppuccin-Latte-Blue &
-  ;;
-$catppuccin_macchiato)
-  wal --theme catppuccin-macchiato &&
-  change_gtk_settings "Catppuccin-Macchiato-Standard-Blue-Dark" &
-  change_randomwall_image_dir "$HOME/Images/Catppuccin" &
-  papirus-folders -C cat-macchiato-blue &
-  kvantummanager --set Catppuccin-Macchiato-Blue &
-  ;;
-$catppuccin_mocha)
-  wal --theme catppuccin-mocha &&
-  change_gtk_settings "Catppuccin-Mocha-Standard-Blue-Dark" &
-  change_randomwall_image_dir "$HOME/Images/Catppuccin" &
-  papirus-folders -C cat-mocha-blue &
-  kvantummanager --set Catppuccin-Mocha-Blue &
-  ;;
-$dracula)
-  wal --theme dracula &&
-  change_gtk_settings "Dracula" &
-  change_randomwall_image_dir "$HOME/Images/Dracula" &
-  papirus-folders -C dracula-default &
-  kvantummanager --set Dracula &
-  ;;
-$gruvbox)
-  wal --theme gruvbox &&
-  change_gtk_settings "Gruvbox-Dark-BL-MOD" &
-  change_randomwall_image_dir "$HOME/Images/Gruvbox" &
-  papirus-folders -C gruvbox-material-yellow &
-  kvantummanager --set gruvbox-kvantum &
-  ;;
-$nord)
-  wal --theme nord &&
-  change_gtk_settings "Nordic-darker" &
-  change_randomwall_image_dir "$HOME/Images/Nord" &
-  papirus-folders -C polarnight4 &
-  kvantummanager --set Nordic-Darker &
-  ;;
-esac
-
-# Apply other settings (mousepad, xfce4-terminal)
-change_mousepad_colors &
-change_xfce4_terminal_colors &
+change_gtk_settings "$gtk_theme" "$icon_theme" "$cursor_theme"
+change_randomwall_image_dir "$image_dir" &
+papirus-folders -C "$papirus_color" &
+kvantummanager --set "$kvantum" &
+change_mousepad_colors
+change_xfce4_terminal_colors
 
 wait
+hyprctl reload
 
-# Notify user
+# === Notify user ===
 notify-send -u normal "ColorScheme Changed" "The color scheme has been changed to ${choice}."

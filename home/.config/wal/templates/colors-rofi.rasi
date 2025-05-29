@@ -33,15 +33,16 @@
 }}
 #listview {{
     fixed-height: 0;
-    border:       2px dash 0px 0px ;
-    border-color: @bordercolor;
+    border:       5px dash 0px 0px ;
+    border-color: #00000000;
     spacing:      2px ;
     scrollbar:    false;
     padding:      2px 0px 0px ;
 }}
 #element {{
     border:  0;
-    padding: 1px ;
+    border-radius: 5px;
+    padding: 5px ;
 }}
 #element.normal.normal {{
     background-color: @background-color;
@@ -97,6 +98,10 @@
     spacing:    0;
     text-color: @foreground;
     padding:    1px ;
+    border: 1px solid;
+    border-color: @active-background;
+    border-radius: 5px;
+    padding: 10px 10px;
 }}
 #case-indicator {{
     spacing:    0;
