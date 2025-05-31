@@ -4,16 +4,16 @@
   border: none;
   border-radius: 0;
   font-family: "0xProto";
-  font-size: 8px;
+  font-size: 10px;
   padding: 0;
-  border-radius: 4px;
+  border-radius: 5px;
   min-height: 0;
 }
 
 window#waybar {
   background: @background;
   color: @foreground;
-  border: 1px solid @color8;
+  border: 2px solid @color8;
 }
 
 tooltip {
