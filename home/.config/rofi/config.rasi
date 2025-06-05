@@ -1,1 +1,5 @@
 @import "~/.cache/wal/colors-rofi.rasi"
+
+configuration {
+  show-icons: true;
+}
