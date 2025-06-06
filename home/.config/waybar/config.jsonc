@@ -1,14 +1,18 @@
 {
-  "layer": "top",
+  "layer": "bottom",
   "spacing": 0,
   "height": 0,
   "margin-top": 2,
   "margin-right": 5,
   "margin-bottom": 0,
   "margin-left": 5,
-
-  "modules-left": ["hyprland/workspaces", "hyprland/window"],
-  "modules-center": ["clock"],
+  "modules-left": [
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
   "modules-right": [
     "tray",
     "custom/notification",
@@ -19,12 +23,10 @@
     "memory",
     "battery"
   ],
-
   "hyprland/workspaces": {
     "format": "{name}",
     "show-special": true
   },
-
   "hyprland/window": {
     "format": "{}",
     "rewrite": {
@@ -32,7 +34,6 @@
     },
     "separate-outputs": true
   },
-
   "clock": {
     "format": " {:%H:%M}",
     "format-alt": " {:%d %b, %Y}",
@@ -46,12 +47,10 @@
       }
     }
   },
-
   "tray": {
     "spacing": 10,
     "tooltip": false
   },
-
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "format-bluetooth": "{icon} {volume}%",
@@ -66,21 +65,27 @@
       "phone-muted": "",
       "portable": "",
       "car": "",
-      "default": ["", ""]
+      "default": [
+        "",
+        ""
+      ]
     },
     "scroll-step": 1,
     "on-click": "pamixer -t",
     "on-click-right": "pavucontrol",
-    "ignored-sinks": ["Easy Effects Sink"]
+    "ignored-sinks": [
+      "Easy Effects Sink"
+    ]
   },
-
   "backlight": {
     "device": "intel_backlight",
     "format": "{icon} {percent}%",
-    "format-icons": ["", ""],
+    "format-icons": [
+      "",
+      ""
+    ],
     "tooltip": false
   },
-
   "network": {
     "interface": "wlo1",
     "format": "{ifname}",
@@ -94,19 +99,16 @@
     "max-length": 50,
     "on-click": "networkmanager_dmenu"
   },
-
   "cpu": {
     "interval": 10,
     "format": " {usage}%",
     "max-length": 10
   },
-
   "memory": {
     "interval": 30,
     "format": " {percentage}%",
     "max-length": 10
   },
-
   "battery": {
     "bat": "BAT1",
     "interval": 10,
@@ -116,10 +118,15 @@
       "critical": 15
     },
     "format": "{icon} {capacity}%",
-    "format-icons": ["", "", "", "", ""],
+    "format-icons": [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ],
     "max-length": 25
   },
-
   "custom/notification": {
     "tooltip": true,
     "format": "{icon} {0}",
