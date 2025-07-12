@@ -1,5 +1,1 @@
-@import "~/.cache/wal/colors-rofi.rasi"
-
-configuration {
-  show-icons: true;
-}
+@theme "~/.cache/wal/colors-rofi.rasi"

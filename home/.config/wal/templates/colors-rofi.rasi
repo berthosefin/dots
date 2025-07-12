@@ -1,134 +1,82 @@
-* {{
-    font: "0xProto 8";
-    foreground: {foreground};
-    background-color: {background};
-    active-background: {color4};
-    urgent-background: {color1};
-    urgent-foreground: {color0};
-    selected-background: @active-background;
-    selected-urgent-background: @urgent-background;
-    selected-active-background: @active-background;
-    separatorcolor: @active-background;
-    bordercolor: @active-background;
+
+configuration {{
+  font: "0xProto 8";
+  
+  drun {{
+    display-name: "";
+  }}
+
+  run {{
+    display-name: "";
+  }}
+
+  window {{
+    display-name: "";
+  }}
 }}
 
-#window {{
-    fullscreen: true;
-    background-color: @background-color;
-    border:           0;
-    border-radius: 5;
-    border-color: @bordercolor;
-    padding:          50;
+* {{
+  background: {background};
+  background-alt: {color0};
+  foreground: {foreground};
+  active: {color4};
+  urgent: {color1};
+
+  background-color: @background;
+  text-color: @foreground;
 }}
-#mainbox {{
-    border:  0;
-    padding: 0;
+
+window {{
+  padding: 4px;
+  transparency: "real";
+  width: 600;
+  border: 2;
+  border-radius: 5;
+  border-color: @active;
 }}
-#message {{
-    border:       1px dash 0px 0px ;
-    border-color: @separatorcolor;
-    padding:      1px ;
+
+mainbox {{
+  children: [inputbar, listview];
 }}
-#textbox {{
-    text-color: @foreground;
+
+inputbar {{
+  children: [prompt, entry];
 }}
-#listview {{
-    flow: horizontal;
-    columns: 4;
-    fixed-columns: true;
-    fixed-height: 0;
-    border:       5px dash 0px 0px ;
-    border-color: #00000000;
-    spacing:      2px ;
-    scrollbar:    false;
-    padding:      2px 0px 0px ;
+
+entry {{
+  padding: 12px;
 }}
-#element {{
-    border:  0;
-    border-radius: 5px;
-    padding: 5px ;
+
+prompt {{
+  background-color: inherit;
+  padding: 12px;
 }}
-#element.normal.normal {{
-    background-color: @background-color;
-    text-color:       @foreground;
+
+listview {{
+  lines: 10;
+  scrollbar: true;
 }}
-#element.normal.urgent {{
-    background-color: @urgent-background;
-    text-color:       @urgent-foreground;
+
+scrollbar {{
+  background-color: @background-alt;
+  handle-color: @active;
+  margin: 0 0 0 4px;
 }}
-#element.normal.active {{
-    background-color: @active-background;
-    text-color:       @foreground;
+
+element {{
+  children: [element-icon, element-text];
 }}
-#element.selected.normal {{
-    background-color: @selected-background;
-    text-color:       @background-color;
+
+element-icon {{
+  padding: 10px 10px;
 }}
-#element.selected.urgent {{
-    background-color: @selected-urgent-background;
-    text-color:       @foreground;
+
+element-text {{
+  padding: 10px;
 }}
-#element.selected.active {{
-    background-color: @selected-active-background;
-    text-color:       @foreground;
-}}
-#element.alternate.normal {{
-    background-color: @background-color;
-    text-color:       @foreground;
-}}
-#element.alternate.urgent {{
-    background-color: @urgent-background;
-    text-color:       @foreground;
-}}
-#element.alternate.active {{
-    background-color: @active-background;
-    text-color:       @foreground;
-}}
-#scrollbar {{
-    width:        2px ;
-    border:       0;
-    handle-width: 8px ;
-    padding:      0;
-}}
-#sidebar {{
-    border:       2px dash 0px 0px ;
-    border-color: @separatorcolor;
-}}
-#button.selected {{
-    background-color: @selected-background;
-    text-color:       @foreground;
-}}
-#inputbar {{
-    spacing:    0;
-    text-color: @foreground;
-    padding:    1px ;
-    border: 1px solid;
-    border-color: @active-background;
-    border-radius: 5px;
-    padding: 10px 10px;
-}}
-#case-indicator {{
-    spacing:    0;
-    text-color: @foreground;
-}}
-#entry {{
-    spacing:    0;
-    text-color: @foreground;
-}}
-#prompt {{
-    spacing:    0;
-    text-color: @foreground;
-}}
-#inputbar {{
-    children:   [ prompt,textbox-prompt-colon,entry,case-indicator ];
-}}
-#textbox-prompt-colon {{
-    expand:     false;
-    str:        ":";
-    margin:     0px 0.3em 0em 0em ;
-    text-color: @foreground;
-}}
-element-text, element-icon {{
-    background-color: inherit;
-    text-color: inherit;
+
+element-text selected {{
+  background-color: @active;
+  text-color: @background;
+  border-radius: 5;
 }}
