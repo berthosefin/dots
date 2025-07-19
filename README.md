@@ -30,11 +30,13 @@ Make sure you have the following packages installed:
 - `pywal` (dynamic colors)
 - `departure` (powermenu)
 - `stow` (dotfiles manager)
+- `papirus-icon-theme`
+
 
 ### 📦 Install dependencies on Arch (with `yay`):
 
 ```bash
-yay -S hyprland alacritty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow departure
+yay -S hyprland alacritty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow departure papirus-icon-theme
 ```
 
 ---
