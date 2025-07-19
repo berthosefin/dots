@@ -13,7 +13,7 @@ Make sure you have the following packages installed:
 - [Hyprland](https://wiki.hyprland.org/)
 - `alacritty` (terminal)
 - `rofi` (app launcher)
-- `swaync` (notifications)
+- `dunst` (notifications)
 - `hyprpaper` (wallpaper manager)
 - `hypridle` (idle manager)
 - `hyprlock` (screen locker)
@@ -34,7 +34,7 @@ Make sure you have the following packages installed:
 ### 📦 Install dependencies on Arch (with `yay`):
 
 ```bash
-yay -S hyprland alacritty rofi swaync hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow departure
+yay -S hyprland alacritty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow departure
 ```
 
 ---

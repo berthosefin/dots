@@ -81,8 +81,12 @@ kvantummanager --set "$kvantum" &
 change_mousepad_colors
 change_xfce4_terminal_colors
 
+ln -sf ~/.cache/wal/colors-dunst ~/.config/dunst/dunstrc
+pkill -f dunst
+
 wait
 hyprctl reload
+dunst &
 
 # === Notify user ===
 notify-send -u normal "ColorScheme Changed" "The color scheme has been changed to ${choice}."
