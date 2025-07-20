@@ -3,7 +3,7 @@
 # ----------------------------------------------
 # Description : ColorScheme Switcher
 # Author : Berthose Fin (Thos)
-# Update : 2025-05-27
+# Update : 2025-07-20
 # ----------------------------------------------
 
 # === Directories ===
@@ -34,23 +34,6 @@ change_randomwall_image_dir() {
   fi
 }
 
-# Function to change Mousepad colors
-change_mousepad_colors() {
-  ln -sf ~/.cache/wal/colors-mousepad.xml ~/.local/share/gtksourceview-4/styles/pywal.xml
-}
-
-# Function to change xfce4-terminal colors
-change_xfce4_terminal_colors() {
-  sleep 0.3
-  . "${HOME}/.cache/wal/colors.sh"
-
-  xfconf-query -c xfce4-terminal -p /color-cursor -s "${foreground}"
-  xfconf-query -c xfce4-terminal -p /color-foreground -s "${foreground}"
-  xfconf-query -c xfce4-terminal -p /color-background -s "${background}"
-  xfconf-query -c xfce4-terminal -p /tab-activity-color -s "${color6}"
-  xfconf-query -c xfce4-terminal -p /color-palette -s "${color0};${color1};${color2};${color3};${color4};${color5};${color6};${color7};${color8};${color9};${color10};${color11};${color12};${color13};${color14};${color15}"
-}
-
 # === List of available colorschemes ===
 theme_files=$(find "$theme_dir" -name '*.conf' | sort)
 theme_names=$(basename -a $theme_files | sed 's/\.conf$//')
@@ -78,8 +61,6 @@ change_gtk_settings "$gtk_theme" "$icon_theme" "$cursor_theme"
 change_randomwall_image_dir "$image_dir" &
 papirus-folders -C "$papirus_color" &
 kvantummanager --set "$kvantum" &
-change_mousepad_colors
-change_xfce4_terminal_colors
 
 ln -sf ~/.cache/wal/colors-dunst ~/.config/dunst/dunstrc
 pkill -f dunst
