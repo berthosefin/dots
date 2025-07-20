@@ -66,6 +66,7 @@ plugins=(
     fzf-tab
     gh
     git
+    laravel
     npm
     sudo
     systemadmin
