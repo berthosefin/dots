@@ -11,7 +11,7 @@ Personal dotfiles for a customized [Hyprland](https://github.com/hyprwm/Hyprland
 Make sure you have the following packages installed:
 
 - [Hyprland](https://wiki.hyprland.org/)
-- `alacritty` (terminal)
+- `kitty` (terminal)
 - `rofi` (app launcher)
 - `dunst` (notifications)
 - `hyprpaper` (wallpaper manager)
@@ -36,7 +36,7 @@ Make sure you have the following packages installed:
 ### 📦 Install dependencies on Arch (with `yay`):
 
 ```bash
-yay -S hyprland alacritty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow departure papirus-icon-theme
+yay -S hyprland kitty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow departure papirus-icon-theme
 ```
 
 ---
@@ -65,7 +65,7 @@ This will symlink the configuration files into your `~/.config` directory.
 
 | Keybinding               | Action                    |
 | ------------------------ | ------------------------- |
-| `SUPER + Return`         | Launch Alacritty          |
+| `SUPER + Return`         | Launch kitty          |
 | `SUPER + Shift + Return` | Launch xfce4-terminal     |
 | `SUPER + D`              | Launch Rofi               |
 | `SUPER + Q`              | Close active window       |

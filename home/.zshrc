@@ -119,7 +119,7 @@ alias yt-playlists="yt-dlp -o \"%(playlist_index)s-%(title)s.%(ext)s\" --cookies
 # &   # Run the process in the background.
 # ( ) # Hide shell job control messages.
 # Not supported in the "fish" shell.
-#(cat ~/.cache/wal/sequences &)
+(cat ~/.cache/wal/sequences &)
 
 # Alternative (blocks terminal for 0-3ms)
 # cat ~/.cache/wal/sequences
