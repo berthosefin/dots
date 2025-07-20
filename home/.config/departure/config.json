@@ -1,0 +1,71 @@
+{
+  "theme": {
+    "source": "command",
+    "file_path": null,
+    "command": "cat ~/.cache/wal/colors.json",
+    "watch_file": false
+  },
+  "layout": {
+    "layout_type": "horizontal",
+    "button_size": 80,
+    "button_spacing": 20,
+    "margin": 50,
+    "columns": 3
+  },
+  "effects": {
+    "blur": true,
+    "animations": true,
+    "hover_effects": true,
+    "transition_duration": 200
+  },
+  "actions": [
+    {
+      "name": "Lock",
+      "command": "hyprlock",
+      "icon": "system-lock-screen",
+      "keybind": "l",
+      "confirm": false,
+      "danger": false
+    },
+    {
+      "name": "Logout",
+      "command": "hyprctl dispatch exit",
+      "icon": "system-log-out",
+      "keybind": "e",
+      "confirm": false,
+      "danger": false
+    },
+    {
+      "name": "Suspend",
+      "command": "systemctl suspend",
+      "icon": "system-suspend",
+      "keybind": "s",
+      "confirm": false,
+      "danger": false
+    },
+    {
+      "name": "Hibernate",
+      "command": "systemctl hibernate",
+      "icon": "system-suspend-hibernate",
+      "keybind": "h",
+      "confirm": false,
+      "danger": false
+    },
+    {
+      "name": "Reboot",
+      "command": "systemctl reboot",
+      "icon": "system-reboot",
+      "keybind": "r",
+      "confirm": false,
+      "danger": true
+    },
+    {
+      "name": "Shutdown",
+      "command": "systemctl poweroff",
+      "icon": "system-shutdown",
+      "keybind": "p",
+      "confirm": false,
+      "danger": true
+    }
+  ]
+}

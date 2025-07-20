@@ -62,6 +62,8 @@ change_randomwall_image_dir "$image_dir" &
 papirus-folders -C "$papirus_color" &
 kvantummanager --set "$kvantum" &
 
+ln -sf ~/.cache/wal/colors-tmux.conf ~/.tmux.conf
+
 ln -sf ~/.cache/wal/colors-dunst ~/.config/dunst/dunstrc
 pkill -f dunst
 

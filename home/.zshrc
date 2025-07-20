@@ -61,6 +61,7 @@ ZSH_THEME="spaceship-prompt/spaceship"
 plugins=(
     aliases
     archlinux
+    composer
     docker
     docker-compose
     fzf-tab
