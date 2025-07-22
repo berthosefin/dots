@@ -28,15 +28,16 @@ Make sure you have the following packages installed:
 - `playerctl` (media control)
 - `wpctl` (pipewire audio)
 - `pywal` (dynamic colors)
-- `departure` (powermenu)
+- `wlogout` (powermenu)
 - `stow` (dotfiles manager)
 - `papirus-icon-theme`
+- `papirus-folders-git`
 
 
 ### 📦 Install dependencies on Arch (with `yay`):
 
 ```bash
-yay -S hyprland kitty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow departure papirus-icon-theme
+yay -S hyprland kitty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow wlogout papirus-icon-theme papirus-folders-git
 ```
 
 ---
@@ -70,7 +71,7 @@ This will symlink the configuration files into your `~/.config` directory.
 | `SUPER + D`              | Launch Rofi               |
 | `SUPER + Q`              | Close active window       |
 | `SUPER + Shift + Q`      | Exit Hyprland             |
-| `SUPER + E`              | Powermenu : `departure`   |
+| `SUPER + E`              | Powermenu : `wlogout`   |
 | `SUPER + C`              | Switch color scheme       |
 | `SUPER + F`              | Toggle fullscreen         |
 | `SUPER + G`              | Group/Ungroup windows     |
