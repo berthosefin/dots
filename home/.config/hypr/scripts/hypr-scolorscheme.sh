@@ -3,7 +3,7 @@
 # ----------------------------------------------
 # Description : ColorScheme Switcher
 # Author : Berthose Fin (Thos)
-# Update : 2025-07-20
+# Update : 2025-07-28
 # ----------------------------------------------
 
 # === Directories ===
@@ -34,6 +34,12 @@ change_randomwall_image_dir() {
   fi
 }
 
+# Function to change zellij theme
+change_zellij_theme() {
+  zellij_config="$HOME/.config/zellij/config.kdl"
+  sed -i "s/^theme \".*\"/theme \"$1\"/" "$zellij_config"
+}
+
 # === List of available colorschemes ===
 theme_files=$(find "$theme_dir" -name '*.conf' | sort)
 theme_names=$(basename -a $theme_files | sed 's/\.conf$//')
@@ -61,8 +67,8 @@ change_gtk_settings "$gtk_theme" "$icon_theme" "$cursor_theme"
 change_randomwall_image_dir "$image_dir" &
 papirus-folders -C "$papirus_color" &
 kvantummanager --set "$kvantum" &
+change_zellij_theme "$theme"
 
-ln -sf ~/.cache/wal/colors-tmux.conf ~/.tmux.conf
 ln -sf ~/.cache/wal/colors-wlogout.css ~/.config/wlogout/style.css
 
 ln -sf ~/.cache/wal/colors-dunst ~/.config/dunst/dunstrc

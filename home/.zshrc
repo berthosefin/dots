@@ -74,7 +74,6 @@ plugins=(
     systemd
     taskwarrior
     timewarrior
-    tmux
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting
