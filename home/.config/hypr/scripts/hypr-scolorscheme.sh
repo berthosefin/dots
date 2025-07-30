@@ -3,7 +3,7 @@
 # ----------------------------------------------
 # Description : ColorScheme Switcher
 # Author : Berthose Fin (Thos)
-# Update : 2025-07-28
+# Update : 2025-07-30
 # ----------------------------------------------
 
 # === Directories ===
@@ -31,6 +31,21 @@ change_randomwall_image_dir() {
     sed -i "s|^wallpaper =.*|wallpaper = ,${wallpaper}|" ~/.config/hypr/hyprpaper.conf
     sed -i "s|^WALLPAPER_DIR=.*|WALLPAPER_DIR=\"${image_dir}\"|" ~/.config/hypr/scripts/hyprpaper-reload.sh
     nohup sh ~/.config/hypr/scripts/hyprpaper-reload.sh >/dev/null 2>&1 &
+  fi
+}
+
+# Function to change LazyVim colorscheme
+change_lazyvim_colorscheme() {
+  local colorscheme_name="$1"
+  local flavour="$2"
+  local config_file="$HOME/.config/nvim/lua/plugins/colorscheme.lua"
+
+  # Modifier le champ "colorscheme" de LazyVim
+  sed -i "s/colorscheme = \".*\"/colorscheme = \"$colorscheme_name\"/" "$config_file"
+
+  # Si c'est Catppuccin, changer la saveur aussi
+  if grep -q 'catppuccin' "$config_file" && [ -n "$flavour" ]; then
+    sed -i "s/flavour = \".*\"/flavour = \"$flavour\"/" "$config_file"
   fi
 }
 
@@ -67,13 +82,12 @@ change_gtk_settings "$gtk_theme" "$icon_theme" "$cursor_theme"
 change_randomwall_image_dir "$image_dir" &
 papirus-folders -C "$papirus_color" &
 kvantummanager --set "$kvantum" &
+change_lazyvim_colorscheme "$nvim_colorscheme" "$catppuccin_flavour"
 change_zellij_theme "$theme"
-
 ln -sf ~/.cache/wal/colors-wlogout.css ~/.config/wlogout/style.css
-
 ln -sf ~/.cache/wal/colors-dunst ~/.config/dunst/dunstrc
-pkill -f dunst
 
+pkill -f dunst
 wait
 hyprctl reload
 dunst &

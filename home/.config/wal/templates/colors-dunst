@@ -41,7 +41,7 @@
     # Offset from the origin
     # NOTE: Dunst from version 1.11 and older use this alternative notation
     # offset = 10x50
-    offset = (10, 10)
+    offset = (10, 50)
 
     # Scale factor. It is auto-detected if value is 0.
     scale = 0
@@ -343,22 +343,27 @@
     # Otherwise the "#" and following would be interpreted as a comment.
     background = "{background}"
     foreground = "{foreground}"
+    highlight = "{color4}"
+    frame_color = "{color4}"
     timeout = 10
     # Icon for notifications with low urgency
     default_icon = dialog-information
 
 [urgency_normal]
-    background = "{color4}"
+    background = "{background}"
     foreground = "{foreground}"
+    highlight = "{color3}"
+    frame_color = "{color3}"
     timeout = 10
     override_pause_level = 30
     # Icon for notifications with normal urgency
     default_icon = dialog-information
 
 [urgency_critical]
-    background = "{color1}"
+    background = "{background}"
     foreground = "{foreground}"
-    frame_color = "{foreground}"
+    highlight = "{color1}"
+    frame_color = "{color1}"
     timeout = 0
     override_pause_level = 60
     # Icon for notifications with critical urgency
