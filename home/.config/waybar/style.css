@@ -3,7 +3,7 @@
 * {
   border: none;
   border-radius: 0;
-  font-family: "0xProto";
+  font-family: "JetBrainsMono Nerd Font";
   font-size: 10px;
   padding: 0;
   border-radius: 5px;
@@ -13,12 +13,14 @@
 window#waybar {
   background: @background;
   color: @foreground;
-  border: 2px solid @color8;
+  border: 2px solid @color4;
 }
 
 tooltip {
   background-color: @background;
-  border: 1px solid @color8;
+  color: @foreground;
+  border: 2px solid @color4;
+  border-radius: 5;
 }
 
 tooltip label {
@@ -26,16 +28,18 @@ tooltip label {
 }
 
 #workspaces {
-  background-color: @color0;
+  background-color: @color7;
   margin: 6px 0px 6px 6px;
-  border: 1px solid @color8;
+  border: 1px solid @color7;
+  border-radius: 3;
 }
 
 #workspaces button {
   padding: 0 2px;
-  background: transparent;
-  color: white;
-  border-bottom: 0px solid transparent;
+  background: @color8;
+  color: @color7;
+  border: 1px solid @color7;
+  border-radius: 3;
 }
 
 #workspaces button.active {
@@ -62,27 +66,67 @@ tooltip label {
 #battery {
   margin: 6px 6px 6px 0px;
   padding: 2px 8px;
-  background-color: @color0;
-  border: 1px solid @color8;
-  color: @color7;
+  background-color: @background;
+  border: 0px solid @color7;
+  border-radius: 3;
+  color: @foreground;
+}
+
+#clock:hover,
+#pulseaudio:hover,
+#backlight:hover,
+#network:hover {
+  color: @color4;
+  /* background: @color4; */
 }
 
 #pulseaudio.muted {
-  background-color: @color1;
-  color: @background;
+  color: @color1;
 }
 
 #pulseaudio.bluetooth {
-  background-color: @color3;
-  color: @background;
+  color: @color3;
 }
 
 #battery.warning:not(.charging) {
-  background-color: @color3;
-  color: @background;
+  color: @color3;
 }
 
 #battery.critical:not(.charging) {
-  background-color: @color1;
-  color: @background;
+  color: @color1;
 }
+
+#battery.charging {
+  color: @color2;
+}
+
+#taskbar {
+  margin: 6px;
+}
+
+#taskbar button {
+  padding: 1px 4px;
+  border-radius: 3;
+}
+
+#custom-launcher {
+  background-color: @color4;
+  color: @background;
+  border-radius: 3;
+  padding: 0 10px;
+  margin: 6px 0px 6px 6px;
+}
+
+
+#custom-power {
+  background-color: @color7;
+  color: @background;
+  border-radius: 3;
+  padding: 0 10px;
+  margin: 6px 6px 6px 0px;
+}
+
+#custom-power:hover {
+  background-color: @color1;
+}
+

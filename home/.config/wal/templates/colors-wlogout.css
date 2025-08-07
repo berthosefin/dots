@@ -21,7 +21,7 @@ button {{
 }}
 
 button:focus, button:active, button:hover {{
-	border-color: {color4};
+	border-color: {color1};
 	outline-style: none;
 }}
 

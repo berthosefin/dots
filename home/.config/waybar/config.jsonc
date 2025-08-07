@@ -1,17 +1,17 @@
 {
-  "layer": "bottom",
+  "layer": "top",
   "spacing": 0,
   "height": 0,
-  "margin-top": 2,
-  "margin-right": 5,
-  "margin-bottom": 0,
   "margin-left": 5,
+  "margin-right": 5,
+  "margin-top": 5,
   "modules-left": [
+    "custom/launcher",
     "hyprland/workspaces",
-    "hyprland/window"
+    "wlr/taskbar"
   ],
   "modules-center": [
-    "clock"
+    "hyprland/window"
   ],
   "modules-right": [
     "tray",
@@ -20,7 +20,9 @@
     "network",
     "cpu",
     "memory",
-    "battery"
+    "battery",
+    "clock",
+    "custom/power"
   ],
   "hyprland/workspaces": {
     "format": "{name}",
@@ -28,21 +30,21 @@
   },
   "hyprland/window": {
     "format": "{}",
+    "max-length": 35,
     "rewrite": {
       "(.*) — Mozilla Firefox": "🌎 $1"
     },
-    "separate-outputs": true
+    "separate-outputs": true,
+    "tooltip": false
   },
   "clock": {
     "format": " {:%H:%M}",
     "format-alt": " {:%d %b, %Y}",
     "tooltip-format": "{calendar}",
     "calendar": {
-      "mode": "year",
-      "mode-mon-col": 3,
-      "on-scroll": 1,
+      "mode": "month",
       "format": {
-        "today": "<u>{}</u>"
+        "today": "<b><u>{}</u></b>"
       }
     }
   },
@@ -74,7 +76,8 @@
     "on-click-right": "pavucontrol",
     "ignored-sinks": [
       "Easy Effects Sink"
-    ]
+    ],
+    "tooltip": false
   },
   "backlight": {
     "device": "intel_backlight",
@@ -116,7 +119,7 @@
       "warning": 30,
       "critical": 15
     },
-    "format": "{icon} {capacity}%",
+    "format": "{icon}  {capacity}%",
     "format-icons": [
       "",
       "",
@@ -125,5 +128,35 @@
       ""
     ],
     "max-length": 25
+  },
+  "wlr/taskbar": {
+    "format": "{icon}",
+    "icon-size": 14,
+    // "icon-theme": "Numix-Circle",
+    "tooltip-format": "{title}",
+    "on-click": "activate",
+    "on-click-middle": "close",
+    "ignore-list": [
+      "kitty",
+      "xfce4-terminal",
+      "xdman-Main"
+    ],
+    "app_ids-mapping": {
+      "firefoxdeveloperedition": "firefox-developer-edition"
+    },
+    "rewrite": {
+      "Firefox Web Browser": "Firefox",
+      "Foot Server": "Terminal"
+    }
+  },
+  "custom/launcher": {
+    "format": "Apps",
+    "tooltip": false,
+    "on-click": "rofi -show drun"
+  },
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "wlogout"
   }
 }
