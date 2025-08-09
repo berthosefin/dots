@@ -1,6 +1,6 @@
 # Hyprland Dotfiles
 
-![PRpOQX87yC](https://raw.githubusercontent.com/berthosefin/dots/main/previews/PRpOQX87yC.png)
+![250809-091208](https://raw.githubusercontent.com/berthosefin/dots/main/previews/2025-08-09-091208_hyprshot.png)
 
 Personal dotfiles for a customized [Hyprland](https://github.com/hyprwm/Hyprland) setup, focused on simplicity, aesthetics, and efficiency.
 
@@ -33,8 +33,7 @@ Make sure you have the following packages installed:
 - `papirus-icon-theme`
 - `papirus-folders-git`
 
-
-### 📦 Install dependencies on Arch (with `yay`):
+### 📦 Install dependencies on Arch (with `yay`)
 
 ```bash
 yay -S hyprland kitty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow wlogout papirus-icon-theme papirus-folders-git

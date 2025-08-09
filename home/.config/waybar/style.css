@@ -97,7 +97,7 @@ tooltip label {
 }
 
 #battery.charging {
-  color: @color2;
+  color: @color6;
 }
 
 #taskbar {
@@ -117,6 +117,9 @@ tooltip label {
   margin: 6px 0px 6px 6px;
 }
 
+#custom-launcher:hover {
+  background-color: @color6;
+}
 
 #custom-power {
   background-color: @color7;
@@ -129,4 +132,3 @@ tooltip label {
 #custom-power:hover {
   background-color: @color1;
 }
-
