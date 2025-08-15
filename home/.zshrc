@@ -164,3 +164,6 @@ eval "$(fzf --zsh)"
 eval "$(zoxide init zsh)"
 export PATH="/home/thos/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/thos/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+
+# nvm 
+source /usr/share/nvm/init-nvm.sh
