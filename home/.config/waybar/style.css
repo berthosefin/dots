@@ -122,7 +122,7 @@ tooltip label {
 }
 
 #custom-power {
-  background-color: @color7;
+  background-color: @color4;
   color: @background;
   border-radius: 3;
   padding: 0 10px;

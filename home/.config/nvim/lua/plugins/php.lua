@@ -1,11 +1,11 @@
 return {
   {
-    -- Set Laravel Pint as the default PHP formatter with PHP CS Fixer as a fall back.
+    -- Set Laravel Pint as the default PHP formatter.
     "stevearc/conform.nvim",
     optional = true,
     opts = {
       formatters_by_ft = {
-        php = { { "pint", "php_cs_fixer" } },
+        php = { "pint" },
       },
     },
   },
