@@ -126,7 +126,7 @@ alias yt-playlists="yt-dlp -o \"%(playlist_index)s-%(title)s.%(ext)s\" --cookies
 # cat ~/.cache/wal/sequences
 
 # To add support for TTYs this line can be optionally added.
-source ~/.cache/wal/colors-tty.sh
+# source ~/.cache/wal/colors-tty.sh
 
 # To play a sound after command finishes.
 oks() {
@@ -165,5 +165,12 @@ eval "$(zoxide init zsh)"
 export PATH="/home/thos/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/thos/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
-# nvm 
+# NVM
 source /usr/share/nvm/init-nvm.sh
+
+# EDITOR
+export EDITOR="vim"
+
+# Atuin
+. "$HOME/.atuin/bin/env"
+eval "$(atuin init zsh)"

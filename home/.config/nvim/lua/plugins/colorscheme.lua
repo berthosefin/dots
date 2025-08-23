@@ -6,6 +6,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    version = "*",
     priority = 1000,
     opts = {
       flavour = "nord",
