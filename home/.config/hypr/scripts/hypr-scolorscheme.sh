@@ -3,7 +3,7 @@
 # ----------------------------------------------
 # Description : ColorScheme Switcher
 # Author : Berthose Fin (Thos)
-# Update : 2025-07-30
+# Update : 2025-08-26
 # ----------------------------------------------
 
 # === Directories ===
@@ -84,6 +84,7 @@ papirus-folders -C "$papirus_color" &
 kvantummanager --set "$kvantum" &
 change_lazyvim_colorscheme "$nvim_colorscheme" "$catppuccin_flavour"
 change_zellij_theme "$theme"
+bat --theme="$bat_theme"
 ln -sf ~/.cache/wal/colors-wlogout.css ~/.config/wlogout/style.css
 ln -sf ~/.cache/wal/colors-dunst ~/.config/dunst/dunstrc
 
