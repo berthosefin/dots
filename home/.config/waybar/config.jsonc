@@ -18,11 +18,9 @@
     "pulseaudio",
     "backlight",
     "network",
-    "cpu",
-    "memory",
-    "battery",
+    "group/hardware",
     "clock",
-    "custom/power"
+    "group/group-power"
   ],
   "hyprland/workspaces": {
     "format": "{name}",
@@ -157,6 +155,54 @@
   "custom/power": {
     "format": "⏻",
     "tooltip": false,
-    "on-click": "wlogout"
+    "on-click": "systemctl poweroff"
+  },
+  "custom/quit": {
+    "format": "󰗼",
+    "tooltip": false,
+    "on-click": "hyprctl dispatch exit"
+  },
+  "custom/suspend": {
+    "format": "⏾",
+    "tooltip": false,
+    "on-click": "systemctl suspend"
+  },
+  "custom/lock": {
+    "format": "󰍁",
+    "tooltip": false,
+    "on-click": "hyprlock"
+  },
+  "custom/reboot": {
+    "format": "󰜉",
+    "tooltip": false,
+    "on-click": "systemctl reboot"
+  },
+  "group/hardware": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-power",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "battery",
+      "cpu",
+      "memory"
+    ]
+  },
+  "group/group-power": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "not-power",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/power",
+      "custom/quit",
+      "custom/lock",
+      "custom/suspend",
+      "custom/reboot"
+    ]
   }
 }

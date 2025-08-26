@@ -121,7 +121,11 @@ tooltip label {
   background-color: @color6;
 }
 
-#custom-power {
+#custom-power,
+#custom-quit,
+#custom-lock,
+#custom-suspend,
+#custom-reboot {
   background-color: @color4;
   color: @background;
   border-radius: 3;
@@ -129,6 +133,10 @@ tooltip label {
   margin: 6px 6px 6px 0px;
 }
 
-#custom-power:hover {
+#custom-power:hover,
+#custom-quit:hover,
+#custom-lock:hover,
+#custom-suspend:hover,
+#custom-reboot:hover {
   background-color: @color1;
 }

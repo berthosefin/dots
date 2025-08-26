@@ -76,6 +76,7 @@ plugins=(
     timewarrior
     zsh-autosuggestions
     zsh-completions
+    zsh-eza
     zsh-syntax-highlighting
 )
 
@@ -91,11 +92,11 @@ PATH=$HOME/.local/bin:$PATH
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -111,10 +112,25 @@ PATH=$HOME/.local/bin:$PATH
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias yt-mp3="yt-dlp -x --audio-format mp3 --cookies-from-browser firefox"
-alias yt-480="yt-dlp -S res:480 --cookies-from-browser firefox"
-alias yt-720="yt-dlp -S res:720 --cookies-from-browser firefox"
-alias yt-playlists="yt-dlp -o \"%(playlist_index)s-%(title)s.%(ext)s\" --cookies-from-browser firefox"
+
+# --- YTDL aliases ---
+
+YTDL_COOKIES="--cookies-from-browser firefox"
+YTDL_OUT_PLAYLIST='-o "%(playlist_index)s-%(title)s.%(ext)s"'
+
+# --- With cookies (default) ---
+alias yt-mp3="yt-dlp -x --audio-format mp3 $YTDL_COOKIES"
+alias yt-480="yt-dlp -S res:480 $YTDL_COOKIES"
+alias yt-720="yt-dlp -S res:720 $YTDL_COOKIES"
+alias yt-p="yt-dlp $YTDL_OUT_PLAYLIST $YTDL_COOKIES"
+
+# --- Withour cookies (-nc = no cookies) ---
+alias yt-mp3-nc="yt-dlp -x --audio-format mp3"
+alias yt-480-nc="yt-dlp -S res:480"
+alias yt-720-nc="yt-dlp -S res:720"
+alias yt-p-nc="yt-dlp $YTDL_OUT_PLAYLIST"
+
+# --- YTDL aliases ---
 
 # Import colorscheme from 'wal' asynchronously
 # &   # Run the process in the background.
@@ -165,11 +181,10 @@ eval "$(zoxide init zsh)"
 export PATH="/home/thos/.config/herd-lite/bin:$PATH"
 export PHP_INI_SCAN_DIR="/home/thos/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 
+# --- FZF ---
+
 # NVM
 source /usr/share/nvm/init-nvm.sh
-
-# EDITOR
-export EDITOR="vim"
 
 # Atuin
 . "$HOME/.atuin/bin/env"

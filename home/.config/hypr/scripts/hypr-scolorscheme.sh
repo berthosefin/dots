@@ -40,10 +40,8 @@ change_lazyvim_colorscheme() {
   local flavour="$2"
   local config_file="$HOME/.config/nvim/lua/plugins/colorscheme.lua"
 
-  # Modifier le champ "colorscheme" de LazyVim
   sed -i "s/colorscheme = \".*\"/colorscheme = \"$colorscheme_name\"/" "$config_file"
 
-  # Si c'est Catppuccin, changer la saveur aussi
   if grep -q 'catppuccin' "$config_file" && [ -n "$flavour" ]; then
     sed -i "s/flavour = \".*\"/flavour = \"$flavour\"/" "$config_file"
   fi
@@ -85,7 +83,6 @@ kvantummanager --set "$kvantum" &
 change_lazyvim_colorscheme "$nvim_colorscheme" "$catppuccin_flavour"
 change_zellij_theme "$theme"
 bat --theme="$bat_theme"
-ln -sf ~/.cache/wal/colors-wlogout.css ~/.config/wlogout/style.css
 ln -sf ~/.cache/wal/colors-dunst ~/.config/dunst/dunstrc
 
 pkill -f dunst
