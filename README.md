@@ -28,7 +28,7 @@ Make sure you have the following packages installed:
 - `playerctl` (media control)
 - `wpctl` (pipewire audio)
 - `pywal` (dynamic colors)
-- `wlogout` (powermenu)
+- `nvim` (optional)
 - `stow` (dotfiles manager)
 - `papirus-icon-theme`
 - `papirus-folders-git`
@@ -36,7 +36,7 @@ Make sure you have the following packages installed:
 ### 📦 Install dependencies on Arch (with `yay`)
 
 ```bash
-yay -S hyprland kitty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow wlogout papirus-icon-theme papirus-folders-git
+yay -S hyprland kitty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow nvim papirus-icon-theme papirus-folders-git
 ```
 
 ---
