@@ -50,7 +50,7 @@ git clone https://github.com/berthosefin/dots.git
 cd dots
 ```
 
-2. Deploy the Hyprland configuration using [GNU Stow](https://www.gnu.org/software/stow/):
+1. Deploy the Hyprland configuration using [GNU Stow](https://www.gnu.org/software/stow/):
 
 ```bash
 chmod +x install.sh
