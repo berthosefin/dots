@@ -3,7 +3,7 @@
 # ----------------------------------------------
 # Description : ColorScheme Switcher
 # Author : Berthose Fin (Thos)
-# Update : 2025-08-26
+# Update : 2025-09-06
 # ----------------------------------------------
 
 # === Directories ===
@@ -14,7 +14,7 @@ theme_dir="$HOME/.config/hypr/scripts/colorschemes"
 change_gtk_settings() {
   default_gtk_theme="Adwaita-dark"
   default_icon_theme="Papirus-Dark"
-  default_cursor_theme="capitaine-cursors"
+  default_cursor_theme="Adwaita"
 
   gsettings set org.gnome.desktop.interface gtk-theme "${1:-$default_gtk_theme}"
   gsettings set org.gnome.desktop.interface icon-theme "${2:-$default_icon_theme}"
@@ -78,15 +78,11 @@ else
 fi
 change_gtk_settings "$gtk_theme" "$icon_theme" "$cursor_theme"
 change_randomwall_image_dir "$image_dir" &
-papirus-folders -C "$papirus_color" &
 kvantummanager --set "$kvantum" &
 change_lazyvim_colorscheme "$nvim_colorscheme" "$catppuccin_flavour"
 change_zellij_theme "$theme"
-bat --theme="$bat_theme"
 ln -sf ~/.cache/wal/colors-dunst ~/.config/dunst/dunstrc
-
 pkill -f dunst
-wait
 hyprctl reload
 dunst &
 

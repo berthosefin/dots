@@ -2,8 +2,8 @@
 
 set -euo pipefail
 
-STOW_DIR="home" # directory in your repo containing symlinks
-TARGET="$HOME"  # destination where links will be created
+STOW_DIR="home"
+TARGET="$HOME"
 
 BACKUP_ROOT="$HOME/.stow-backups"
 TIMESTAMP=$(date +"%Y%m%d-%H%M%S")
@@ -14,16 +14,19 @@ echo "Stow directory   : $STOW_DIR"
 echo "Backup directory : $BACKUP_DIR"
 mkdir -p "$BACKUP_DIR"
 
-echo "[*] Generating pywal theme..."
-wal --theme nord
+if [[ ! -f "$HOME/.cache/wal/colors-hyprland.conf" ]]; then
+  echo "[*] Generating pywal theme..."
+  wal --theme base16-nord
+fi
 
 echo "[*] Dry-running stow to detect conflicts…"
 STOW_OUTPUT=$(stow -n -t "$TARGET" "$STOW_DIR" 2>&1 || true)
 
 # Extract conflicting target paths (both inline + warning block)
 CONFLICTS=$(echo "$STOW_OUTPUT" |
-  grep -E 'existing target( is not owned by stow)?:' |
-  sed -E 's/.*: (.*)/\1/' || true)
+  grep -E 'conflicts:' -A1000 |
+  grep -E '^\s+\* ' |
+  sed -E 's/^\s+\* cannot stow .* over existing target (.*) since.*/\1/' || true)
 
 # Backup conflicts if any
 if [[ -n "$CONFLICTS" ]]; then
@@ -36,16 +39,14 @@ if [[ -n "$CONFLICTS" ]]; then
       echo "    -> Backing up to $DEST_PATH"
       mkdir -p "$(dirname "$DEST_PATH")"
       mv "$ABS_PATH" "$DEST_PATH"
+      echo "[✔] Backup finished."
     fi
   done
 else
   echo "[*] No conflicts detected."
 fi
 
-echo "[✔] Backup finished."
-
 echo "[*] Running stow for real…"
 stow -v -t "$TARGET" "$STOW_DIR"
 
-echo "[✔] Done! Your dotfiles are now stowed."
-echo "    Originals (if any) are in: $BACKUP_DIR"
+echo "[✔] Done! Dotfiles are now stowed."
