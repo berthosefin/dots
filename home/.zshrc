@@ -95,14 +95,14 @@ eval "$(uv generate-shell-completion zsh)"
 (cat ~/.cache/wal/sequences &)
 
 # ----- Custom aliases -----
-alias yt-mp3="yt-dlp -x --audio-format mp3 --cookies-from-browser firefox"
-alias yt-480="yt-dlp -S res:480 --cookies-from-browser firefox"
-alias yt-720="yt-dlp -S res:720 --cookies-from-browser firefox"
-alias yt-p="yt-dlp -o '%(playlist_index)s-%(title)s.%(ext)s' --cookies-from-browser firefox"
-alias yt-mp3-nc="yt-dlp -x --audio-format mp3"
-alias yt-480-nc="yt-dlp -S res:480"
-alias yt-720-nc="yt-dlp -S res:720"
-alias yt-p-nc="yt-dlp -o '%(playlist_index)s-%(title)s.%(ext)s'"
+alias yt-mp3="noglog yt-dlp -x --audio-format mp3 --cookies-from-browser firefox"
+alias yt-480="noglob yt-dlp -S res:480 --cookies-from-browser firefox"
+alias yt-720="noglob yt-dlp -S res:720 --cookies-from-browser firefox"
+alias yt-p="noglob yt-dlp -o '%(playlist_index)s-%(title)s.%(ext)s' --cookies-from-browser firefox"
+alias yt-mp3-nc="noglob yt-dlp -x --audio-format mp3"
+alias yt-480-nc="noglob yt-dlp -S res:480"
+alias yt-720-nc="noglob yt-dlp -S res:720"
+alias yt-p-nc="noglob yt-dlp -o '%(playlist_index)s-%(title)s.%(ext)s'"
 
 # ----- Quick edit configs -----
 alias zshrc='$EDITOR ~/.zshrc'
