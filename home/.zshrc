@@ -59,7 +59,14 @@ zinit snippet OMZP::systemadmin
 zinit snippet OMZP::systemd
 
 # ----- Path -----
-export PATH="$HOME/.bin:$HOME/.local/bin:$PATH"
+export PATH=$HOME/.bin:$HOME/.local/bin:$PATH
+export PATH=$HOME/.console-ninja/.bin:$PATH
+
+# Android Studio
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/emulator/:$PATH
 
 # ----- Editor -----
 if [[ -n $SSH_CONNECTION ]]; then
