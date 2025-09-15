@@ -12,6 +12,7 @@ return {
       flavour = "nord",
     },
   },
+  { "rose-pine/neovim" },
 
   -- Configure LazyVim to load colorscheme
   {
