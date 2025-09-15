@@ -31,12 +31,11 @@ Make sure you have the following packages installed:
 - `nvim` (optional)
 - `stow` (dotfiles manager)
 - `papirus-icon-theme`
-- `papirus-folders-git`
 
 ### 📦 Install dependencies on Arch (with `yay`)
 
 ```bash
-yay -S hyprland kitty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow nvim papirus-icon-theme papirus-folders-git
+yay -S hyprland kitty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow nvim papirus-icon-theme
 ```
 
 ---
@@ -46,7 +45,7 @@ yay -S hyprland kitty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-term
 1. Clone this repo into your dotfiles directory:
 
 ```bash
-git clone https://github.com/berthosefin/dots.git
+git clone--depth=1 https://github.com/berthosefin/dots.git
 cd dots
 ```
 
@@ -65,12 +64,12 @@ This will symlink the configuration files into your `~/.config` directory.
 
 | Keybinding               | Action                    |
 | ------------------------ | ------------------------- |
-| `SUPER + Return`         | Launch kitty          |
+| `SUPER + Return`         | Launch kitty              |
 | `SUPER + Shift + Return` | Launch xfce4-terminal     |
 | `SUPER + D`              | Launch Rofi               |
 | `SUPER + Q`              | Close active window       |
 | `SUPER + Shift + Q`      | Exit Hyprland             |
-| `SUPER + E`              | Powermenu : `wlogout`   |
+| `SUPER + E`              | Powermenu                 |
 | `SUPER + C`              | Switch color scheme       |
 | `SUPER + F`              | Toggle fullscreen         |
 | `SUPER + G`              | Group/Ungroup windows     |
