@@ -30,6 +30,7 @@ window {{
   padding: 4px;
   transparency: "real";
   width: 600;
+  height: 0;
   border: 2;
   border-radius: 5;
   border-color: @active;
@@ -55,6 +56,9 @@ prompt {{
 listview {{
   lines: 10;
   scrollbar: true;
+  dynamic: true;
+  fixed-height: false;
+  reverse: false;
 }}
 
 scrollbar {{
