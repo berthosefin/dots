@@ -52,6 +52,11 @@ tooltip label {
   color: @background;
 }
 
+#workspaces button:hover {
+  background-color: @color6;
+  color: @background;
+}
+
 #window {
   padding: 10px;
 }
@@ -76,7 +81,7 @@ tooltip label {
 #pulseaudio:hover,
 #backlight:hover,
 #network:hover {
-  color: @color4;
+  color: @color6;
   /* background: @color4; */
 }
 

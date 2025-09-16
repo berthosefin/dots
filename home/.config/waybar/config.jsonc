@@ -5,14 +5,8 @@
   "margin-left": 5,
   "margin-right": 5,
   "margin-top": 5,
-  "modules-left": [
-    "custom/launcher",
-    "hyprland/workspaces",
-    "wlr/taskbar"
-  ],
-  "modules-center": [
-    "hyprland/window"
-  ],
+  "modules-left": ["custom/launcher", "hyprland/workspaces", "wlr/taskbar"],
+  "modules-center": ["hyprland/window"],
   "modules-right": [
     "tray",
     "pulseaudio",
@@ -20,20 +14,20 @@
     "network",
     "group/hardware",
     "clock",
-    "group/group-power"
+    "group/group-power",
   ],
   "hyprland/workspaces": {
     "format": "{name}",
-    "show-special": true
+    "show-special": true,
   },
   "hyprland/window": {
     "format": "{}",
     "max-length": 35,
     "rewrite": {
-      "(.*) — Mozilla Firefox": "🌎 $1"
+      "(.*) — Mozilla Firefox": "🌎 $1",
     },
     "separate-outputs": true,
-    "tooltip": false
+    "tooltip": false,
   },
   "clock": {
     "format": " {:%H:%M}",
@@ -42,13 +36,13 @@
     "calendar": {
       "mode": "month",
       "format": {
-        "today": "<b><u>{}</u></b>"
-      }
-    }
+        "today": "<b><u>{}</u></b>",
+      },
+    },
   },
   "tray": {
     "spacing": 10,
-    "tooltip": false
+    "tooltip": false,
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -64,27 +58,19 @@
       "phone-muted": "",
       "portable": "",
       "car": "",
-      "default": [
-        "",
-        ""
-      ]
+      "default": ["", ""],
     },
     "scroll-step": 1,
     "on-click": "pamixer -t",
     "on-click-right": "pavucontrol",
-    "ignored-sinks": [
-      "Easy Effects Sink"
-    ],
-    "tooltip": false
+    "ignored-sinks": ["Easy Effects Sink"],
+    "tooltip": false,
   },
   "backlight": {
     "device": "intel_backlight",
     "format": "{icon} {percent}%",
-    "format-icons": [
-      "",
-      ""
-    ],
-    "tooltip": false
+    "format-icons": ["", ""],
+    "tooltip": false,
   },
   "network": {
     "interface": "wlo1",
@@ -97,17 +83,17 @@
     "tooltip-format-ethernet": "  {ipaddr}/{cidr}",
     "tooltip-format-disconnected": "Disconnected",
     "max-length": 50,
-    "on-click": "networkmanager_dmenu"
+    "on-click": "networkmanager_dmenu",
   },
   "cpu": {
     "interval": 10,
     "format": " {usage}%",
-    "max-length": 10
+    "max-length": 10,
   },
   "memory": {
     "interval": 30,
     "format": " {percentage}%",
-    "max-length": 10
+    "max-length": 10,
   },
   "battery": {
     "bat": "BAT1",
@@ -115,17 +101,11 @@
     "states": {
       "full-at": 96,
       "warning": 30,
-      "critical": 15
+      "critical": 15,
     },
     "format": "{icon}  {capacity}%",
-    "format-icons": [
-      "",
-      "",
-      "",
-      "",
-      ""
-    ],
-    "max-length": 25
+    "format-icons": ["", "", "", "", ""],
+    "max-length": 25,
   },
   "wlr/taskbar": {
     "format": "{icon}",
@@ -134,75 +114,67 @@
     "tooltip-format": "{title}",
     "on-click": "activate",
     "on-click-middle": "close",
-    "ignore-list": [
-      "kitty",
-      "xfce4-terminal",
-      "xdman-Main"
-    ],
+    "ignore-list": ["kitty", "xfce4-terminal", "xdman-Main"],
     "app_ids-mapping": {
-      "firefoxdeveloperedition": "firefox-developer-edition"
+      "firefoxdeveloperedition": "firefox-developer-edition",
     },
     "rewrite": {
       "Firefox Web Browser": "Firefox",
-      "Foot Server": "Terminal"
-    }
+      "Foot Server": "Terminal",
+    },
   },
   "custom/launcher": {
     "format": "Apps",
     "tooltip": false,
-    "on-click": "rofi -show drun"
+    "on-click": "rofi -show drun",
   },
   "custom/power": {
     "format": "⏻",
     "tooltip": false,
-    "on-click": "systemctl poweroff"
+    "on-click": "~/.config/waybar/scripts/confirm-action.sh poweroff",
   },
   "custom/quit": {
     "format": "󰗼",
     "tooltip": false,
-    "on-click": "hyprctl dispatch exit"
+    "on-click": "~/.config/waybar/scripts/confirm-action.sh quit",
   },
   "custom/suspend": {
     "format": "⏾",
     "tooltip": false,
-    "on-click": "systemctl suspend"
+    "on-click": "systemctl suspend",
   },
   "custom/lock": {
     "format": "󰍁",
     "tooltip": false,
-    "on-click": "hyprlock"
+    "on-click": "hyprlock",
   },
   "custom/reboot": {
     "format": "󰜉",
     "tooltip": false,
-    "on-click": "systemctl reboot"
+    "on-click": "~/.config/waybar/scripts/confirm-action.sh reboot",
   },
   "group/hardware": {
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 500,
       "children-class": "not-power",
-      "transition-left-to-right": false
+      "transition-left-to-right": false,
     },
-    "modules": [
-      "battery",
-      "cpu",
-      "memory"
-    ]
+    "modules": ["battery", "cpu", "memory"],
   },
   "group/group-power": {
     "orientation": "inherit",
     "drawer": {
       "transition-duration": 500,
       "children-class": "not-power",
-      "transition-left-to-right": false
+      "transition-left-to-right": false,
     },
     "modules": [
       "custom/power",
       "custom/quit",
       "custom/lock",
       "custom/suspend",
-      "custom/reboot"
-    ]
-  }
+      "custom/reboot",
+    ],
+  },
 }
