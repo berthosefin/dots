@@ -3,7 +3,7 @@
 # Get system uptime
 uptime=$(uptime -p | sed -e 's/up //g')
 
-# Define options
+# Define menu options
 shutdown=" Poweroff"
 reboot=" Reboot"
 suspend=" Suspend"
@@ -11,23 +11,35 @@ lock=" Lock"
 logout=" Logout"
 options="$lock\n$suspend\n$logout\n$reboot\n$shutdown"
 
-chosen="$(echo -e "$options" | rofi -dmenu -l 5 -p "Uptime: $uptime")"
+# Show main menu
+chosen=$(echo -e "$options" | rofi -dmenu -l 5 -p "Uptime: $uptime")
 
-# Execute the corresponding command
-case $chosen in
-$shutdown)
-  systemctl poweroff
+# Function for confirmation
+confirm_exit() {
+  echo -e "No\nYes" | rofi -dmenu -p "Are you sure?" -l 2
+}
+
+# If nothing is selected, exit
+[ -z "$chosen" ] && exit 0
+
+# Execute based on selection
+case "$chosen" in
+"$shutdown")
+  confirm=$(confirm_exit)
+  [ "$confirm" = "Yes" ] && systemctl poweroff
   ;;
-$reboot)
-  systemctl reboot
+"$reboot")
+  confirm=$(confirm_exit)
+  [ "$confirm" = "Yes" ] && systemctl reboot
   ;;
-$lock)
+"$lock")
   hyprlock
   ;;
-$suspend)
+"$suspend")
   systemctl suspend
   ;;
-$logout)
-  hyprctl dispatch exit
+"$logout")
+  confirm=$(confirm_exit)
+  [ "$confirm" = "Yes" ] && hyprctl dispatch exit
   ;;
 esac
