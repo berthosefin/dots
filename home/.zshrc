@@ -111,6 +111,9 @@ alias yt-480-nc="noglob yt-dlp -S res:480"
 alias yt-720-nc="noglob yt-dlp -S res:720"
 alias yt-p-nc="noglob yt-dlp -o '%(playlist_index)s-%(title)s.%(ext)s'"
 
+alias gdrive-push="rclone sync ~/Documents/gdrive gdrive:/ --progress"
+alias gdrive-pull="rclone sync gdrive:/ ~/Documents/gdrive --progress"
+
 # ----- Quick edit configs -----
 alias zshrc='$EDITOR ~/.zshrc'
 alias zshr='source ~/.zshrc'
