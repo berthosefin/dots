@@ -24,14 +24,21 @@ change_gtk_settings() {
 # Function to change wallpaper directory
 change_randomwall_image_dir() {
   local image_dir="$1"
-  wallpaper=$(find "$image_dir" -type f \( -name '*.jpg' -o -name '*.png' \) -print0 | shuf -z -n 1 | tr -d '\0')
 
-  if [ -n "$wallpaper" ]; then
-    sed -i "s|^preload =.*|preload = ${wallpaper}|" ~/.config/hypr/hyprpaper.conf
-    sed -i "s|^wallpaper =.*|wallpaper = ,${wallpaper}|" ~/.config/hypr/hyprpaper.conf
-    sed -i "s|^WALLPAPER_DIR=.*|WALLPAPER_DIR=\"${image_dir}\"|" ~/.config/hypr/scripts/hyprpaper-reload.sh
-    nohup sh ~/.config/hypr/scripts/hyprpaper-reload.sh >/dev/null 2>&1 &
-  fi
+  wallpaper=$(find "$image_dir" -type f \( -iname '*.jpg' -o -iname '*.png' -o -iname '*.webp' \) | shuf -n 1)
+
+  [ -z "$wallpaper" ] && return
+
+  config="$HOME/.config/hypr/hyprpaper.conf"
+
+  # Update path inside wallpaper block
+  sed -i '/^wallpaper {/,/^}/ {
+      s|^[[:space:]]*path =.*|    path = '"$wallpaper"'|
+  }' "$config"
+
+  # Update wallpaper dir for reload script
+  sed -i "s|^WALLPAPER_DIR=.*|WALLPAPER_DIR=\"$image_dir\"|" \
+    "$HOME/.config/hypr/scripts/hyprpaper-reload.sh"
 }
 
 # Function to change LazyVim colorscheme
