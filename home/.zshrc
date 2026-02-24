@@ -101,16 +101,32 @@ eval "$(uv generate-shell-completion zsh)"
 # ----- Pywal colors -----
 (cat ~/.cache/wal/sequences &)
 
-# ----- Custom aliases -----
-alias yt-mp3="noglog yt-dlp -x --audio-format mp3 --cookies-from-browser firefox"
-alias yt-480="noglob yt-dlp -S res:480 --cookies-from-browser firefox"
-alias yt-720="noglob yt-dlp -S res:720 --cookies-from-browser firefox"
-alias yt-p="noglob yt-dlp -o '%(playlist_index)s-%(title)s.%(ext)s' --cookies-from-browser firefox"
-alias yt-mp3-nc="noglob yt-dlp -x --audio-format mp3"
-alias yt-480-nc="noglob yt-dlp -S res:480"
-alias yt-720-nc="noglob yt-dlp -S res:720"
-alias yt-p-nc="noglob yt-dlp -o '%(playlist_index)s-%(title)s.%(ext)s'"
+# ----- yt-dlp aliases -----
+yt() {
+    local format="bestvideo+bestaudio/best"
+    local cookies=""
+    local output="%(title)s.%(ext)s"
+    local extra_args=()
 
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --mp3)    extra_args+=(-x --audio-format mp3) ;;
+            --480)    extra_args+=(-S res:480) ;;
+            --720)    extra_args+=(-S res:720) ;;
+            --1080)   extra_args+=(-S res:1080) ;;
+            --pl)     output="%(playlist_index)s-%(title)s.%(ext)s" ;;
+            --nc)     cookies="" ;;
+            *)        extra_args+=("$1") ;;
+        esac
+        shift
+    done
+
+    [[ -n "$cookies" ]] && extra_args+=(--cookies-from-browser firefox)
+
+    noglob yt-dlp -o "$output" "${extra_args[@]}"
+}
+
+# ----- Custom aliases -----
 alias gdrive-push="rclone sync ~/Documents/gdrive gdrive:/ --progress"
 alias gdrive-pull="rclone sync gdrive:/ ~/Documents/gdrive --progress"
 
