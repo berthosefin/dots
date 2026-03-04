@@ -9,7 +9,10 @@
   padding: 0;
   margin: 0;
   min-height: 0;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 /* ── Bar ────────────────────────────────────────────────── */
@@ -149,39 +152,115 @@ tooltip label {
 }
 
 /* ── Separator accent via left border ───────────────────── */
-#clock         { border-left-color: @color4; color: @color4; font-weight: bold; margin-right: 2px; }
-#network       { border-left-color: @color2; color: @color2; }
-#pulseaudio    { border-left-color: @color6; color: @color6; }
-#backlight     { border-left-color: @color3; color: @color3; }
-#battery       { border-left-color: @color2; color: @color2; }
-#cpu           { border-left-color: @color5; color: @color5; }
-#memory        { border-left-color: @color6; color: @color6; }
-#tray          { border-left: none; padding: 2px 6px; }
+#clock {
+  border-left-color: @color4;
+  color: @color4;
+  font-weight: bold;
+  margin-right: 2px;
+}
+#network {
+  border-left-color: @color2;
+  color: @color2;
+}
+#pulseaudio {
+  border-left-color: @color6;
+  color: @color6;
+}
+#backlight {
+  border-left-color: @color3;
+  color: @color3;
+}
+#battery {
+  border-left-color: @color2;
+  color: @color2;
+}
+#cpu {
+  border-left-color: @color5;
+  color: @color5;
+}
+#memory {
+  border-left-color: @color6;
+  color: @color6;
+}
+#tray {
+  border-left: none;
+  padding: 2px 6px;
+}
 
 /* ── Hover states ───────────────────────────────────────── */
-#clock:hover      { background: @color4;  color: @background; border-left-color: @color4; }
-#network:hover    { background: @color2;  color: @background; border-left-color: @color2; }
-#pulseaudio:hover { background: @color6;  color: @background; border-left-color: @color6; }
-#backlight:hover  { background: @color3;  color: @background; border-left-color: @color3; }
-#battery:hover    { background: @color2;  color: @background; border-left-color: @color2; }
-#cpu:hover        { background: @color5;  color: @background; border-left-color: @color5; }
-#memory:hover     { background: @color6;  color: @background; border-left-color: @color6; }
+#clock:hover {
+  background: @color4;
+  color: @background;
+  border-left-color: @color4;
+}
+#network:hover {
+  background: @color2;
+  color: @background;
+  border-left-color: @color2;
+}
+#pulseaudio:hover {
+  background: @color6;
+  color: @background;
+  border-left-color: @color6;
+}
+#pulseaudio.muted:hover {
+  background: @color1;
+  color: @background;
+  border-left-color: @color1;
+}
+#backlight:hover {
+  background: @color3;
+  color: @background;
+  border-left-color: @color3;
+}
+#battery:hover {
+  background: @color2;
+  color: @background;
+  border-left-color: @color2;
+}
+#cpu:hover {
+  background: @color5;
+  color: @background;
+  border-left-color: @color5;
+}
+#memory:hover {
+  background: @color6;
+  color: @background;
+  border-left-color: @color6;
+}
 
 /* ── Module states ──────────────────────────────────────── */
-#pulseaudio.muted        { color: @color1; border-left-color: @color1; }
-#pulseaudio.bluetooth    { color: @color3; border-left-color: @color3; }
-#network.disconnected    { color: @color1; border-left-color: @color1; }
+#pulseaudio.muted {
+  color: @color1;
+  border-left-color: @color1;
+}
+#pulseaudio.bluetooth {
+  color: @color3;
+  border-left-color: @color3;
+}
+#network.disconnected {
+  color: @color1;
+  border-left-color: @color1;
+}
 
-#battery.warning:not(.charging)  { color: @color3; border-left-color: @color3; }
+#battery.warning:not(.charging) {
+  color: @color3;
+  border-left-color: @color3;
+}
 #battery.critical:not(.charging) {
   color: @color1;
   border-left-color: @color1;
   animation: blink 0.8s steps(1) infinite;
 }
-#battery.charging { color: @color6; border-left-color: @color6; }
+#battery.charging {
+  color: @color6;
+  border-left-color: @color6;
+}
 
 @keyframes blink {
-  50% { color: @background; }
+  50% {
+    color: @background;
+  }
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -201,7 +280,9 @@ tooltip label {
   border-left: 2px solid @color8;
 }
 
-#custom-power   { margin-right: 4px; }
+#custom-power {
+  margin-right: 4px;
+}
 
 #custom-power:hover,
 #custom-quit:hover,
@@ -212,3 +293,4 @@ tooltip label {
   color: @background;
   border-left-color: @color1;
 }
+
