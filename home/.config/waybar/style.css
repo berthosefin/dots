@@ -1,147 +1,214 @@
 @import "/home/thos/.cache/wal/colors-waybar.css";
 
+/* ── Reset ──────────────────────────────────────────────── */
 * {
   border: none;
   border-radius: 0;
   font-family: "JetBrainsMono Nerd Font";
   font-size: 10px;
   padding: 0;
-  border-radius: 5px;
+  margin: 0;
   min-height: 0;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
+/* ── Bar ────────────────────────────────────────────────── */
 window#waybar {
+  background: transparent;
+  color: @foreground;
+}
+
+/* Glassmorphism bar background via the inner box */
+.modules-left,
+.modules-center,
+.modules-right {
+  background: @background;
+  border: 1px solid @color8;
+  border-radius: 10px;
+  margin: 4px 3px;
+  padding: 0 4px;
+}
+
+/* ── Tooltip ────────────────────────────────────────────── */
+tooltip {
   background: @background;
   color: @foreground;
-  border: 2px solid @color4;
-}
-
-tooltip {
-  background-color: @background;
-  color: @foreground;
-  border: 2px solid @color4;
-  border-radius: 5;
+  border: 1px solid @color4;
+  border-radius: 8px;
 }
 
 tooltip label {
-  margin: 10px;
+  margin: 8px 12px;
 }
 
+/* ══════════════════════════════════════════════════════════
+   LEFT SECTION
+══════════════════════════════════════════════════════════ */
+
+/* ── Launcher ───────────────────────────────────────────── */
+#custom-launcher {
+  background: @color4;
+  color: @background;
+  border-radius: 8px;
+  padding: 2px 14px;
+  margin: 4px 6px 4px 2px;
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 1px;
+}
+
+#custom-launcher:hover {
+  background: @color5;
+  color: @background;
+}
+
+/* ── Workspaces ─────────────────────────────────────────── */
 #workspaces {
-  background-color: @color7;
-  margin: 6px 0px 6px 6px;
-  border: 1px solid @color7;
-  border-radius: 3;
+  margin: 0 2px;
 }
 
 #workspaces button {
-  padding: 0 2px;
-  background: @color8;
-  color: @color7;
-  border: 1px solid @color7;
-  border-radius: 3;
+  padding: 2px 8px;
+  margin: 3px 1px;
+  background: transparent;
+  color: @color8;
+  border-radius: 6px;
+  border-bottom: 2px solid transparent;
 }
 
 #workspaces button.active {
-  background-color: @color4;
-  color: @background;
+  color: @color4;
+  border-bottom: 2px solid @color4;
+  background: transparent;
 }
 
 #workspaces button.urgent {
-  background-color: @color1;
-  color: @background;
+  color: @color1;
+  border-bottom: 2px solid @color1;
 }
 
 #workspaces button:hover {
-  background-color: @color6;
-  color: @background;
+  color: @foreground;
+  background: @color0;
+  border-bottom: 2px solid @color8;
 }
+
+/* ── Taskbar ────────────────────────────────────────────── */
+#taskbar {
+  margin: 0 2px;
+}
+
+#taskbar button {
+  padding: 2px 5px;
+  margin: 3px 1px;
+  border-radius: 6px;
+  background: transparent;
+  color: @color7;
+  border-bottom: 2px solid transparent;
+}
+
+#taskbar button.active {
+  color: @foreground;
+  border-bottom: 2px solid @color6;
+}
+
+#taskbar button:hover {
+  background: @color0;
+  color: @foreground;
+}
+
+/* ══════════════════════════════════════════════════════════
+   CENTER SECTION
+══════════════════════════════════════════════════════════ */
 
 #window {
-  padding: 10px;
+  color: @color7;
+  font-style: italic;
+  padding: 0 8px;
+  letter-spacing: 0.5px;
 }
 
-#clock,
+/* ══════════════════════════════════════════════════════════
+   RIGHT SECTION — shared pill base
+══════════════════════════════════════════════════════════ */
+
 #tray,
 #pulseaudio,
 #backlight,
 #network,
 #cpu,
 #memory,
-#battery {
-  margin: 6px 6px 6px 0px;
-  padding: 2px 8px;
-  background-color: @background;
-  border: 0px solid @color7;
-  border-radius: 3;
+#battery,
+#clock {
+  padding: 2px 10px;
+  margin: 4px 1px;
+  border-radius: 6px;
+  background: transparent;
   color: @foreground;
+  border-left: 2px solid transparent;
 }
 
-#clock:hover,
-#pulseaudio:hover,
-#backlight:hover,
-#network:hover {
-  color: @color6;
-  /* background: @color4; */
-}
+/* ── Separator accent via left border ───────────────────── */
+#clock         { border-left-color: @color4; color: @color4; font-weight: bold; margin-right: 2px; }
+#network       { border-left-color: @color2; color: @color2; }
+#pulseaudio    { border-left-color: @color6; color: @color6; }
+#backlight     { border-left-color: @color3; color: @color3; }
+#battery       { border-left-color: @color2; color: @color2; }
+#cpu           { border-left-color: @color5; color: @color5; }
+#memory        { border-left-color: @color6; color: @color6; }
+#tray          { border-left: none; padding: 2px 6px; }
 
-#pulseaudio.muted {
-  color: @color1;
-}
+/* ── Hover states ───────────────────────────────────────── */
+#clock:hover      { background: @color4;  color: @background; border-left-color: @color4; }
+#network:hover    { background: @color2;  color: @background; border-left-color: @color2; }
+#pulseaudio:hover { background: @color6;  color: @background; border-left-color: @color6; }
+#backlight:hover  { background: @color3;  color: @background; border-left-color: @color3; }
+#battery:hover    { background: @color2;  color: @background; border-left-color: @color2; }
+#cpu:hover        { background: @color5;  color: @background; border-left-color: @color5; }
+#memory:hover     { background: @color6;  color: @background; border-left-color: @color6; }
 
-#pulseaudio.bluetooth {
-  color: @color3;
-}
+/* ── Module states ──────────────────────────────────────── */
+#pulseaudio.muted        { color: @color1; border-left-color: @color1; }
+#pulseaudio.bluetooth    { color: @color3; border-left-color: @color3; }
+#network.disconnected    { color: @color1; border-left-color: @color1; }
 
-#battery.warning:not(.charging) {
-  color: @color3;
-}
-
+#battery.warning:not(.charging)  { color: @color3; border-left-color: @color3; }
 #battery.critical:not(.charging) {
   color: @color1;
+  border-left-color: @color1;
+  animation: blink 0.8s steps(1) infinite;
+}
+#battery.charging { color: @color6; border-left-color: @color6; }
+
+@keyframes blink {
+  50% { color: @background; }
 }
 
-#battery.charging {
-  color: @color6;
-}
-
-#taskbar {
-  margin: 6px;
-}
-
-#taskbar button {
-  padding: 1px 4px;
-  border-radius: 3;
-}
-
-#custom-launcher {
-  background-color: @color4;
-  color: @background;
-  border-radius: 3;
-  padding: 0 10px;
-  margin: 6px 0px 6px 6px;
-}
-
-#custom-launcher:hover {
-  background-color: @color6;
-}
+/* ══════════════════════════════════════════════════════════
+   POWER GROUP
+══════════════════════════════════════════════════════════ */
 
 #custom-power,
 #custom-quit,
 #custom-lock,
 #custom-suspend,
 #custom-reboot {
-  background-color: @color4;
-  color: @background;
-  border-radius: 3;
-  padding: 0 10px;
-  margin: 6px 6px 6px 0px;
+  padding: 2px 10px;
+  margin: 4px 1px;
+  border-radius: 6px;
+  background: transparent;
+  color: @color8;
+  border-left: 2px solid @color8;
 }
+
+#custom-power   { margin-right: 4px; }
 
 #custom-power:hover,
 #custom-quit:hover,
 #custom-lock:hover,
 #custom-suspend:hover,
 #custom-reboot:hover {
-  background-color: @color1;
+  background: @color1;
+  color: @background;
+  border-left-color: @color1;
 }

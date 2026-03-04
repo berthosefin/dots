@@ -2,9 +2,6 @@
   "layer": "top",
   "spacing": 0,
   "height": 0,
-  "margin-left": 5,
-  "margin-right": 5,
-  "margin-top": 5,
   "modules-left": ["custom/launcher", "hyprland/workspaces", "wlr/taskbar"],
   "modules-center": ["hyprland/window"],
   "modules-right": [

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-WALLPAPER_DIR="/home/thos/Images/Misc"
+WALLPAPER_DIR="/home/thos/Images/Nord"
 CONFIG_FILE="$HOME/.config/hypr/hyprpaper.conf"
 
 # Récupère wallpaper actuel proprement
