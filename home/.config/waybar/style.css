@@ -198,6 +198,11 @@ tooltip label {
   color: @background;
   border-left-color: @color2;
 }
+#network.disconnected:hover {
+  background: @color1;
+  color: @background;
+  border-left-color: @color1;
+}
 #pulseaudio:hover {
   background: @color6;
   color: @background;
@@ -293,4 +298,3 @@ tooltip label {
   color: @background;
   border-left-color: @color1;
 }
-
