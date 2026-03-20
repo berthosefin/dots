@@ -17,6 +17,7 @@ fi
 sed -i "s|path = .*|path = $WALLPAPER|" "$CONFIG_FILE"
 
 # Recharge hyprpaper
-hyprctl reload
+pkill hyprpaper
+hyprpaper &
 # notify-send "Nouveau wallpaper" "$(basename "$WALLPAPER")" 2>/dev/null || true
 

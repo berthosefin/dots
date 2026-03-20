@@ -90,7 +90,9 @@ change_lazyvim_colorscheme "$nvim_colorscheme" "$catppuccin_flavour"
 change_zellij_theme "$theme"
 ln -sf ~/.cache/wal/colors-dunst ~/.config/dunst/dunstrc
 pkill -f dunst
+pkill hyprpaper
 hyprctl reload
+hyprpaper &
 dunst &
 
 # === Notify user ===
