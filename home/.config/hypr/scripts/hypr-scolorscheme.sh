@@ -54,12 +54,6 @@ change_lazyvim_colorscheme() {
   fi
 }
 
-# Function to change zellij theme
-change_zellij_theme() {
-  zellij_config="$HOME/.config/zellij/config.kdl"
-  sed -i "s/^theme \".*\"/theme \"$1\"/" "$zellij_config"
-}
-
 # === List of available colorschemes ===
 theme_files=$(find "$theme_dir" -name '*.conf' | sort)
 theme_names=$(basename -a $theme_files | sed 's/\.conf$//')
@@ -87,7 +81,6 @@ change_gtk_settings "$gtk_theme" "$icon_theme" "$cursor_theme"
 change_randomwall_image_dir "$image_dir" &
 kvantummanager --set "$kvantum" &
 change_lazyvim_colorscheme "$nvim_colorscheme" "$catppuccin_flavour"
-change_zellij_theme "$theme"
 ln -sf ~/.cache/wal/colors-dunst ~/.config/dunst/dunstrc
 pkill -f dunst
 pkill hyprpaper
