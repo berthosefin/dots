@@ -2,7 +2,7 @@
 
 # Hyprpaper
 while true; do
-  sleep 600
+  sleep 36000
   sh ~/.config/hypr/scripts/hyprpaper-reload.sh
 done &
 

@@ -1,0 +1,116 @@
+#!/usr/bin/python3
+
+"""
+
+Cyber Computer
+Author : Berthose Fin
+Version : 1.0 (2019-10-12)
+
+"""
+
+import time
+import os
+import sys
+
+now = time.strftime("%Y/%m/%d")
+begin = time.strftime("%H:%M:%S")
+end = time.strftime("%H:%M:%S")
+duration = 0  # Seconde
+tarif = 0  # Ariary
+netAPayer = 0
+
+logFile = ".cyberto.log"
+
+
+def backup():
+    """ backup last session to a Log file """
+
+    newDuration = time.strftime("%H:%M:%S", time.gmtime(duration))
+    with open(logFile, 'w') as log:
+        log.write("= LAST SESSION = \n")
+        log.write("---------------- \n")
+        log.write("Date : {0}\n".format(now))
+        log.write("Begin : {0}\n".format(begin))
+        log.write("End : {0}\n".format(end))
+        log.write("Duration : {0}\n".format(newDuration))
+        log.write("Tarif : {0}Ar/Min\n".format(tarif))
+        log.write("Net A Payer : {0} Ar\n".format(netAPayer))
+
+
+def refreshScreen():
+    """ Interface , time to refresh : 1s """
+
+    os.system("clear")
+
+    print("-------------------")
+    print("Tarif : {0} Ar/Min".format(tarif))
+    print("Begin : {0}".format(begin))
+    print("-------------------")
+
+    newDuration = time.strftime("%H:%M:%S", time.gmtime(duration))
+    print("Duration : {0}".format(newDuration))
+    print("Net A Payer : {0} Ar".format(netAPayer))
+
+
+def counter():
+    """ count minute's number """
+
+    global duration
+    global netAPayer
+    global end
+
+    time.sleep(1)
+    duration += 1
+    netAPayer = round(tarif * (duration / 60))
+    end = time.strftime("%H:%M:%S")
+
+    # save to log file each minute
+    if (duration % 2 == 0):
+        backup()
+
+
+def checkArg():
+    """ check if argument is corrent """
+
+    global tarif
+
+    # request tarif if argument 1 missed
+    try:
+        tarif = sys.argv[1]
+    except IndexError:
+        tarif = input("Tarif (Ar/Min) : ")
+
+    # verification
+    while True:
+        try:
+            tarif = (int)(tarif)
+            if (tarif <= 0):
+                raise ValueError()
+            break
+
+        except ValueError:
+            print("Please use positif value !")
+            tarif = input("Tarif (Ar/Min): ")
+
+    return True
+
+
+def shutdown():
+    print("\nGoodBye !"
+          "\nNet A Payer: {0} Ar".format(netAPayer))
+    os._exit(0)
+
+
+def main():
+    try:
+        checkArg()
+
+        while (True):
+            refreshScreen()
+            counter()
+    except KeyboardInterrupt:
+        shutdown()
+
+
+if __name__ == "__main__":
+    main()

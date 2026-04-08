@@ -127,8 +127,8 @@ yt() {
 }
 
 # ----- Custom aliases -----
-alias gdrive-push="rclone sync ~/Documents/gdrive gdrive:/ --progress"
-alias gdrive-pull="rclone sync gdrive:/ ~/Documents/gdrive --progress"
+alias gdrive-sync="rclone bisync ~/Documents/gdrive gdrive:/ --progress"
+alias gdrive-test="rclone bisync ~/Documents/gdrive gdrive:/ --progress --dry-run"
 
 # ----- Quick edit configs -----
 alias zshrc='$EDITOR ~/.zshrc'
