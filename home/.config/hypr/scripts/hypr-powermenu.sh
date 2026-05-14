@@ -40,6 +40,6 @@ case "$chosen" in
   ;;
 "$logout")
   confirm=$(confirm_exit)
-  [ "$confirm" = "Yes" ] && hyprctl dispatch exit
+  [ "$confirm" = "Yes" ] && hyprctl dispatch 'hl.dsp.exit()'
   ;;
 esac
