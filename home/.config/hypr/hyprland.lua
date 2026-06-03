@@ -418,6 +418,12 @@ hl.window_rule({
 })
 
 hl.window_rule({
+    name  = "blueman-float",
+    match = { class = "^(blueman-manager|blueman)$" },
+    float = true,
+})
+
+hl.window_rule({
     name  = "dialog-float",
     match = { title = "^(?i).*(ration|confirm|renom).*" },
     float = true,
