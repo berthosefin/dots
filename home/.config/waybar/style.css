@@ -17,19 +17,23 @@
 
 /* ── Bar ────────────────────────────────────────────────── */
 window#waybar {
-  background: transparent;
+  background: @background;
   color: @foreground;
+  border: 1px solid @color8;
+  border-radius: 10px;
+  margin: 4px 6px;
+  padding: 0 4px;
 }
 
-/* Glassmorphism bar background via the inner box */
+/* No inner box backgrounds — single floating bar */
 .modules-left,
 .modules-center,
 .modules-right {
-  background: @background;
-  border: 1px solid @color8;
-  border-radius: 10px;
-  margin: 4px 3px;
-  padding: 0 4px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
 }
 
 /* ── Tooltip ────────────────────────────────────────────── */
@@ -96,33 +100,9 @@ tooltip label {
   border-bottom: 2px solid @color8;
 }
 
-/* ── Taskbar ────────────────────────────────────────────── */
-#taskbar {
-  margin: 0 2px;
-}
-
-#taskbar button {
-  padding: 2px 5px;
-  margin: 3px 1px;
-  border-radius: 6px;
-  background: transparent;
-  color: @color7;
-  border-bottom: 2px solid transparent;
-}
-
-#taskbar button.active {
-  color: @foreground;
-  border-bottom: 2px solid @color6;
-}
-
-#taskbar button:hover {
-  background: @color0;
-  color: @foreground;
-}
-
 /* ══════════════════════════════════════════════════════════
    CENTER SECTION
-══════════════════════════════════════════════════════════ */
+   ══════════════════════════════════════════════════════════ */
 
 #window {
   color: @color7;

@@ -2,7 +2,7 @@
   "layer": "top",
   "spacing": 0,
   "height": 0,
-  "modules-left": ["custom/launcher", "hyprland/workspaces", "wlr/taskbar"],
+  "modules-left": ["custom/launcher", "hyprland/workspaces"],
   "modules-center": ["hyprland/window"],
   "modules-right": [
     "tray",
@@ -103,22 +103,6 @@
     "format": "{icon}  {capacity}%",
     "format-icons": ["", "", "", "", ""],
     "max-length": 25,
-  },
-  "wlr/taskbar": {
-    "format": "{icon}",
-    "icon-size": 14,
-    // "icon-theme": "Numix-Circle",
-    "tooltip-format": "{title}",
-    "on-click": "activate",
-    "on-click-middle": "close",
-    "ignore-list": ["kitty", "xfce4-terminal", "xdman-Main"],
-    "app_ids-mapping": {
-      "firefoxdeveloperedition": "firefox-developer-edition",
-    },
-    "rewrite": {
-      "Firefox Web Browser": "Firefox",
-      "Foot Server": "Terminal",
-    },
   },
   "custom/launcher": {
     "format": "Apps",
