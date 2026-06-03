@@ -19,9 +19,8 @@
 window#waybar {
   background: @background;
   color: @foreground;
-  border: 1px solid @color8;
-  border-radius: 10px;
-  margin: 4px 6px;
+  border: 1px solid @color4;
+  border-radius: 8px;
   padding: 0 4px;
 }
 
@@ -56,9 +55,9 @@ tooltip label {
 #custom-launcher {
   background: @color4;
   color: @background;
-  border-radius: 8px;
+  border-radius: 6px;
   padding: 2px 14px;
-  margin: 4px 6px 4px 2px;
+  margin: 4px;
   font-weight: bold;
   font-size: 12px;
   letter-spacing: 1px;
