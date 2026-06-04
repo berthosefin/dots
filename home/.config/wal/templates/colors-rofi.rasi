@@ -1,86 +1,132 @@
-
 configuration {{
+  modi: "drun,run,window,combi";
   font: "0xProto 8";
-  
-  drun {{
-    display-name: "";
-  }}
-
-  run {{
-    display-name: "";
-  }}
-
-  window {{
-    display-name: "";
-  }}
+  show-icons: true;
+  icon-theme: "Papirus-Dark";
+  display-drun: "Apps";
+  display-run: "Run";
+  display-window: "Win";
+  display-combi: "All";
+  drun-display-format: "{{name}}";
 }}
 
 * {{
-  background: {background};
-  background-alt: {color0};
-  foreground: {foreground};
-  active: {color4};
-  urgent: {color1};
+  base00: {background};
+  base01: {color0};
+  base02: {color0};
+  base03: {color8};
+  base04: {color7};
+  base05: {foreground};
+  base06: {foreground};
+  base07: {foreground};
+  base08: {color1};
+  base09: {color9};
+  base0A: {color3};
+  base0B: {color2};
+  base0C: {color6};
+  base0D: {color4};
+  base0E: {color5};
+  base0F: {color1};
 
-  background-color: @background;
-  text-color: @foreground;
+  spacing: 0;
+  background-color: transparent;
 }}
 
 window {{
-  padding: 4px;
   transparency: "real";
-  width: 600;
-  height: 0;
-  border: 1;
-  border-radius: 5;
-  border-color: @active;
+  background-color: {background}CC;
 }}
 
 mainbox {{
-  children: [inputbar, listview];
+  children: [inputbar, message, mode-switcher, listview];
+  spacing: 30px;
+  padding: 30px 0;
+  border: 1px;
+  border-color: @base0D;
 }}
 
 inputbar {{
-  children: [prompt, entry];
-}}
-
-entry {{
-  padding: 12px;
+  padding: 0 30px;
+  children: [prompt, textbox-prompt-colon, entry, case-indicator];
 }}
 
 prompt {{
-  background-color: inherit;
-  padding: 12px;
+  text-color: @base0D;
+}}
+
+textbox-prompt-colon {{
+  expand: false;
+  str: ":";
+  margin: 0 1ch 0 0;
+  text-color: @base0D;
+}}
+
+entry {{
+  text-color: @base07;
+}}
+
+case-indicator {{
+  text-color: @base0F;
+}}
+
+mode-switcher, message {{
+  border: 1px 0;
+  border-color: @base0D;
+}}
+
+button, textbox {{
+  background-color: @base03;
+  text-color: @base07;
+  padding: 5px;
+}}
+
+button selected {{
+  background-color: @base0D;
 }}
 
 listview {{
-  lines: 10;
   scrollbar: true;
-  dynamic: true;
-  fixed-height: false;
-  reverse: false;
+  margin: 0 10px 0 30px;
 }}
 
 scrollbar {{
-  background-color: @background-alt;
-  handle-color: @active;
-  margin: 0 0 0 4px;
+  background-color: @base03;
+  handle-color: @base0D;
+  handle-width: 10px;
+  border: 0 1px;
+  border-color: @base0D;
+  margin: 0 0 0 20px;
 }}
 
 element {{
+  padding: 5px;
+  spacing: 5px;
+  highlight: bold underline;
   children: [element-icon, element-text];
 }}
 
-element-icon {{
-  padding: 10px 10px;
+element-text, element-icon {{
+  background-color: inherit;
+  text-color: inherit;
+  foreground-color: inherit;
 }}
 
-element-text {{
-  padding: 10px;
+element normal {{
+  background-color: transparent;
 }}
 
-element-text selected {{
-  background-color: @active;
-  text-color: @background;
-  border-radius: 5;
+element selected {{
+  background-color: @base0D;
+}}
+
+element normal normal, element selected normal, element alternate normal {{
+  text-color: @base07;
+}}
+
+element normal urgent, element selected urgent, element alternate urgent {{
+  text-color: @base0F;
+}}
+
+element normal active, element selected active, element alternate active {{
+  text-color: @base0B;
 }}
