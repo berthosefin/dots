@@ -197,7 +197,10 @@ tooltip label {
   color: @background;
   border-left-color: @color3;
 }
-#battery:hover {
+#battery:hover,
+#battery.warning:not(.charging):hover,
+#battery.critical:not(.charging):hover,
+#battery.charging:hover {
   background: @color2;
   color: @background;
   border-left-color: @color2;
