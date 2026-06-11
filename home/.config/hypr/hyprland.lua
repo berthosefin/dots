@@ -397,7 +397,7 @@ hl.window_rule({
 
 hl.window_rule({
 	name = "creative-apps-workspace",
-	match = { class = "^(?i).*(gimp|inkscape|darktable|kdenlive|studio|audacity|mixxx|rhythmbox|strawberry).*" },
+	match = { class = "^(?i).*(gimp|inkscape|kdenlive|audacity|mixxx|rhythmbox|strawberry).*" },
 	workspace = 4,
 })
 
@@ -434,13 +434,13 @@ hl.window_rule({
 
 hl.window_rule({
 	name = "blueman-float",
-	match = { class = "^(blueman-manager|blueman)$" },
+	match = { class = "^(?i).*(blueman).*" },
 	float = true,
 })
 
 hl.window_rule({
 	name = "dialog-float",
-	match = { title = "^(?i).*(ration|confirm|renom).*" },
+	match = { title = "^(?i).*(ration|confirm|ren).*" },
 	float = true,
 })
 
