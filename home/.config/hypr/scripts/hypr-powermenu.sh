@@ -12,11 +12,11 @@ logout=" Logout"
 options="$lock\n$suspend\n$logout\n$reboot\n$shutdown"
 
 # Show main menu
-chosen=$(echo -e "$options" | rofi -dmenu -l 5 -p "Uptime: $uptime")
+chosen=$(echo -e "$options" | rofi -dmenu -i -l 5 -p "Uptime: $uptime")
 
 # Function for confirmation
 confirm_exit() {
-  echo -e "No\nYes" | rofi -dmenu -p "Are you sure?" -l 2
+  echo -e "No\nYes" | rofi -dmenu -p "Are you sure?" -i -l 2
 }
 
 # If nothing is selected, exit
