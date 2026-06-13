@@ -4,11 +4,11 @@
 uptime=$(uptime -p | sed -e 's/up //g')
 
 # Define menu options
-shutdown=" Poweroff"
-reboot=" Reboot"
-suspend=" Suspend"
-lock=" Lock"
-logout=" Logout"
+shutdown="󰝁 Poweroff"
+reboot="󰝅 Reboot"
+suspend="󰜤 Suspend"
+lock="󰜐 Lock"
+logout="󰜒 Logout"
 options="$lock\n$suspend\n$logout\n$reboot\n$shutdown"
 
 # Show main menu
