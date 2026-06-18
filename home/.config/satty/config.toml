@@ -1,0 +1,5 @@
+[general]
+copy-command = "wl-copy"
+actions-on-enter = ["save-to-clipboard", "save-to-file", "exit"]
+actions-on-escape = ["save-to-clipboard", "exit"]
+fullscreen = "current-screen"

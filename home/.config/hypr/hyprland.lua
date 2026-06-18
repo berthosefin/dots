@@ -263,8 +263,12 @@ hl.bind("ALT + code:94", hl.dsp.group.prev())
 hl.bind("ALT + code:50", hl.dsp.group.next())
 
 -- Screenshots
-hl.bind("PRINT", hl.dsp.exec_cmd("hyprshot -m output"))
-hl.bind("CTRL + PRINT", hl.dsp.exec_cmd("hyprshot -m region"))
+hl.bind(
+	"PRINT",
+	hl.dsp.exec_cmd(
+		'grim - | satty -f - --output-filename "$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"'
+	)
+)
 
 -- Navigation
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
