@@ -19,7 +19,7 @@ configuration {
 
 window {
   transparency: "real";
-  background-color: @surface-dim;
+  background-color: @surface-dim-80;
 }
 
 mainbox {
@@ -68,6 +68,7 @@ button, textbox {
 
 button selected {
   background-color: @primary;
+  text-color: @surface-dim;
 }
 
 listview {
@@ -105,8 +106,12 @@ element selected {
   background-color: @primary;
 }
 
-element normal normal, element selected normal, element alternate normal {
+element normal normal, element alternate normal {
   text-color: @on-surface;
+}
+
+element selected normal {
+  text-color: @surface-dim;
 }
 
 element normal urgent, element selected urgent, element alternate urgent {
