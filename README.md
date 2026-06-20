@@ -4,7 +4,7 @@
 
 Personal dotfiles for a customized [Hyprland](https://github.com/hyprwm/Hyprland) setup, focused on simplicity, aesthetics, and efficiency.
 
-> 🖌️ This configuration is based on matugen for dynamic color theming.
+> 🖌️ This configuration uses [matugen](https://github.com/InioX/matugen) for dynamic Material You (MD3) color theming generated from your wallpaper.
 
 ## 📦 Dependencies
 
@@ -62,6 +62,27 @@ This will symlink the configuration files into your `~/.config` directory.
 
 ---
 
+## 🎨 Theming
+
+Colors are dynamically generated from your wallpaper using **matugen** (HCT/CAM16 MD3 color tokens). To apply a new theme:
+
+```bash
+matugen image /path/to/wallpaper.jpg
+```
+
+This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3/4, xfce4-terminal, Neovim, Kvantum, Zathura, BTOP, OpenCode, and Papirus-folders.
+
+### Icons
+
+- **Icon theme**: [Papirus-Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme)
+- **Folder colors**: dynamically set via `papirus-folders` based on the wallpaper's primary MD3 color (requires a NOPASSWD sudoers rule for the `papirus-folders` command)
+
+### Cursor
+
+- **Cursor theme**: [Banana](https://github.com/ful1e5/Banana-cursor)
+
+---
+
 ## ⌨️ Keybindings Overview
 
 | Keybinding               | Action                    |
@@ -72,7 +93,7 @@ This will symlink the configuration files into your `~/.config` directory.
 | `SUPER + Q`              | Close active window       |
 | `SUPER + Shift + Q`      | Exit Hyprland             |
 | `SUPER + E`              | Powermenu                 |
-| `SUPER + C`              | Switch color scheme       |
+| `SUPER + C`              | Wallpaper / color picker  |
 | `SUPER + F`              | Toggle fullscreen         |
 | `SUPER + G`              | Group/Ungroup windows     |
 | `Alt + Tab`              | Switch grouped window     |
@@ -89,5 +110,9 @@ This will symlink the configuration files into your `~/.config` directory.
 
 ## 🛠 Tips
 
-- You can modify any keybindings in `hyprland.conf` to suit your workflow.
-- You can add more colorscheme in `~/.config/hypr/scripts/colorschemes`
+- Keybindings are defined in `home/.config/hypr/hyprland.lua`.
+- To restrict Papirus-folders color changes to your user without a password prompt, add a sudoers rule:
+  ```
+  youruser ALL=(ALL) NOPASSWD: /usr/sbin/papirus-folders
+  ```
+  Make sure the filename sorts after any `ALL=(ALL) ALL` rule (e.g. `zz_papirus-folders`).
