@@ -62,13 +62,6 @@ if [[ ! -d "$STOW_DIR" ]]; then
     exit 1
 fi
 
-# Generate pywal theme if needed
-if [[ ! -f "$HOME/.cache/wal/colors-hyprland.conf" ]]; then
-    print_info "Generating pywal theme..."
-    wal --theme base16-nord
-    print_success "Theme generated."
-fi
-
 # Phase 1: Conflict detection
 
 print_info "Scanning for conflicts (dry-run)..."

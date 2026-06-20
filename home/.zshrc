@@ -98,9 +98,6 @@ fi
 # ----- uv completions -----
 eval "$(uv generate-shell-completion zsh)"
 
-# ----- Pywal colors -----
-(cat ~/.cache/wal/sequences &)
-
 # ----- yt-dlp aliases -----
 yt() {
     local format="bestvideo+bestaudio/best"
@@ -144,7 +141,7 @@ oks() {
     local s=$?
     local sound_success="/usr/share/sounds/freedesktop/stereo/complete.oga"
     local sound_error="/usr/share/sounds/freedesktop/stereo/suspend-error.oga"
-    
+
     if [[ $s -eq 0 ]]; then
         echo "[✔] SUCCESS"
         [[ -f "$sound_success" ]] && paplay "$sound_success"

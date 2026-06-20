@@ -1,0 +1,118 @@
+@import "colors.rasi"
+
+configuration {
+  modi: "drun,run,window,combi";
+  font: "0xProto 8";
+  show-icons: true;
+  icon-theme: "Papirus-Dark";
+  display-drun: "Apps";
+  display-run: "Run";
+  display-window: "Win";
+  display-combi: "All";
+  drun-display-format: "{name}";
+}
+
+* {
+  spacing: 0;
+  background-color: transparent;
+}
+
+window {
+  transparency: "real";
+  background-color: @surface-dim;
+}
+
+mainbox {
+  children: [inputbar, message, mode-switcher, listview];
+  spacing: 30px;
+  padding: 30px 0;
+  border-radius: 5px;
+  border: 1px;
+  border-color: @primary;
+}
+
+inputbar {
+  padding: 0 30px;
+  children: [prompt, textbox-prompt-colon, entry, case-indicator];
+}
+
+prompt {
+  text-color: @primary;
+}
+
+textbox-prompt-colon {
+  expand: false;
+  str: ":";
+  margin: 0 1ch 0 0;
+  text-color: @primary;
+}
+
+entry {
+  text-color: @on-surface;
+}
+
+case-indicator {
+  text-color: @error;
+}
+
+mode-switcher, message {
+  border: 1px 0;
+  border-color: @primary;
+}
+
+button, textbox {
+  background-color: @surface-container;
+  text-color: @on-surface;
+  padding: 5px;
+}
+
+button selected {
+  background-color: @primary;
+}
+
+listview {
+  scrollbar: true;
+  margin: 0 10px 0 30px;
+}
+
+scrollbar {
+  background-color: @surface-container;
+  handle-color: @primary;
+  handle-width: 10px;
+  border: 0 1px;
+  border-color: @primary;
+  margin: 0 0 0 20px;
+}
+
+element {
+  padding: 5px;
+  spacing: 5px;
+  highlight: bold underline;
+  children: [element-icon, element-text];
+}
+
+element-text, element-icon {
+  background-color: inherit;
+  text-color: inherit;
+  foreground-color: inherit;
+}
+
+element normal {
+  background-color: transparent;
+}
+
+element selected {
+  background-color: @primary;
+}
+
+element normal normal, element selected normal, element alternate normal {
+  text-color: @on-surface;
+}
+
+element normal urgent, element selected urgent, element alternate urgent {
+  text-color: @error;
+}
+
+element normal active, element selected active, element alternate active {
+  text-color: @tertiary;
+}

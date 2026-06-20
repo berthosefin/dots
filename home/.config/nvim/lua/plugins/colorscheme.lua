@@ -1,24 +1,27 @@
 return {
-  -- add colorschemes
-  { "ellisonleao/gruvbox.nvim" },
-  { "shaunsingh/nord.nvim" },
-  { "Mofiqul/dracula.nvim" },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    version = "*",
-    priority = 1000,
-    opts = {
-      flavour = "nord",
+    -- add colorschemes
+    { "ellisonleao/gruvbox.nvim" },
+    {
+        "RRethy/base16-nvim",
+        init = function()
+            vim.api.nvim_create_autocmd("ColorScheme", {
+                pattern = "*",
+                group = vim.api.nvim_create_augroup("matugen-colors", { clear = true }),
+                callback = function()
+                    local f = vim.fn.expand("~/.config/nvim/generated.lua")
+                    if vim.fn.filereadable(f) == 1 then
+                        pcall(dofile, f)
+                    end
+                end,
+            })
+        end,
     },
-  },
-  { "rose-pine/neovim" },
 
-  -- Configure LazyVim to load colorscheme
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "nord",
+    -- Configure LazyVim to load colorscheme
+    {
+        "LazyVim/LazyVim",
+        opts = {
+            colorscheme = "gruvbox",
+        },
     },
-  },
 }

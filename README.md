@@ -4,7 +4,7 @@
 
 Personal dotfiles for a customized [Hyprland](https://github.com/hyprwm/Hyprland) setup, focused on simplicity, aesthetics, and efficiency.
 
-> 🖌️ This configuration is based on [pywal](https://github.com/dylanaraps/pywal) for dynamic color theming.
+> 🖌️ This configuration is based on matugen for dynamic color theming.
 
 ## 📦 Dependencies
 
@@ -14,10 +14,11 @@ Make sure you have the following packages installed:
 - `kitty` (terminal)
 - `rofi` (app launcher)
 - `dunst` (notifications)
-- `hyprpaper` (wallpaper manager)
+- `awww` (wallpaper manager)
 - `hypridle` (idle manager)
 - `hyprlock` (screen locker)
-- `hyprshot` (Screenshot)
+- `satty` (screenshot tool)
+- `cliphist` (clipboard manager)
 - `xfce4-terminal` (alternative terminal)
 - `thunar` (file manager)
 - `zathura` (pdf reader)
@@ -27,15 +28,16 @@ Make sure you have the following packages installed:
 - `brightnessctl` (brightness control)
 - `playerctl` (media control)
 - `wpctl` (pipewire audio)
-- `pywal` (dynamic colors)
+- `matugen` (dynamic colors)
 - `nvim` (optional)
 - `stow` (dotfiles manager)
 - `papirus-icon-theme`
+- `wallpaper-picker-rs`
 
 ### 📦 Install dependencies on Arch (with `yay`)
 
 ```bash
-yay -S hyprland kitty rofi dunst hyprpaper hypridle hyprlock hyprshot xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber python-pywal stow nvim papirus-icon-theme
+yay -S hyprland kitty rofi dunst awww hypridle hyprlock satty xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen stow nvim papirus-icon-theme wallpaper-picker-rs cliphist
 ```
 
 ---

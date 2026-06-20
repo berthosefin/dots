@@ -1,50 +1,50 @@
-@import "/home/thos/.cache/wal/colors-waybar.css";
+@import "colors.css";
 
 /* ── Reset ──────────────────────────────────────────────── */
 * {
-  border: none;
-  border-radius: 0;
-  font-family: "JetBrainsMono Nerd Font";
-  font-size: 10px;
-  padding: 0;
-  margin: 0;
-  min-height: 0;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease;
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font";
+    font-size: 10px;
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
 }
 
 /* ── Bar ────────────────────────────────────────────────── */
 window#waybar {
-  background: @background;
-  color: @foreground;
-  border: 1px solid @color4;
-  border-radius: 8px;
-  padding: 0 4px;
+    background: @surface;
+    color: @on_surface;
+    border: 1px solid @primary;
+    border-radius: 8px;
+    padding: 0 4px;
 }
 
 /* No inner box backgrounds — single floating bar */
 .modules-left,
 .modules-center,
 .modules-right {
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  margin: 0;
-  padding: 0;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
 }
 
 /* ── Tooltip ────────────────────────────────────────────── */
 tooltip {
-  background: @background;
-  color: @foreground;
-  border: 1px solid @color4;
-  border-radius: 8px;
+    background: @surface;
+    color: @on_surface;
+    border: 1px solid @primary;
+    border-radius: 8px;
 }
 
 tooltip label {
-  margin: 8px 12px;
+    margin: 8px 12px;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -53,50 +53,50 @@ tooltip label {
 
 /* ── Launcher ───────────────────────────────────────────── */
 #custom-launcher {
-  background: @color4;
-  color: @background;
-  border-radius: 6px;
-  padding: 2px 14px;
-  margin: 4px;
-  font-weight: bold;
-  font-size: 12px;
-  letter-spacing: 1px;
+    background: @primary;
+    color: @surface;
+    border-radius: 6px;
+    padding: 2px 14px;
+    margin: 4px;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 1px;
 }
 
 #custom-launcher:hover {
-  background: @color5;
-  color: @background;
+    background: @secondary;
+    color: @surface;
 }
 
 /* ── Workspaces ─────────────────────────────────────────── */
 #workspaces {
-  margin: 0 2px;
+    margin: 0 2px;
 }
 
 #workspaces button {
-  padding: 2px 8px;
-  margin: 3px 1px;
-  background: transparent;
-  color: @color8;
-  border-radius: 6px;
-  border-bottom: 2px solid transparent;
+    padding: 2px 8px;
+    margin: 3px 1px;
+    background: transparent;
+    color: @outline;
+    border-radius: 6px;
+    border-bottom: 2px solid transparent;
 }
 
 #workspaces button.active {
-  color: @color4;
-  border-bottom: 2px solid @color4;
-  background: transparent;
+    color: @primary;
+    border-bottom: 2px solid @primary;
+    background: transparent;
 }
 
 #workspaces button.urgent {
-  color: @color1;
-  border-bottom: 2px solid @color1;
+    color: @error;
+    border-bottom: 2px solid @error;
 }
 
 #workspaces button:hover {
-  color: @foreground;
-  background: @color0;
-  border-bottom: 2px solid @color8;
+    color: @on_surface;
+    background: @surface_container;
+    border-bottom: 2px solid @outline;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -104,10 +104,10 @@ tooltip label {
    ══════════════════════════════════════════════════════════ */
 
 #window {
-  color: @color7;
-  font-style: italic;
-  padding: 0 8px;
-  letter-spacing: 0.5px;
+    color: @on_surface_variant;
+    font-style: italic;
+    padding: 0 8px;
+    letter-spacing: 0.5px;
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -122,132 +122,137 @@ tooltip label {
 #memory,
 #battery,
 #clock {
-  padding: 2px 10px;
-  margin: 4px 1px;
-  border-radius: 6px;
-  background: transparent;
-  color: @foreground;
-  border-left: 2px solid transparent;
+    padding: 2px 10px;
+    margin: 4px 1px;
+    border-radius: 6px;
+    background: transparent;
+    color: @on_surface;
+    border-left: 2px solid transparent;
 }
 
 /* ── Separator accent via left border ───────────────────── */
 #clock {
-  border-left-color: @color4;
-  color: @color4;
-  font-weight: bold;
-  margin-right: 2px;
+    border-left-color: @primary;
+    color: @primary;
+    font-weight: bold;
+    margin-right: 2px;
 }
 #network {
-  border-left-color: @color2;
-  color: @color2;
+    border-left-color: @tertiary;
+    color: @tertiary;
 }
 #pulseaudio {
-  border-left-color: @color6;
-  color: @color6;
+    border-left-color: @secondary;
+    color: @secondary;
 }
 #backlight {
-  border-left-color: @color3;
-  color: @color3;
+    border-left-color: @tertiary;
+    color: @tertiary;
 }
 #battery {
-  border-left-color: @color2;
-  color: @color2;
+    border-left-color: @tertiary;
+    color: @tertiary;
 }
 #cpu {
-  border-left-color: @color5;
-  color: @color5;
+    border-left-color: @secondary;
+    color: @secondary;
 }
 #memory {
-  border-left-color: @color6;
-  color: @color6;
+    border-left-color: @secondary;
+    color: @secondary;
 }
 #tray {
-  border-left: none;
-  padding: 2px 6px;
+    border-left: none;
+    padding: 2px 6px;
 }
 
 /* ── Hover states ───────────────────────────────────────── */
 #clock:hover {
-  background: @color4;
-  color: @background;
-  border-left-color: @color4;
+    background: @primary;
+    color: @surface;
+    border-left-color: @primary;
 }
 #network:hover {
-  background: @color2;
-  color: @background;
-  border-left-color: @color2;
+    background: @tertiary;
+    color: @surface;
+    border-left-color: @tertiary;
 }
 #network.disconnected:hover {
-  background: @color1;
-  color: @background;
-  border-left-color: @color1;
+    background: @error;
+    color: @surface;
+    border-left-color: @error;
 }
 #pulseaudio:hover {
-  background: @color6;
-  color: @background;
-  border-left-color: @color6;
+    background: @secondary;
+    color: @surface;
+    border-left-color: @secondary;
 }
 #pulseaudio.muted:hover {
-  background: @color1;
-  color: @background;
-  border-left-color: @color1;
+    background: @error;
+    color: @surface;
+    border-left-color: @error;
+}
+#pulseaudio.bluetooth:hover {
+    background: @primary;
+    color: @surface;
+    border-left-color: @primary;
 }
 #backlight:hover {
-  background: @color3;
-  color: @background;
-  border-left-color: @color3;
+    background: @tertiary;
+    color: @surface;
+    border-left-color: @tertiary;
 }
 #battery:hover,
 #battery.warning:not(.charging):hover,
 #battery.critical:not(.charging):hover,
 #battery.charging:hover {
-  background: @color2;
-  color: @background;
-  border-left-color: @color2;
+    background: @tertiary;
+    color: @surface;
+    border-left-color: @tertiary;
 }
 #cpu:hover {
-  background: @color5;
-  color: @background;
-  border-left-color: @color5;
+    background: @secondary;
+    color: @surface;
+    border-left-color: @secondary;
 }
 #memory:hover {
-  background: @color6;
-  color: @background;
-  border-left-color: @color6;
+    background: @secondary;
+    color: @surface;
+    border-left-color: @secondary;
 }
 
 /* ── Module states ──────────────────────────────────────── */
 #pulseaudio.muted {
-  color: @color1;
-  border-left-color: @color1;
+    color: @error;
+    border-left-color: @error;
 }
 #pulseaudio.bluetooth {
-  color: @color3;
-  border-left-color: @color3;
+    color: @tertiary;
+    border-left-color: @tertiary;
 }
 #network.disconnected {
-  color: @color1;
-  border-left-color: @color1;
+    color: @error;
+    border-left-color: @error;
 }
 
 #battery.warning:not(.charging) {
-  color: @color3;
-  border-left-color: @color3;
+    color: @tertiary;
+    border-left-color: @tertiary;
 }
 #battery.critical:not(.charging) {
-  color: @color1;
-  border-left-color: @color1;
-  animation: blink 0.8s steps(1) infinite;
+    color: @error;
+    border-left-color: @error;
+    animation: blink 0.8s steps(1) infinite;
 }
 #battery.charging {
-  color: @color6;
-  border-left-color: @color6;
+    color: @secondary;
+    border-left-color: @secondary;
 }
 
 @keyframes blink {
-  50% {
-    color: @background;
-  }
+    50% {
+        color: @surface;
+    }
 }
 
 /* ══════════════════════════════════════════════════════════
@@ -259,16 +264,16 @@ tooltip label {
 #custom-lock,
 #custom-suspend,
 #custom-reboot {
-  padding: 2px 10px;
-  margin: 4px 1px;
-  border-radius: 6px;
-  background: transparent;
-  color: @color8;
-  border-left: 2px solid @color8;
+    padding: 2px 10px;
+    margin: 4px 1px;
+    border-radius: 6px;
+    background: transparent;
+    color: @outline;
+    border-left: 2px solid @outline;
 }
 
 #custom-power {
-  margin-right: 4px;
+    margin-right: 4px;
 }
 
 #custom-power:hover,
@@ -276,7 +281,7 @@ tooltip label {
 #custom-lock:hover,
 #custom-suspend:hover,
 #custom-reboot:hover {
-  background: @color1;
-  color: @background;
-  border-left-color: @color1;
+    background: @error;
+    color: @surface;
+    border-left-color: @error;
 }

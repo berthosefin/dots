@@ -1,33 +1,33 @@
 -- Hyprland Lua config file
 
 -- MyColors
-local myColors = dofile(os.getenv("HOME") .. "/.cache/wal/colors-hyprland.lua")
+local myColors = dofile(os.getenv("HOME") .. "/.config/hypr/colors.lua")
 
 ------------------
 ---- MONITORS ----
 ------------------
 
 hl.monitor({
-	output = "eDP-1",
-	mode = "1366x768@60",
-	position = "0x0",
-	scale = "1",
+    output = "eDP-1",
+    mode = "1366x768@60",
+    position = "0x0",
+    scale = "1",
 })
 
 hl.monitor({
-	output = "HDMI-A-1",
-	mode = "1360x768@60",
-	position = "1366x0",
-	scale = "1",
+    output = "HDMI-A-1",
+    mode = "1360x768@60",
+    position = "1366x0",
+    scale = "1",
 })
 
 -- Configuring workspaces per monitor
 for i = 1, 4 do
-	hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
+    hl.workspace_rule({ workspace = tostring(i), monitor = "eDP-1" })
 end
 
 for i = 5, 8 do
-	hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1" })
+    hl.workspace_rule({ workspace = tostring(i), monitor = "HDMI-A-1" })
 end
 
 hl.workspace_rule({ workspace = "9", monitor = "eDP-1" })
@@ -48,14 +48,13 @@ local scripts = os.getenv("HOME") .. "/.config/hypr/scripts"
 -------------------
 
 hl.on("hyprland.start", function()
-	hl.exec_cmd("hyprpaper")
-	hl.exec_cmd("hypridle")
-	hl.exec_cmd("dunst")
-	hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-	hl.exec_cmd(scripts .. "/hypr-timer.sh")
-	hl.exec_cmd(scripts .. "/hypr-watch.sh")
-	hl.exec_cmd("wl-paste --type text --watch cliphist store")
-	hl.exec_cmd("wl-paste --type image --watch cliphist store")
+    hl.exec_cmd("awww-daemon")
+    hl.exec_cmd("hypridle")
+    hl.exec_cmd("dunst")
+    hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+    hl.exec_cmd(scripts .. "/hypr-timer.sh")
+    hl.exec_cmd("wl-paste --type text --watch cliphist store")
+    hl.exec_cmd("wl-paste --type image --watch cliphist store")
 end)
 
 -------------------------------
@@ -76,67 +75,67 @@ hl.env("TERMINAL", "kitty")
 -----------------------
 
 hl.config({
-	general = {
-		gaps_in = 2.5,
-		gaps_out = 5,
+    general = {
+        gaps_in = 2.5,
+        gaps_out = 5,
 
-		border_size = 1,
+        border_size = 1,
 
-		col = {
-			active_border = { colors = { myColors.color4, myColors.color6 }, angle = 45 },
-			inactive_border = myColors.color8,
-		},
+        col = {
+            active_border = { colors = { myColors.primary, myColors.secondary }, angle = 45 },
+            inactive_border = myColors.outline,
+        },
 
-		resize_on_border = false,
+        resize_on_border = false,
 
-		allow_tearing = false,
+        allow_tearing = false,
 
-		layout = "dwindle",
-	},
+        layout = "dwindle",
+    },
 
-	group = {
-		col = {
-			border_active = { colors = { myColors.color2, myColors.color3 }, angle = 45 },
-			border_inactive = myColors.color8,
-		},
+    group = {
+        col = {
+            border_active = { colors = { myColors.secondary, myColors.tertiary }, angle = 45 },
+            border_inactive = myColors.outline,
+        },
 
-		groupbar = {
-			enabled = true,
-			indicator_height = 4,
-			rounding = 2,
-			render_titles = false,
-			col = {
-				active = myColors.color2,
-				inactive = myColors.color8,
-			},
-		},
-	},
+        groupbar = {
+            enabled = true,
+            indicator_height = 4,
+            rounding = 2,
+            render_titles = false,
+            col = {
+                active = myColors.secondary,
+                inactive = myColors.outline,
+            },
+        },
+    },
 
-	decoration = {
-		rounding = 5,
-		rounding_power = 2,
+    decoration = {
+        rounding = 5,
+        rounding_power = 2,
 
-		active_opacity = 0.8,
-		inactive_opacity = 0.8,
+        active_opacity = 0.8,
+        inactive_opacity = 0.8,
 
-		shadow = {
-			enabled = true,
-			range = 4,
-			render_power = 3,
-			color = myColors.color8,
-		},
+        shadow = {
+            enabled = true,
+            range = 4,
+            render_power = 3,
+            color = myColors.shadow,
+        },
 
-		blur = {
-			enabled = true,
-			size = 1,
-			passes = 6,
-			vibrancy = 0.1696,
-		},
-	},
+        blur = {
+            enabled = true,
+            size = 1,
+            passes = 6,
+            vibrancy = 0.1696,
+        },
+    },
 
-	animations = {
-		enabled = true,
-	},
+    animations = {
+        enabled = true,
+    },
 })
 
 -- Curves and animations
@@ -169,21 +168,21 @@ hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" 
 
 -- Layout
 hl.config({
-	dwindle = {
-		preserve_split = true,
-	},
+    dwindle = {
+        preserve_split = true,
+    },
 })
 
 hl.config({
-	master = {
-		new_status = "master",
-	},
+    master = {
+        new_status = "master",
+    },
 })
 
 hl.config({
-	scrolling = {
-		fullscreen_on_one_column = true,
-	},
+    scrolling = {
+        fullscreen_on_one_column = true,
+    },
 })
 
 ----------------
@@ -191,10 +190,10 @@ hl.config({
 ----------------
 
 hl.config({
-	misc = {
-		force_default_wallpaper = -1,
-		disable_hyprland_logo = true,
-	},
+    misc = {
+        force_default_wallpaper = -1,
+        disable_hyprland_logo = true,
+    },
 })
 
 ---------------
@@ -202,35 +201,35 @@ hl.config({
 ---------------
 
 hl.config({
-	input = {
-		kb_layout = "fr",
-		kb_variant = "",
-		kb_model = "",
-		kb_options = "",
-		kb_rules = "",
+    input = {
+        kb_layout = "fr",
+        kb_variant = "",
+        kb_model = "",
+        kb_options = "",
+        kb_rules = "",
 
-		numlock_by_default = true,
+        numlock_by_default = true,
 
-		follow_mouse = 1,
+        follow_mouse = 1,
 
-		sensitivity = 0,
+        sensitivity = 0,
 
-		touchpad = {
-			natural_scroll = false,
-			drag_lock = false,
-		},
-	},
+        touchpad = {
+            natural_scroll = false,
+            drag_lock = false,
+        },
+    },
 })
 
 hl.gesture({
-	fingers = 3,
-	direction = "horizontal",
-	action = "workspace",
+    fingers = 3,
+    direction = "horizontal",
+    action = "workspace",
 })
 
 hl.device({
-	name = "epic-mouse-v1",
-	sensitivity = -0.5,
+    name = "epic-mouse-v1",
+    sensitivity = -0.5,
 })
 
 ---------------------
@@ -252,11 +251,11 @@ hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(
-	mainMod .. " + V",
-	hl.dsp.exec_cmd("cliphist list | rofi -dmenu -display-columns 2 -p 'Clipboard' -l 10 | cliphist decode | wl-copy")
+    mainMod .. " + V",
+    hl.dsp.exec_cmd("cliphist list | rofi -dmenu -display-columns 2 -p 'Clipboard' -l 10 | cliphist decode | wl-copy")
 )
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(scripts .. "/hypr-powermenu.sh"))
-hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(scripts .. "/hypr-scolorscheme.sh"))
+hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(terminal .. " -e wallpaper-picker-rs"))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("blueman-manager"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("networkmanager_dmenu"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
@@ -269,10 +268,10 @@ hl.bind("ALT + code:50", hl.dsp.group.next())
 
 -- Screenshots
 hl.bind(
-	"PRINT",
-	hl.dsp.exec_cmd(
-		'grim - | satty -f - --output-filename "$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"'
-	)
+    "PRINT",
+    hl.dsp.exec_cmd(
+        'grim - | satty -f - --output-filename "$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"'
+    )
 )
 
 -- Navigation
@@ -285,9 +284,9 @@ hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 local workspace_keys = { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }
 
 for i = 1, 10 do
-	local keycode = workspace_keys[i]
-	hl.bind(mainMod .. " + code:" .. keycode, hl.dsp.focus({ workspace = i }))
-	hl.bind(mainMod .. " + SHIFT + code:" .. keycode, hl.dsp.window.move({ workspace = i }))
+    local keycode = workspace_keys[i]
+    hl.bind(mainMod .. " + code:" .. keycode, hl.dsp.focus({ workspace = i }))
+    hl.bind(mainMod .. " + SHIFT + code:" .. keycode, hl.dsp.window.move({ workspace = i }))
 end
 
 -- Special workspace (scratchpad)
@@ -311,9 +310,9 @@ hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURC
 -- Brightness
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set 5%+"), { locked = true, repeating = true })
 hl.bind(
-	"XF86MonBrightnessDown",
-	hl.dsp.exec_cmd("brightnessctl --min-value=75 set 5%-"),
-	{ locked = true, repeating = true }
+    "XF86MonBrightnessDown",
+    hl.dsp.exec_cmd("brightnessctl --min-value=75 set 5%-"),
+    { locked = true, repeating = true }
 )
 
 -- Playerctl
@@ -324,18 +323,18 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 
 -- Zoom
 hl.bind(
-	mainMod .. " + KP_ADD",
-	hl.dsp.exec_cmd(
-		"hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')"
-	),
-	{ repeating = true }
+    mainMod .. " + KP_ADD",
+    hl.dsp.exec_cmd(
+        "hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')"
+    ),
+    { repeating = true }
 )
 hl.bind(
-	mainMod .. " + KP_SUBTRACT",
-	hl.dsp.exec_cmd(
-		"hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')"
-	),
-	{ repeating = true }
+    mainMod .. " + KP_SUBTRACT",
+    hl.dsp.exec_cmd(
+        "hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')"
+    ),
+    { repeating = true }
 )
 hl.bind(mainMod .. " + equal", hl.dsp.exec_cmd("hyprctl -q keyword cursor:zoom_factor 1"))
 
@@ -344,27 +343,27 @@ hl.bind(mainMod .. " + equal", hl.dsp.exec_cmd("hyprctl -q keyword cursor:zoom_f
 --------------------------------
 
 local suppressMaximizeRule = hl.window_rule({
-	-- Ignore maximize requests from all apps. You'll probably like this
-	name = "suppress-maximize-events",
-	match = { class = ".*" },
+    -- Ignore maximize requests from all apps. You'll probably like this
+    name = "suppress-maximize-events",
+    match = { class = ".*" },
 
-	suppress_event = "maximize",
+    suppress_event = "maximize",
 })
 suppressMaximizeRule:set_enabled(false)
 
 hl.window_rule({
-	-- Fix some dragging issues with XWayland
-	name = "fix-xwayland-drags",
-	match = {
-		class = "^$",
-		title = "^$",
-		xwayland = true,
-		float = true,
-		fullscreen = false,
-		pin = false,
-	},
+    -- Fix some dragging issues with XWayland
+    name = "fix-xwayland-drags",
+    match = {
+        class = "^$",
+        title = "^$",
+        xwayland = true,
+        float = true,
+        fullscreen = false,
+        pin = false,
+    },
 
-	no_focus = true,
+    no_focus = true,
 })
 
 -- Layer rules also return a handle
@@ -377,92 +376,92 @@ hl.window_rule({
 
 -- Enable blur and ignore_alpha for rofi
 hl.layer_rule({
-	match = { namespace = "rofi" },
-	blur = true,
-	ignore_alpha = 0.5,
+    match = { namespace = "rofi" },
+    blur = true,
+    ignore_alpha = 0.5,
 })
 
 -- Hyprland-run windowrule
 hl.window_rule({
-	name = "move-hyprland-run",
-	match = { class = "hyprland-run" },
+    name = "move-hyprland-run",
+    match = { class = "hyprland-run" },
 
-	move = "20 monitor_h-120",
-	float = true,
+    move = "20 monitor_h-120",
+    float = true,
 })
 
 -- Workspace assignments
 hl.window_rule({
-	name = "firefox-workspace",
-	match = { class = "^(?i).*(firefox).*" },
-	workspace = 2,
+    name = "firefox-workspace",
+    match = { class = "^(?i).*(firefox).*" },
+    workspace = 2,
 })
 
 hl.window_rule({
-	name = "code-office-workspace",
-	match = { class = "^(?i).*(code|zed|office).*" },
-	workspace = 3,
+    name = "code-office-workspace",
+    match = { class = "^(?i).*(code|zed|office).*" },
+    workspace = 3,
 })
 
 hl.window_rule({
-	name = "creative-apps-workspace",
-	match = { class = "^(?i).*(gimp|inkscape|kdenlive|audacity|mixxx|rhythmbox|strawberry).*" },
-	workspace = 4,
+    name = "creative-apps-workspace",
+    match = { class = "^(?i).*(gimp|inkscape|kdenlive|audacity|mixxx|rhythmbox|strawberry).*" },
+    workspace = 4,
 })
 
 -- Floating windows
 hl.window_rule({
-	name = "xfce-terminal-float",
-	match = { class = "^(xfce4-terminal)$" },
-	float = true,
+    name = "xfce-terminal-float",
+    match = { class = "^(xfce4-terminal)$" },
+    float = true,
 })
 
 hl.window_rule({
-	name = "media-viewers-float",
-	match = { class = "^(viewnior|mpv)$" },
-	float = true,
+    name = "media-viewers-float",
+    match = { class = "^(viewnior|mpv)$" },
+    float = true,
 })
 
 hl.window_rule({
-	name = "xdman-float",
-	match = { class = "^(?i).*(xdman).*" },
-	float = true,
+    name = "xdman-float",
+    match = { class = "^(?i).*(xdman).*" },
+    float = true,
 })
 
 hl.window_rule({
-	name = "zathura-float",
-	match = { class = "^(?i).*(zathura).*" },
-	float = true,
+    name = "zathura-float",
+    match = { class = "^(?i).*(zathura).*" },
+    float = true,
 })
 
 hl.window_rule({
-	name = "xarchiver-float",
-	match = { class = "^(?i).*(xarchiver).*" },
-	float = true,
+    name = "xarchiver-float",
+    match = { class = "^(?i).*(xarchiver).*" },
+    float = true,
 })
 
 hl.window_rule({
-	name = "blueman-float",
-	match = { class = "^(?i).*(blueman).*" },
-	float = true,
+    name = "blueman-float",
+    match = { class = "^(?i).*(blueman).*" },
+    float = true,
 })
 
 hl.window_rule({
-	name = "dialog-float",
-	match = { title = "^(?i).*(ration|confirm|ren).*" },
-	float = true,
+    name = "dialog-float",
+    match = { title = "^(?i).*(ration|confirm|ren).*" },
+    float = true,
 })
 
 -- Size constraints
 hl.window_rule({
-	name = "viewnior-minsize",
-	match = { class = "^(viewnior)$" },
-	min_size = { 720, 460 },
+    name = "viewnior-minsize",
+    match = { class = "^(viewnior)$" },
+    min_size = { 720, 460 },
 })
 
 -- Rofi stay focused
 hl.window_rule({
-	name = "rofi-stayfocused",
-	match = { class = "^(Rofi)$" },
-	stay_focused = true,
+    name = "rofi-stayfocused",
+    match = { class = "^(Rofi)$" },
+    stay_focused = true,
 })
