@@ -5,3 +5,12 @@
 home/.config/Kvantum/matugen
 home/.config/gtk-3.0/colors.css
 home/.config/gtk-4.0/colors.css
+home/.config/hypr/colors.lua
+home/.config/hypr/colors.conf
+home/.config/kitty/themes
+home/.config/kitty/current-theme.conf
+home/.config/kitty/kitty.conf.bak
+home/.config/nvim/generated.lua
+home/.config/rofi/themes/colors.rasi
+home/.config/waybar/colors.css
+home/.config/zathura/zathurarc
