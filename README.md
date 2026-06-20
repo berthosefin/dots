@@ -1,6 +1,6 @@
 # Hyprland Dotfiles
 
-![250809-091208](https://raw.githubusercontent.com/berthosefin/dots/main/previews/2025-08-09-091208_hyprshot.png)
+![260620-182930](https://raw.githubusercontent.com/berthosefin/dots/main/previews/2026-06-20_18-29-30.png)
 
 Personal dotfiles for a customized [Hyprland](https://github.com/hyprwm/Hyprland) setup, focused on simplicity, aesthetics, and efficiency.
 
