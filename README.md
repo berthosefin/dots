@@ -27,10 +27,13 @@ Make sure you have the following packages installed:
 - `pamixer` (volume control)
 - `brightnessctl` (brightness control)
 - `playerctl` (media control)
-- `wpctl` (pipewire audio)
+- `wireplumber` (pipewire session manager)
 - `matugen` (dynamic colors)
+- `jq` (JSON processor, for zoom bindings)
+- `xdg-user-dirs` (screenshot path)
 - `nvim` (optional)
-- `yazi` (optional, file manager)
+- `pavucontrol` (optional, volume mixer GUI)
+- `yazi` (optional, file manager) + `ffmpeg` `7zip` `jq` `poppler` `fd` `ripgrep` `fzf` `zoxide` `resvg` `imagemagick`
 - `pywalfox` (optional, Firefox theming)
 - `stow` (dotfiles manager)
 - `papirus-icon-theme`
@@ -39,7 +42,7 @@ Make sure you have the following packages installed:
 ### 📦 Install dependencies on Arch (with `yay`)
 
 ```bash
-yay -S hyprland kitty rofi dunst awww hypridle hyprlock satty xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen stow nvim papirus-icon-theme wallpaper-picker-rs cliphist
+yay -S hyprland kitty rofi dunst awww hypridle hyprlock satty xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen jq xdg-user-dirs stow nvim papirus-icon-theme wallpaper-picker-rs cliphist pavucontrol yazi ffmpeg 7zip poppler fd ripgrep fzf zoxide resvg imagemagick
 ```
 
 ---
@@ -49,7 +52,7 @@ yay -S hyprland kitty rofi dunst awww hypridle hyprlock satty xfce4-terminal thu
 1. Clone this repo into your dotfiles directory:
 
 ```bash
-git clone--depth=1 https://github.com/berthosefin/dots.git
+git clone --depth=1 https://github.com/berthosefin/dots.git
 cd dots
 ```
 
@@ -72,7 +75,7 @@ Colors are dynamically generated from your wallpaper using **matugen** (HCT/CAM1
 matugen image /path/to/wallpaper.jpg
 ```
 
-This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3/4, xfce4-terminal, Neovim, Kvantum, Zathura, BTOP, OpenCode, Yazi, Firefox (via pywalfox), and Papirus-folders.
+This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3/4, xfce4-terminal, Neovim, Kvantum, Zathura, BTOP, OpenCode, VSCode, Zed, Tmux, Yazi, Firefox (via pywalfox), and Papirus-folders.
 
 ### Icons
 
