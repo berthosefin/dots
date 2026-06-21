@@ -22,13 +22,17 @@ code = [
 web = [
 	{ run = "firefox %s", orphan = true },
 ]
+wallpaper = [
+  { run = "matugen image %s", block = true, desc = "Set as wallpaper" },
+]
 open = [
 	{ run = "xdg-open %s1", desc = "Open" },
 ]
 
+
 [open]
 rules = [
-	{ mime = "image/*",       use = "image" },
+	{ mime = "image/*",       use = [ "image", "wallpaper" ]  },
 	{ mime = "video/*",       use = "video" },
 	{ mime = "audio/*",       use = "audio" },
 	{ mime = "application/pdf", use = "pdf" },
