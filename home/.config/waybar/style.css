@@ -1,119 +1,96 @@
 @import "colors.css";
 
-/* ── Reset ──────────────────────────────────────────────── */
 * {
-    border: none;
-    border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font";
-    font-size: 10px;
-    padding: 0;
-    margin: 0;
-    min-height: 0;
-    transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        border-color 0.2s ease;
+  border: none;
+  border-radius: 0;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 10px;
+  padding: 0;
+  margin: 0;
+  min-height: 0;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
-/* ── Bar ────────────────────────────────────────────────── */
 window#waybar {
-    background: @surface;
-    color: @on_surface;
-    border: 1px solid @primary;
-    border-radius: 8px;
-    padding: 0 4px;
+  background: @surface;
+  color: @on_surface;
+  border: 1.5px solid @primary;
+  border-radius: 8px;
+  padding: 0 4px;
 }
 
-/* No inner box backgrounds — single floating bar */
 .modules-left,
 .modules-center,
 .modules-right {
-    background: transparent;
-    border: none;
-    border-radius: 0;
-    margin: 0;
-    padding: 0;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
 
-/* ── Tooltip ────────────────────────────────────────────── */
 tooltip {
-    background: @surface;
-    color: @on_surface;
-    border: 1px solid @primary;
-    border-radius: 8px;
+  background: @surface_container;
+  color: @on_surface;
+  border: 1px solid @outline_variant;
+  border-radius: 8px;
 }
-
 tooltip label {
-    margin: 8px 12px;
+  margin: 8px 12px;
 }
 
-/* ══════════════════════════════════════════════════════════
-   LEFT SECTION
-══════════════════════════════════════════════════════════ */
-
-/* ── Launcher ───────────────────────────────────────────── */
+/* ── Launcher ────────────────────────────────────── */
 #custom-launcher {
-    background: @primary;
-    color: @surface;
-    border-radius: 6px;
-    padding: 2px 14px;
-    margin: 4px;
-    font-weight: bold;
-    font-size: 12px;
-    letter-spacing: 1px;
+  background: linear-gradient(135deg, @primary, @tertiary);
+  color: @surface;
+  border-radius: 6px;
+  padding: 2px 14px;
+  margin: 4px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
 }
-
 #custom-launcher:hover {
-    background: @secondary;
-    color: @surface;
+  background: linear-gradient(135deg, @tertiary, @primary);
+  color: @surface;
 }
 
-/* ── Workspaces ─────────────────────────────────────────── */
+/* ── Workspaces ──────────────────────────────────── */
 #workspaces {
-    margin: 0 2px;
+  margin: 0 2px;
 }
-
 #workspaces button {
-    padding: 2px 8px;
-    margin: 3px 1px;
-    background: transparent;
-    color: @outline;
-    border-radius: 6px;
-    border-bottom: 2px solid transparent;
+  padding: 2px 7px;
+  margin: 4px 1px;
+  background: transparent;
+  color: @outline;
+  border-radius: 6px;
+  border: 1px solid transparent;
 }
-
 #workspaces button.active {
-    color: @primary;
-    border-bottom: 2px solid @primary;
-    background: transparent;
+  color: @primary;
+  border-color: @primary;
+  background: @primary_container;
 }
-
 #workspaces button.urgent {
-    color: @error;
-    border-bottom: 2px solid @error;
+  color: @error;
+  border-color: @error;
 }
-
 #workspaces button:hover {
-    color: @on_surface;
-    background: @surface_container;
-    border-bottom: 2px solid @outline;
+  color: @on_surface;
+  background: @surface_container;
+  border-color: @outline_variant;
 }
 
-/* ══════════════════════════════════════════════════════════
-   CENTER SECTION
-   ══════════════════════════════════════════════════════════ */
-
+/* ── Window ──────────────────────────────────────── */
 #window {
-    color: @on_surface_variant;
-    font-style: italic;
-    padding: 0 8px;
-    letter-spacing: 0.5px;
+  color: @outline;
+  font-style: italic;
+  padding: 0 10px;
+  letter-spacing: 0.3px;
 }
 
-/* ══════════════════════════════════════════════════════════
-   RIGHT SECTION — shared pill base
-══════════════════════════════════════════════════════════ */
-
+/* ── Shared pill — right modules ─────────────────── */
 #tray,
 #pulseaudio,
 #backlight,
@@ -122,158 +99,136 @@ tooltip label {
 #memory,
 #battery,
 #clock {
-    padding: 2px 10px;
-    margin: 4px 1px;
-    border-radius: 6px;
-    background: transparent;
-    color: @on_surface;
-    border-left: 2px solid transparent;
+  padding: 2px 10px;
+  margin: 4px 1px;
+  border-radius: 8px;
+  background: @surface_container_low;
+  color: @on_surface;
+  border: 1px solid @outline_variant;
 }
 
-/* ── Separator accent via left border ───────────────────── */
+/* ── Clock (accent bleu/primary) ─────────────────── */
 #clock {
-    border-left-color: @primary;
-    color: @primary;
-    font-weight: bold;
-    margin-right: 2px;
+  color: @primary;
+  background: @primary_container;
+  border-color: @primary;
+  font-weight: bold;
+  margin-right: 2px;
 }
-#network {
-    border-left-color: @tertiary;
-    color: @tertiary;
-}
-#pulseaudio {
-    border-left-color: @secondary;
-    color: @secondary;
-}
-#backlight {
-    border-left-color: @tertiary;
-    color: @tertiary;
-}
-#battery {
-    border-left-color: @tertiary;
-    color: @tertiary;
-}
-#cpu {
-    border-left-color: @secondary;
-    color: @secondary;
-}
-#memory {
-    border-left-color: @secondary;
-    color: @secondary;
-}
-#tray {
-    border-left: none;
-    padding: 2px 6px;
+#clock:hover {
+  background: @primary;
+  color: @surface;
 }
 
-/* ── Hover states ───────────────────────────────────────── */
-#clock:hover {
-    background: @primary;
-    color: @surface;
-    border-left-color: @primary;
+/* ── Réseau / batterie / backlight (tertiary = violet) */
+#network,
+#battery,
+#backlight {
+  color: @tertiary;
+  background: @tertiary_container;
+  border-color: @tertiary;
 }
-#network:hover {
-    background: @tertiary;
-    color: @surface;
-    border-left-color: @tertiary;
+#network:hover,
+#backlight:hover,
+#battery:hover {
+  background: @tertiary;
+  color: @surface;
 }
-#network.disconnected:hover {
-    background: @error;
-    color: @surface;
-    border-left-color: @error;
+
+/* ── Volume / CPU / mémoire (secondary = gris-bleu) ─ */
+#pulseaudio,
+#cpu,
+#memory {
+  color: @secondary;
+  background: @secondary_container;
+  border-color: @secondary;
 }
-#pulseaudio:hover {
-    background: @secondary;
-    color: @surface;
-    border-left-color: @secondary;
+#pulseaudio:hover,
+#cpu:hover,
+#memory:hover {
+  background: @secondary;
+  color: @surface;
+}
+
+/* ── Tray ────────────────────────────────────────── */
+#tray {
+  background: transparent;
+  border: none;
+  padding: 2px 6px;
+}
+
+/* ── États spéciaux ──────────────────────────────── */
+#pulseaudio.muted {
+  color: @error;
+  border-color: @error;
+  background: @surface_container_low;
 }
 #pulseaudio.muted:hover {
-    background: @error;
-    color: @surface;
-    border-left-color: @error;
-}
-#pulseaudio.bluetooth:hover {
-    background: @primary;
-    color: @surface;
-    border-left-color: @primary;
-}
-#backlight:hover {
-    background: @tertiary;
-    color: @surface;
-    border-left-color: @tertiary;
-}
-#battery:hover,
-#battery.warning:not(.charging):hover,
-#battery.critical:not(.charging):hover,
-#battery.charging:hover {
-    background: @tertiary;
-    color: @surface;
-    border-left-color: @tertiary;
-}
-#cpu:hover {
-    background: @secondary;
-    color: @surface;
-    border-left-color: @secondary;
-}
-#memory:hover {
-    background: @secondary;
-    color: @surface;
-    border-left-color: @secondary;
-}
-
-/* ── Module states ──────────────────────────────────────── */
-#pulseaudio.muted {
-    color: @error;
-    border-left-color: @error;
+  background: @error;
+  color: @surface;
 }
 #pulseaudio.bluetooth {
-    color: @tertiary;
-    border-left-color: @tertiary;
+  color: @primary;
+  border-color: @primary;
+  background: @primary_container;
 }
+
 #network.disconnected {
-    color: @error;
-    border-left-color: @error;
+  color: @error;
+  border-color: @error;
+  background: @surface_container_low;
+}
+#network.disconnected:hover {
+  background: @error;
+  color: @surface;
 }
 
 #battery.warning:not(.charging) {
-    color: @tertiary;
-    border-left-color: @tertiary;
+  color: @tertiary;
+  border-color: @tertiary;
 }
 #battery.critical:not(.charging) {
-    color: @error;
-    border-left-color: @error;
-    animation: blink 0.8s steps(1) infinite;
+  color: @error;
+  border-color: @error;
+  background: @surface_container_low;
+  animation: blink 0.8s steps(1) infinite;
 }
 #battery.charging {
-    color: @secondary;
-    border-left-color: @secondary;
+  color: @secondary;
+  border-color: @secondary;
+  background: @secondary_container;
 }
 
 @keyframes blink {
-    50% {
-        color: @surface;
-    }
+  50% {
+    color: @surface;
+  }
 }
 
-/* ══════════════════════════════════════════════════════════
-   POWER GROUP
-══════════════════════════════════════════════════════════ */
+/* ── Séparateur visuel (divider) ─────────────────── */
+#custom-divider {
+  color: @outline_variant;
+  background: transparent;
+  border: none;
+  margin: 0;
+  padding: 0 2px;
+}
 
+/* ── Power group ─────────────────────────────────── */
 #custom-power,
 #custom-quit,
 #custom-lock,
 #custom-suspend,
 #custom-reboot {
-    padding: 2px 10px;
-    margin: 4px 1px;
-    border-radius: 6px;
-    background: transparent;
-    color: @outline;
-    border-left: 2px solid @outline;
+  padding: 2px 10px;
+  margin: 4px 1px;
+  border-radius: 6px;
+  background: transparent;
+  color: @outline;
+  border: 1px solid @outline_variant;
 }
-
 #custom-power {
-    margin-right: 4px;
+  margin-right: 4px;
 }
 
 #custom-power:hover,
@@ -281,7 +236,7 @@ tooltip label {
 #custom-lock:hover,
 #custom-suspend:hover,
 #custom-reboot:hover {
-    background: @error;
-    color: @surface;
-    border-left-color: @error;
+  background: @error;
+  color: @surface;
+  border-color: @error;
 }

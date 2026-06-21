@@ -2,7 +2,6 @@
   "layer": "top",
   "spacing": 0,
   "position": "top",
-  "height": 30,
   "margin-top": 3,
   "margin-bottom": 0,
   "margin-left": 5,
@@ -11,11 +10,15 @@
   "modules-center": ["hyprland/window"],
   "modules-right": [
     "tray",
+    "custom/divider",
     "pulseaudio",
     "backlight",
     "network",
+    "custom/divider",
     "group/hardware",
+    "custom/divider",
     "clock",
+    "custom/divider",
     "group/group-power",
   ],
   "hyprland/workspaces": {
@@ -138,6 +141,10 @@
     "format": "󰜉",
     "tooltip": false,
     "on-click": "~/.config/waybar/scripts/confirm-action.sh reboot",
+  },
+  "custom/divider": {
+    "format": "|",
+    "tooltip": false,
   },
   "group/hardware": {
     "orientation": "inherit",
