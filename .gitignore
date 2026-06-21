@@ -15,3 +15,5 @@ home/.config/rofi/themes/colors.rasi
 home/.config/waybar/colors.css
 home/.config/zathura/zathurarc
 home/.config/tmux/generated.conf
+home/.config/yazi/plugins
+home/.config/yazi/theme.toml

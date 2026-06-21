@@ -1,0 +1,40 @@
+[opener]
+image = [
+	{ run = "viewnior %s", orphan = true },
+]
+video = [
+	{ run = "mpv %s", orphan = true },
+]
+audio = [
+	{ run = "strawberry %s", orphan = true },
+]
+pdf = [
+	{ run = "zathura %s", orphan = true },
+]
+office = [
+	{ run = "libreoffice %s", orphan = true },
+]
+code = [
+	{ run = "nvim %s", block = true },
+	{ run = "zeditor %s", block = true },
+	{ run = "code %s", block = true },
+]
+web = [
+	{ run = "firefox %s", orphan = true },
+]
+open = [
+	{ run = "xdg-open %s1", desc = "Open" },
+]
+
+[open]
+rules = [
+	{ mime = "image/*",       use = "image" },
+	{ mime = "video/*",       use = "video" },
+	{ mime = "audio/*",       use = "audio" },
+	{ mime = "application/pdf", use = "pdf" },
+	{ mime = "application/vnd.openxmlformats-officedocument.*", use = "office" },
+	{ mime = "application/vnd.oasis.opendocument.*",           use = "office" },
+	{ mime = "application/msword",                             use = "office" },
+	{ mime = "text/html",     use = "web" },
+	{ mime = "text/*",        use = "code" },
+]
