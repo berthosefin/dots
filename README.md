@@ -30,6 +30,8 @@ Make sure you have the following packages installed:
 - `wpctl` (pipewire audio)
 - `matugen` (dynamic colors)
 - `nvim` (optional)
+- `yazi` (optional, file manager)
+- `pywalfox` (optional, Firefox theming)
 - `stow` (dotfiles manager)
 - `papirus-icon-theme`
 - `wallpaper-picker-rs`
@@ -70,7 +72,7 @@ Colors are dynamically generated from your wallpaper using **matugen** (HCT/CAM1
 matugen image /path/to/wallpaper.jpg
 ```
 
-This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3/4, xfce4-terminal, Neovim, Kvantum, Zathura, BTOP, OpenCode, and Papirus-folders.
+This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3/4, xfce4-terminal, Neovim, Kvantum, Zathura, BTOP, OpenCode, Yazi, Firefox (via pywalfox), and Papirus-folders.
 
 ### Icons
 
@@ -96,9 +98,8 @@ This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3
 | `SUPER + C`              | Wallpaper / color picker  |
 | `SUPER + F`              | Toggle fullscreen         |
 | `SUPER + G`              | Group/Ungroup windows     |
-| `Alt + Tab`              | Switch grouped window     |
-| `Print`                  | Screenshot (output)       |
-| `Ctrl + Print`           | Screenshot (region)       |
+| `Alt + >` / `Alt + <`    | Switch grouped window     |
+| `Print`                  | Screenshot                |
 | `SUPER + [1–10]`         | Switch workspace          |
 | `SUPER + Shift + [1–10]` | Move window to workspace  |
 | `SUPER + S`              | Toggle special workspace  |
