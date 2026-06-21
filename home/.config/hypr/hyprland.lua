@@ -9,15 +9,15 @@ local myColors = dofile(os.getenv("HOME") .. "/.config/hypr/colors.lua")
 
 hl.monitor({
 	output = "eDP-1",
-	mode = "1366x768@60",
-	position = "0x0",
+	mode = "preferred",
+	position = "auto",
 	scale = "1",
 })
 
 hl.monitor({
 	output = "HDMI-A-1",
-	mode = "1360x768@60",
-	position = "1366x0",
+	mode = "preferred",
+	position = "auto",
 	scale = "1",
 })
 
@@ -80,7 +80,7 @@ hl.config({
 		gaps_in = 2.5,
 		gaps_out = 5,
 
-		border_size = 1,
+		border_size = 2,
 
 		col = {
 			active_border = { colors = { myColors.primary, myColors.secondary }, angle = 45 },
@@ -249,15 +249,14 @@ hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_cmd("xfce4-terminal"))
 -- Basic
 hl.bind(mainMod .. " + SPACE", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(
 	mainMod .. " + V",
 	hl.dsp.exec_cmd("cliphist list | rofi -dmenu -display-columns 2 -p 'Clipboard' -l 10 | cliphist decode | wl-copy")
 )
+hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(scripts .. "/hypr-powermenu.sh"))
 hl.bind(mainMod .. " + C", hl.dsp.exec_cmd(terminal .. " -e wallpaper-picker-rs"))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("blueman-manager"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("networkmanager_dmenu"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
@@ -394,7 +393,7 @@ hl.window_rule({
 -- Workspace assignments
 hl.window_rule({
 	name = "firefox-workspace",
-	match = { class = "^(?i).*(firefox).*" },
+	match = { class = "^(?i).*(firefox|brave).*" },
 	workspace = 2,
 })
 
@@ -412,38 +411,20 @@ hl.window_rule({
 
 -- Floating windows
 hl.window_rule({
+	name = "media-viewers-float",
+	match = { class = "^(?i).*(viewnior|mpv|zathura|xarchiver).*" },
+	float = true,
+})
+
+hl.window_rule({
 	name = "xfce-terminal-float",
 	match = { class = "^(xfce4-terminal)$" },
 	float = true,
 })
 
 hl.window_rule({
-	name = "media-viewers-float",
-	match = { class = "^(viewnior|mpv)$" },
-	float = true,
-})
-
-hl.window_rule({
 	name = "xdman-float",
 	match = { class = "^(?i).*(xdman).*" },
-	float = true,
-})
-
-hl.window_rule({
-	name = "zathura-float",
-	match = { class = "^(?i).*(zathura).*" },
-	float = true,
-})
-
-hl.window_rule({
-	name = "xarchiver-float",
-	match = { class = "^(?i).*(xarchiver).*" },
-	float = true,
-})
-
-hl.window_rule({
-	name = "blueman-float",
-	match = { class = "^(?i).*(blueman).*" },
 	float = true,
 })
 
