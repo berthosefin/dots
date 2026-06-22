@@ -172,3 +172,7 @@ function y() {
 	[ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
 	command rm -f -- "$tmp"
 }
+
+
+# ----- TheFuck -----
+eval $(thefuck --alias)
