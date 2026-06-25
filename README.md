@@ -37,12 +37,11 @@ Make sure you have the following packages installed:
 - `pywalfox` (optional, Firefox theming)
 - `stow` (dotfiles manager)
 - `papirus-icon-theme`
-- `wallpaper-picker-rs`
 
 ### 📦 Install dependencies on Arch (with `yay`)
 
 ```bash
-yay -S hyprland kitty rofi dunst awww hypridle hyprlock satty xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen jq xdg-user-dirs stow nvim papirus-icon-theme wallpaper-picker-rs cliphist pavucontrol yazi ffmpeg 7zip poppler fd ripgrep fzf zoxide resvg imagemagick
+yay -S hyprland kitty rofi dunst awww hypridle hyprlock satty xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen jq xdg-user-dirs stow nvim papirus-icon-theme  cliphist pavucontrol yazi ffmpeg 7zip poppler fd ripgrep fzf zoxide resvg imagemagick
 ```
 
 ---
@@ -98,7 +97,6 @@ This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3
 | `SUPER + Q`              | Close active window       |
 | `SUPER + Shift + Q`      | Exit Hyprland             |
 | `SUPER + E`              | Powermenu                 |
-| `SUPER + C`              | Wallpaper / color picker  |
 | `SUPER + F`              | Toggle fullscreen         |
 | `SUPER + G`              | Group/Ungroup windows     |
 | `Alt + >` / `Alt + <`    | Switch grouped window     |
@@ -116,7 +114,9 @@ This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3
 
 - Keybindings are defined in `home/.config/hypr/hyprland.lua`.
 - To restrict Papirus-folders color changes to your user without a password prompt, add a sudoers rule:
+
   ```
   youruser ALL=(ALL) NOPASSWD: /usr/sbin/papirus-folders
   ```
+
   Make sure the filename sorts after any `ALL=(ALL) ALL` rule (e.g. `zz_papirus-folders`).
