@@ -58,6 +58,10 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("wl-paste --type image --watch cliphist store")
 end)
 
+hl.on("monitor.added", function()
+	hl.exec_cmd('awww img "$(awww query | awk -F"image: " "/eDP-1/{print $2}")"')
+end)
+
 -------------------------------
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
