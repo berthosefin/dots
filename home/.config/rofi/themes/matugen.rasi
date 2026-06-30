@@ -2,7 +2,7 @@
 
 configuration {
   modi: "drun,run,window,combi";
-  font: "0xProto 8";
+  font: "JetBrainsMono Nerd Font 8";
   show-icons: true;
   icon-theme: "Papirus-Dark";
   display-drun: "Apps";
