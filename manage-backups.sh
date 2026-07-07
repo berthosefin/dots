@@ -8,34 +8,34 @@ TARGET="$HOME"
 # Utility functions
 
 print_info() {
-    echo "[INFO] $1"
+  echo "[INFO] $1"
 }
 
 print_success() {
-    echo "[OK] $1"
+  echo "[OK] $1"
 }
 
 print_warning() {
-    echo "[WARN] $1"
+  echo "[WARN] $1"
 }
 
 print_error() {
-    echo "[ERROR] $1" >&2
+  echo "[ERROR] $1" >&2
 }
 
 ask_confirmation() {
-    local prompt="$1"
-    local response
+  local prompt="$1"
+  local response
 
-    while true; do
-        echo -n "$prompt [y/N] "
-        read -r response
-        case "$response" in
-            [yY]|[yY][eE][sS]) return 0 ;;
-            [nN]|[nN][oO]|"") return 1 ;;
-            *) print_error "Invalid response." ;;
-        esac
-    done
+  while true; do
+    echo -n "$prompt [y/N] "
+    read -r response
+    case "$response" in
+      [yY]|[yY][eE][sS]) return 0 ;;
+      [nN]|[nN][oO]|"") return 1 ;;
+      *) print_error "Invalid response." ;;
+    esac
+  done
 }
 
 # Main functions
