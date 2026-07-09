@@ -1,6 +1,6 @@
 return {
     -- add colorschemes
-    { "ellisonleao/gruvbox.nvim" },
+    { "folke/tokyonight.nvim" },
     {
         "RRethy/base16-nvim",
         init = function()
@@ -21,7 +21,7 @@ return {
     {
         "LazyVim/LazyVim",
         opts = {
-            colorscheme = "gruvbox",
+            colorscheme = "tokyonight",
         },
     },
 }
