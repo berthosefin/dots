@@ -71,7 +71,9 @@ hl.env("HYPRCURSOR_SIZE", "24")
 hl.env("GDK_BACKEND", "wayland,x11,*")
 hl.env("QT_QPA_PLATFORM", "wayland;xcb")
 hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
-hl.env("QT_AUTO_SCREEN_SCALE_FACTOR", "1")
+hl.env("QT_ENABLE_HIGHDPI_SCALING", "1")
+hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
+hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("TERMINAL", "kitty")
 
@@ -91,7 +93,7 @@ hl.config({
       inactive_border = myColors.outline,
     },
 
-    resize_on_border = false,
+    resize_on_border = true,
 
     allow_tearing = false,
 
@@ -316,8 +318,8 @@ hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 -- Scroll workspaces
-hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
+hl.bind(mainMod .. " + mouse:274", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + mouse:275", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Move/resize window
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
@@ -371,7 +373,7 @@ local suppressMaximizeRule = hl.window_rule({
 
   suppress_event = "maximize",
 })
-suppressMaximizeRule:set_enabled(false)
+-- suppressMaximizeRule:set_enabled(false)
 
 hl.window_rule({
   -- Fix some dragging issues with XWayland
