@@ -247,30 +247,34 @@ local mainMod = "SUPER"
 local secondMod = "ALT"
 
 -- System
-hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exit())
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd(browser))
-hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_cmd("xfce4-terminal"))
+hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd(scripts .. "/hypr-powermenu.sh"))
+hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprctl reload"))
 hl.bind(secondMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 
--- Basic
-hl.bind(mainMod .. " + SPACE", hl.dsp.window.float({ action = "toggle" }))
+-- Applications
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_cmd("xfce4-terminal"))
+hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("rofi -show run"))
+hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
+hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("networkmanager_dmenu"))
 hl.bind(
   mainMod .. " + V",
   hl.dsp.exec_cmd("cliphist list | rofi -dmenu -display-columns 2 -p 'Clipboard' -l 10 | cliphist decode | wl-copy")
 )
+
+-- Window management
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
-hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(scripts .. "/hypr-powermenu.sh"))
-hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("networkmanager_dmenu"))
+hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
+hl.bind(mainMod .. " + SPACE", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"))
-hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
-hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
 
-hl.bind(secondMod .. " + left", hl.dsp.group.prev())
-hl.bind(secondMod .. " + right", hl.dsp.group.next())
+-- Groups
+hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
+hl.bind(secondMod .. " + less", hl.dsp.group.prev())
+hl.bind(secondMod .. " + greater", hl.dsp.group.next())
 
 -- Screenshots
 hl.bind(
@@ -280,25 +284,25 @@ hl.bind(
   )
 )
 
--- Navigation
+-- Focus (arrows)
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
 
--- Window movement
-hl.bind(mainMod .. " + SHIFT + left", hl.dsp.window.move({ direction = "left" }))
-hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
-hl.bind(mainMod .. " + SHIFT + up", hl.dsp.window.move({ direction = "up" }))
-hl.bind(mainMod .. " + SHIFT + down", hl.dsp.window.move({ direction = "down" }))
-
--- Vim-like navigation
+-- Focus (vim-like)
 hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
 hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
 
--- Vim-like window movement
+-- Move window (arrows)
+hl.bind(mainMod .. " + SHIFT + left", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mainMod .. " + SHIFT + up", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + down", hl.dsp.window.move({ direction = "down" }))
+
+-- Move window (vim-like)
 hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.move({ direction = "left" }))
 hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
 hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
@@ -313,17 +317,15 @@ for i = 1, 10 do
   hl.bind(mainMod .. " + SHIFT + code:" .. keycode, hl.dsp.window.move({ workspace = i }))
 end
 
--- Special workspace (scratchpad)
+-- Scratchpad
 hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
--- Scroll workspaces
-hl.bind(mainMod .. " + mouse:274", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse:275", hl.dsp.focus({ workspace = "e-1" }))
-
--- Move/resize window
+-- Mouse
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind(mainMod .. " + mouse:274", hl.dsp.focus({ workspace = "e+1" }))
+hl.bind(mainMod .. " + mouse:275", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Media
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pamixer -i 5"), { locked = true, repeating = true })
