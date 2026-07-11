@@ -242,6 +242,7 @@ hl.device({
 ---------------------
 
 local mainMod = "SUPER"
+local secondMod = "ALT"
 
 -- System
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exit())
@@ -262,12 +263,12 @@ hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(scripts .. "/hypr-powermenu.sh"))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("networkmanager_dmenu"))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
+hl.bind(mainMod .. " + T", hl.dsp.layout("togglesplit"))
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen())
 hl.bind(mainMod .. " + G", hl.dsp.group.toggle())
 
-hl.bind("ALT + code:94", hl.dsp.group.prev())
-hl.bind("ALT + code:50", hl.dsp.group.next())
+hl.bind(secondMod .. " + h", hl.dsp.group.prev())
+hl.bind(secondMod .. " + l", hl.dsp.group.next())
 
 -- Screenshots
 hl.bind(
@@ -282,6 +283,24 @@ hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
 hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "up" }))
 hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "down" }))
+
+-- Vim-like focus navigation
+hl.bind(mainMod .. " + h", hl.dsp.focus({ direction = "left" }))
+hl.bind(mainMod .. " + j", hl.dsp.focus({ direction = "down" }))
+hl.bind(mainMod .. " + k", hl.dsp.focus({ direction = "up" }))
+hl.bind(mainMod .. " + l", hl.dsp.focus({ direction = "right" }))
+
+-- Vim-like window movement
+hl.bind(mainMod .. " + SHIFT + h", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + j", hl.dsp.window.move({ direction = "down" }))
+hl.bind(mainMod .. " + SHIFT + k", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + l", hl.dsp.window.move({ direction = "right" }))
+
+-- Arrow keys window movement
+hl.bind(mainMod .. " + SHIFT + left", hl.dsp.window.move({ direction = "left" }))
+hl.bind(mainMod .. " + SHIFT + right", hl.dsp.window.move({ direction = "right" }))
+hl.bind(mainMod .. " + SHIFT + up", hl.dsp.window.move({ direction = "up" }))
+hl.bind(mainMod .. " + SHIFT + down", hl.dsp.window.move({ direction = "down" }))
 
 -- Workspaces (uses keycodes for FR keyboard)
 local workspace_keys = { 10, 11, 12, 13, 14, 15, 16, 17, 18, 19 }
