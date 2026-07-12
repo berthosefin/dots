@@ -419,7 +419,7 @@ hl.window_rule({
 
 -- Workspace assignments
 hl.window_rule({
-  name = "firefox-workspace",
+  name = "browser-workspace",
   match = { class = "^(?i).*(firefox|brave).*" },
   workspace = 2,
 })
@@ -432,7 +432,7 @@ hl.window_rule({
 
 hl.window_rule({
   name = "creative-apps-workspace",
-  match = { class = "^(?i).*(gimp|inkscape|kdenlive|audacity|mixxx|rhythmbox|strawberry).*" },
+  match = { class = "^(?i).*(gimp|inkscape|kdenlive|audacity|mixxx|rhythmbox|strawberry|obs).*" },
   workspace = 4,
 })
 
