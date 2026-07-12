@@ -248,7 +248,7 @@ local secondMod = "ALT"
 
 -- System
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exec_cmd(scripts .. "/hypr-powermenu.sh"))
-hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprctl reload"))
+hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd("hyprctl reload && pkill -SIGUSR2 waybar"))
 hl.bind(secondMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 
 -- Applications
