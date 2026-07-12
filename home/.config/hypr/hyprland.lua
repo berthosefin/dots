@@ -11,14 +11,14 @@ hl.monitor({
   output = "eDP-1",
   mode = "preferred",
   position = "auto",
-  scale = "1",
+  scale = "auto",
 })
 
 hl.monitor({
   output = "HDMI-A-1",
   mode = "preferred",
   position = "auto",
-  scale = "1",
+  scale = "auto",
 })
 
 -- Configuring workspaces per monitor
@@ -39,8 +39,8 @@ hl.workspace_rule({ workspace = "10", monitor = "eDP-1" })
 
 local terminal = "kitty"
 local fileManager = "thunar"
-local browser = "firefox"
 local menu = "rofi -show drun"
+local browser = "firefox"
 local scripts = os.getenv("HOME") .. "/.config/hypr/scripts"
 
 -------------------
@@ -48,14 +48,14 @@ local scripts = os.getenv("HOME") .. "/.config/hypr/scripts"
 -------------------
 
 hl.on("hyprland.start", function()
+  hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
   hl.exec_cmd("dunst")
   hl.exec_cmd("waybar")
   hl.exec_cmd("awww-daemon")
   hl.exec_cmd("hypridle")
-  hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-  hl.exec_cmd(scripts .. "/hypr-timer.sh")
   hl.exec_cmd("wl-paste --type text --watch cliphist store")
   hl.exec_cmd("wl-paste --type image --watch cliphist store")
+  hl.exec_cmd(scripts .. "/hypr-timer.sh")
 end)
 
 hl.on("monitor.added", function()
@@ -79,13 +79,26 @@ hl.env("QT_WAYLAND_DISABLE_WINDOWDECORATION", "1")
 hl.env("TERMINAL", "kitty")
 
 -----------------------
+----- PERMISSIONS -----
+-----------------------
+
+hl.config({
+  ecosystem = {
+    enforce_permissions = true,
+  },
+})
+
+hl.permission({ binary = "/usr/bin/grim", type = "screencopy", mode = "allow" })
+hl.permission({ binary = "/usr/(lib|libexec|lib64)/xdg-desktop-portal-hyprland", type = "screencopy", mode = "allow" })
+
+-----------------------
 ---- LOOK AND FEEL ----
 -----------------------
 
 hl.config({
   general = {
-    gaps_in = 2.5,
-    gaps_out = 5,
+    gaps_in = 1,
+    gaps_out = 4,
 
     border_size = 2,
 
@@ -174,16 +187,26 @@ hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "al
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
 
+-- "Smart gaps" / "No gaps when only"
+hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
+hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
+hl.window_rule({
+  name = "no-gaps-wtv1",
+  match = { float = false, workspace = "w[tv1]" },
+  border_size = 0,
+  rounding = 0,
+})
+hl.window_rule({
+  name = "no-gaps-f1",
+  match = { float = false, workspace = "f[1]" },
+  border_size = 0,
+  rounding = 0,
+})
+
 -- Layout
 hl.config({
   dwindle = {
     preserve_split = true,
-  },
-})
-
-hl.config({
-  master = {
-    new_status = "master",
   },
 })
 
@@ -227,11 +250,6 @@ hl.gesture({
   fingers = 3,
   direction = "horizontal",
   action = "workspace",
-})
-
-hl.device({
-  name = "epic-mouse-v1",
-  sensitivity = -0.5,
 })
 
 ---------------------
@@ -370,7 +388,7 @@ local suppressMaximizeRule = hl.window_rule({
 
   suppress_event = "maximize",
 })
--- suppressMaximizeRule:set_enabled(false)
+suppressMaximizeRule:set_enabled(true)
 
 hl.window_rule({
   -- Fix some dragging issues with XWayland
