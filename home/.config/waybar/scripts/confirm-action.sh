@@ -23,7 +23,7 @@ case "$action" in
         ;;
 esac
 
-confirm=$(echo -e "No\nYes" | rofi -dmenu -p "$message" -l 2)
+confirm=$(echo -e "No\nYes" | rofi -dmenu -p "$message" -l 2 -i -fuzzy)
 
 if [[ "$confirm" == "Yes" ]]; then
     $command
