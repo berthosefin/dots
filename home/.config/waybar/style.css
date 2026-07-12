@@ -86,9 +86,8 @@ tooltip label {
 #window {
   color: @outline;
   font-style: italic;
-  padding: 0 10px;
-  letter-spacing: 0.3px;
   padding: 2px 10px;
+  letter-spacing: 0.3px;
   margin: 4px 1px;
   border-radius: 4px;
   border: 1px solid @outline_variant;
@@ -188,8 +187,9 @@ tooltip label {
 }
 
 #battery.warning:not(.charging) {
-  color: @tertiary;
+  color: @on_tertiary_container;
   border-color: @tertiary;
+  background: @tertiary_container;
 }
 #battery.critical:not(.charging) {
   color: @error;

@@ -6,25 +6,25 @@ command=""
 
 case "$action" in
     poweroff)
-        message="Éteindre l'ordinateur ?"
+        message="Shut down?"
         command="systemctl poweroff"
         ;;
     reboot)
-        message="Redémarrer l'ordinateur ?"
+        message="Reboot?"
         command="systemctl reboot"
         ;;
     quit)
-        message="Quitter Hyprland ?"
-        command="hyprctl dispatch exit"
+        message="Quit Hyprland?"
+        command="hyprctl dispatch 'hl.dsp.exit()'"
         ;;
     *)
-        notify-send "Action non supportée" "$action"
+        notify-send "Unsupported action" "$action"
         exit 1
         ;;
 esac
 
-confirm=$(echo -e "Non\nOui" | rofi -dmenu -p "$message" -l 2)
+confirm=$(echo -e "No\nYes" | rofi -dmenu -p "$message" -l 2)
 
-if [[ "$confirm" == "Oui" ]]; then
+if [[ "$confirm" == "Yes" ]]; then
     $command
 fi
