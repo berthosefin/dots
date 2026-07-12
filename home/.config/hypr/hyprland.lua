@@ -120,7 +120,7 @@ hl.config({
   },
 
   decoration = {
-    rounding = 5,
+    rounding = 4,
     rounding_power = 2,
 
     active_opacity = 0.8,

@@ -2,11 +2,16 @@
   "layer": "top",
   "spacing": 0,
   "position": "top",
-  "margin-top": 3,
+  "margin-top": 0,
   "margin-bottom": 0,
-  "margin-left": 5,
-  "margin-right": 5,
-  "modules-left": ["custom/launcher", "hyprland/workspaces"],
+  "margin-left": 0,
+  "margin-right": 0,
+  "modules-left": [
+    "custom/launcher",
+    "custom/divider",
+    "clock",
+    "hyprland/workspaces",
+  ],
   "modules-center": ["hyprland/window"],
   "modules-right": [
     "tray",
@@ -17,8 +22,6 @@
     "custom/divider",
     "group/hardware",
     "custom/divider",
-    "clock",
-    "custom/divider",
     "group/group-power",
   ],
   "hyprland/workspaces": {
@@ -27,16 +30,18 @@
   },
   "hyprland/window": {
     "format": "{}",
-    "max-length": 35,
+    "max-length": 50,
     "rewrite": {
       "(.*) — Mozilla Firefox": "🌎 $1",
+      "^$": "THOS",
     },
     "separate-outputs": true,
     "tooltip": false,
+    "expand": true,
   },
   "clock": {
     "format": " {:%H:%M}",
-    "format-alt": " {:%d %b, %Y}",
+    "format-alt": " {:%d %b, %Y}",
     "tooltip-format": "{calendar}",
     "calendar": {
       "mode": "month",
@@ -74,7 +79,7 @@
   "backlight": {
     "device": "intel_backlight",
     "format": "{icon} {percent}%",
-    "format-icons": ["", ""],
+    "format-icons": ["󰃜", "󰃛", "󰃚"],
     "tooltip": false,
   },
   "network": {
@@ -108,12 +113,12 @@
       "warning": 30,
       "critical": 15,
     },
-    "format": "{icon}  {capacity}%",
-    "format-icons": ["", "", "", "", ""],
+    "format": "{icon} {capacity}%",
+    "format-icons": ["󰁻", "󰁽", "󰁿", "󰂁", "󰁹"],
     "max-length": 25,
   },
   "custom/launcher": {
-    "format": "Apps",
+    "format": "",
     "tooltip": false,
     "on-click": "rofi -show drun",
   },
