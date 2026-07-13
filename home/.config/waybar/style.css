@@ -14,7 +14,7 @@
 }
 
 window#waybar {
-  background: @surface;
+  background: alpha(@surface, 0.8);
   color: @on_surface;
   border: 1px solid @outline_variant;
   border-radius: 4px;

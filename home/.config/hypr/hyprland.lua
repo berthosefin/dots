@@ -422,6 +422,13 @@ hl.layer_rule({
   ignore_alpha = 0.5,
 })
 
+-- Enable blur and ignore_alpha for waybar
+hl.layer_rule({
+  match = { namespace = "waybar" },
+  blur = true,
+  ignore_alpha = 0.5,
+})
+
 -- Hyprland-run windowrule
 hl.window_rule({
   name = "move-hyprland-run",
