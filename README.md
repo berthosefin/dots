@@ -11,19 +11,25 @@ Personal dotfiles for a customized [Hyprland](https://github.com/hyprwm/Hyprland
 Make sure you have the following packages installed:
 
 - [Hyprland](https://wiki.hyprland.org/)
+- `uwsm` (session manager)
+- `waybar` (status bar)
 - `kitty` (terminal)
 - `rofi` (app launcher)
 - `dunst` (notifications)
 - `awww` (wallpaper manager)
 - `hypridle` (idle manager)
 - `hyprlock` (screen locker)
+- `hyprpolkitagent` (polkit authentication)
 - `satty` (screenshot tool)
 - `cliphist` (clipboard manager)
+- `rofimoji` (emoji picker)
+- `networkmanager_dmenu` (network manager)
 - `xfce4-terminal` (alternative terminal)
 - `thunar` (file manager)
 - `zathura` (pdf reader)
 - `viewnior` (image viewer)
 - `firefox` (web browser)
+- `brave` (web browser, optional)
 - `pamixer` (volume control)
 - `brightnessctl` (brightness control)
 - `playerctl` (media control)
@@ -41,7 +47,7 @@ Make sure you have the following packages installed:
 ### 📦 Install dependencies on Arch (with `yay`)
 
 ```bash
-yay -S hyprland kitty rofi dunst awww hypridle hyprlock satty xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen jq xdg-user-dirs stow nvim papirus-icon-theme  cliphist pavucontrol yazi ffmpeg 7zip poppler fd ripgrep fzf zoxide resvg imagemagick ttf-jetbrains-mono-nerd noto-fonts-cjk noto-fonts-emoji
+yay -S hyprland uwsm waybar kitty rofi dunst awww hypridle hyprlock hyprpolkitagent satty xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen jq xdg-user-dirs stow nvim papirus-icon-theme cliphist pavucontrol rofimoji networkmanager_dmenu yazi ffmpeg 7zip poppler fd ripgrep fzf zoxide resvg imagemagick ttf-jetbrains-mono-nerd noto-fonts-cjk noto-fonts-emoji
 ```
 
 ---
@@ -89,24 +95,53 @@ This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3
 
 ## ⌨️ Keybindings Overview
 
-| Keybinding               | Action                    |
-| ------------------------ | ------------------------- |
-| `SUPER + Return`         | Launch kitty              |
-| `SUPER + Shift + Return` | Launch xfce4-terminal     |
-| `SUPER + D`              | Launch Rofi               |
-| `SUPER + Q`              | Close active window       |
-| `SUPER + Shift + Q`      | Exit Hyprland             |
-| `SUPER + E`              | Powermenu                 |
-| `SUPER + F`              | Toggle fullscreen         |
-| `SUPER + G`              | Group/Ungroup windows     |
-| `Alt + >` / `Alt + <`    | Switch grouped window     |
-| `Print`                  | Screenshot                |
-| `SUPER + [1–10]`         | Switch workspace          |
-| `SUPER + Shift + [1–10]` | Move window to workspace  |
-| `SUPER + S`              | Toggle special workspace  |
-| `SUPER + Shift + S`      | Move to special workspace |
-| `SUPER + LMB / RMB`      | Move / Resize window      |
-| `XF86...`                | Multimedia shortcuts      |
+| Keybinding               | Action                        |
+| ------------------------ | ----------------------------- |
+| **System**               |                               |
+| `SUPER + Shift + Q`      | Powermenu (rofi)              |
+| `SUPER + Shift + C`      | Reload Hyprland + Waybar      |
+| `ALT + L`                | Lock screen                   |
+| **Applications**         |                               |
+| `SUPER + Return`         | Kitty (terminal)              |
+| `SUPER + Shift + Return` | xfce4-terminal                |
+| `SUPER + D`              | Rofi drun                     |
+| `SUPER + R`              | Rofi run                      |
+| `SUPER + E`              | File manager (Thunar)         |
+| `SUPER + W`              | Browser (Firefox)             |
+| `SUPER + N`              | Network manager               |
+| `SUPER + M`              | Emoji picker (rofimoji)       |
+| `SUPER + V`              | Clipboard (cliphist)          |
+| **Window management**    |                               |
+| `SUPER + Q`              | Close window                  |
+| `SUPER + F`              | Toggle fullscreen             |
+| `SUPER + Space`          | Toggle float                  |
+| `SUPER + P`              | Pseudo (tiling)               |
+| `SUPER + T`              | Toggle split                  |
+| `SUPER + G`              | Group/Ungroup windows         |
+| `ALT + >` / `ALT + <`    | Switch grouped window         |
+| **Focus**                |                               |
+| `SUPER + H/J/K/L`        | Focus left/down/up/right      |
+| `SUPER + Arrows`         | Focus left/down/up/right      |
+| **Move**                 |                               |
+| `SUPER + Shift + H/J/K/L`| Move window left/down/up/right|
+| `SUPER + Shift + Arrows` | Move window left/down/up/right|
+| **Workspaces**           |                               |
+| `SUPER + [1–10]`         | Switch workspace              |
+| `SUPER + Shift + [1–10]` | Move window to workspace      |
+| `SUPER + S`              | Toggle special workspace      |
+| `SUPER + Shift + S`      | Move to special workspace     |
+| **Mouse**                |                               |
+| `SUPER + LMB`            | Drag window                   |
+| `SUPER + RMB`            | Resize window                 |
+| `SUPER + Scroll`         | Switch workspace              |
+| **Zoom**                 |                               |
+| `SUPER + KP_ADD`         | Zoom in                       |
+| `SUPER + KP_SUBTRACT`    | Zoom out                      |
+| `SUPER + =`              | Reset zoom                    |
+| **Media**                |                               |
+| `XF86Audio*`             | Volume up/down/mute           |
+| `XF86MonBrightness*`     | Brightness up/down            |
+| `XF86Audio{Next,Prev,Play}` | Playerctl controls         |
 
 ---
 
