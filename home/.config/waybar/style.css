@@ -203,6 +203,10 @@ tooltip label {
   border-color: @secondary;
   background: @secondary_container;
 }
+#battery.charging:hover {
+  background: @secondary;
+  color: @on_secondary;
+}
 
 @keyframes blink {
   50% {
