@@ -16,7 +16,8 @@
 window#waybar {
   background: @surface;
   color: @on_surface;
-  border-bottom: 1px solid @outline_variant;
+  border: 1px solid @outline_variant;
+  border-radius: 4px;
   padding: 0 4px;
 }
 
