@@ -88,8 +88,8 @@ input_path = "~/.config/matugen/templates/kvantum-colors.svg"
 output_path = "~/.config/Kvantum/matugen/matugen.svg"
 
 [templates.neovim]
-input_path = "~/.config/matugen/templates/neovim/template.lua"
-output_path = "~/.config/nvim/generated.lua"
+input_path = "~/.config/matugen/templates/nvim-colors.json"
+output_path = "~/.config/nvim/generated.json"
 post_hook = "/usr/sbin/pkill -SIGUSR1 nvim || true"
 
 [templates.opencode]

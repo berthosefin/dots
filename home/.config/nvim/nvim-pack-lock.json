@@ -1,0 +1,64 @@
+{
+  "plugins": {
+    "blink.cmp": {
+      "rev": "db8ea0b7c7ab8c8f8faa3912833c1671381e6304",
+      "src": "https://github.com/saghen/blink.cmp",
+      "version": "'main'"
+    },
+    "blink.lib": {
+      "rev": "5876dd95deeb70aadbe9f1c0b7117a135061cdac",
+      "src": "https://github.com/saghen/blink.lib",
+      "version": "'main'"
+    },
+    "conform.nvim": {
+      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
+      "src": "https://github.com/stevearc/conform.nvim",
+      "version": "'master'"
+    },
+    "difftool.nvim": {
+      "rev": "e7e973d667d1595188f034ecca97d4d3d16cbdb1",
+      "src": "https://github.com/deathbeam/difftool.nvim",
+      "version": "'main'"
+    },
+    "lazygit.nvim": {
+      "rev": "a04ad0dbc725134edbee3a5eea29290976695357",
+      "src": "https://github.com/kdheepak/lazygit.nvim",
+      "version": "'main'"
+    },
+    "matugen.nvim": {
+      "rev": "835a2f4c7b32e5e0fa57f3595a04a638ff74d8bc",
+      "src": "https://github.com/daedlock/matugen.nvim",
+      "version": "'main'"
+    },
+    "mini.files": {
+      "rev": "d08e8da87be8bf07d09245294821706afcca31cd",
+      "src": "https://github.com/echasnovski/mini.files",
+      "version": "'main'"
+    },
+    "nvim-lint": {
+      "rev": "a219b2c9e5b4765e5c845aba119dad55806fcaf1",
+      "src": "https://github.com/mfussenegger/nvim-lint",
+      "version": "'master'"
+    },
+    "nvim-treesitter": {
+      "rev": "4916d6592ede8c07973490d9322f187e07dfefac",
+      "src": "https://github.com/nvim-treesitter/nvim-treesitter",
+      "version": "'main'"
+    },
+    "plenary.nvim": {
+      "rev": "74b06c6c75e4eeb3108ec01852001636d85a932b",
+      "src": "https://github.com/nvim-lua/plenary.nvim",
+      "version": "'master'"
+    },
+    "telescope.nvim": {
+      "rev": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026",
+      "src": "https://github.com/nvim-telescope/telescope.nvim",
+      "version": "'0.1.x'"
+    },
+    "undotree": {
+      "rev": "6fa6b57cda8459e1e4b2ca34df702f55242f4e4d",
+      "src": "https://github.com/mbbill/undotree",
+      "version": "'master'"
+    }
+  }
+}
