@@ -123,6 +123,12 @@ yt() {
     noglob yt-dlp -o "$output" "${extra_args[@]}"
 }
 
+# ----- Trashy -----
+alias tp="trashy put"
+alias tl="trashy list"
+alias tR="trashy restore"
+alias te="trashy empty"
+
 # ----- Custom aliases -----
 alias gdrive-sync="rclone bisync ~/Documents/gdrive gdrive:/ --progress"
 alias gdrive-test="rclone bisync ~/Documents/gdrive gdrive:/ --progress --dry-run"
@@ -161,6 +167,9 @@ zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color $realpath'
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+# VIM/EMACS mode
+# bindkey -e
+
 # ----- Secrets -----
 [[ -f ~/.secrets ]] && source ~/.secrets
 
@@ -172,7 +181,6 @@ function y() {
   [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
   command rm -f -- "$tmp"
 }
-
 
 # ----- TheFuck -----
 eval $(thefuck --alias)
