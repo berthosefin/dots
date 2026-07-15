@@ -41,6 +41,9 @@ telescope.setup({
     file_ignore_patterns = { 'node_modules', '.git/' },
     hidden = true,
     no_ignore = true,
+    preview = {
+      treesitter = false,
+    },
   },
   pickers = {
     find_files = {
