@@ -50,6 +50,11 @@
       "src": "https://github.com/nvim-lua/plenary.nvim",
       "version": "'master'"
     },
+    "rust.vim": {
+      "rev": "889b9a7515db477f4cb6808bef1769e53493c578",
+      "src": "https://github.com/rust-lang/rust.vim",
+      "version": "'master'"
+    },
     "telescope.nvim": {
       "rev": "a0bbec21143c7bc5f8bb02e0005fa0b982edc026",
       "src": "https://github.com/nvim-telescope/telescope.nvim",

@@ -6,7 +6,7 @@
 local parsers = {
   'lua', 'javascript', 'typescript', 'tsx', 'json',
   'css', 'html', 'prisma', 'markdown', 'markdown_inline',
-  'vim', 'vimdoc', 'bash',
+  'vim', 'vimdoc', 'bash', 'rust',
 }
 
 -- Install missing parsers on startup

@@ -37,6 +37,12 @@ vim.lsp.config('eslint', {
   root_markers = { '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.json', '.git' },
 })
 
+vim.lsp.config('rust_analyzer', {
+  cmd = { 'rust-analyzer' },
+  filetypes = { 'rust' },
+  root_markers = { 'Cargo.toml', 'Cargo.lock', '.git' },
+})
+
 -- Enable all servers
 vim.lsp.enable('lua_ls')
 vim.lsp.enable('ts_ls')
@@ -44,6 +50,7 @@ vim.lsp.enable('jsonls')
 vim.lsp.enable('tailwindcss')
 vim.lsp.enable('prismals')
 vim.lsp.enable('eslint')
+vim.lsp.enable('rust_analyzer')
 
 -- LSP keymaps (set on LspAttach)
 vim.api.nvim_create_autocmd('LspAttach', {

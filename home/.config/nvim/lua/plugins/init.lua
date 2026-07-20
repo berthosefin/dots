@@ -27,6 +27,9 @@ vim.pack.add({
 
   -- Lazygit
   { src = gh('kdheepak/lazygit.nvim'), version = 'main' },
+
+  -- Rust
+  { src = gh('rust-lang/rust.vim'), version = 'master' },
 })
 
 -- Load plugin configurations
@@ -78,6 +81,7 @@ require('conform').setup({
     html = { 'prettier' },
     lua = { 'stylua' },
     prisma = { 'prettier' },
+    rust = { 'rustfmt' },
   },
 })
 
