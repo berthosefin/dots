@@ -27,7 +27,7 @@ output_path = "~/.config/rofi/themes/colors.rasi"
 [templates.kitty]
 input_path = "~/.config/matugen/templates/kitty-colors.conf"
 output_path = "~/.config/kitty/themes/Matugen.conf"
-post_hook = "kitty +kitten themes --reload-in=all Matugen"
+post_hook = "pkill -USR1 kitty"
 
 [templates.dunst]
 input_path = "~/.config/matugen/templates/dunstrc-colors"
@@ -121,7 +121,7 @@ post_hook = "~/.config/matugen/post-hook-scripts/apply-xfce4-colors.sh"
 [templates.tmux]
 input_path = '~/.config/matugen/templates/tmux-colors.conf'
 output_path = '~/.config/tmux/generated.conf'
-post_hook = 'tmux source-file ~/.config/tmux/generated.conf'
+post_hook = 'tmux source-file ~/.config/tmux/generated.conf || true'
 
 [templates.yazi]
 input_path = '~/.config/matugen/templates/yazi-theme.toml'
