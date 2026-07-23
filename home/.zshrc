@@ -1,11 +1,13 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
+# =============================================================================
+#  1. Bootstrap
+# =============================================================================
+
+# Powerlevel10k instant prompt
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-### Added by Zinit's installer
+# Zinit
 if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
     command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
@@ -18,37 +20,39 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Initialize completion system early
+# Completion system
 autoload -Uz compinit
 compinit
 
-# Load a few important annexes, without Turbo
-# (this is currently required for annexes)
+# Zinit annexes
 zinit light-mode for \
     zdharma-continuum/zinit-annex-as-monitor \
     zdharma-continuum/zinit-annex-bin-gem-node \
     zdharma-continuum/zinit-annex-patch-dl \
     zdharma-continuum/zinit-annex-rust
 
-### End of Zinit's installer chunk
+# =============================================================================
+#  2. Theme
+# =============================================================================
 
-# ----- Theme -----
-# Load powerlevel10k theme
-zinit ice depth"1" # git clone depth
+zinit ice depth"1"
 zinit light romkatv/powerlevel10k
 
-# ----- Plugins -----
-# Essential plugins (priority loading)
+# =============================================================================
+#  3. Plugins
+# =============================================================================
+
+# --- Core ---
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
 
-# Useful plugins
+# --- Useful ---
 zinit light Aloxaf/fzf-tab
 zinit light MichaelAquilina/zsh-you-should-use
 zinit light z-shell/zsh-eza
 
-# Oh-My-ZSH snippets
+# --- Oh-My-Zsh snippets ---
 zinit snippet OMZP::archlinux
 zinit snippet OMZP::colored-man-pages
 zinit snippet OMZP::docker
@@ -58,48 +62,61 @@ zinit snippet OMZP::git
 zinit snippet OMZP::systemadmin
 zinit snippet OMZP::systemd
 
-# ----- Path -----
+# =============================================================================
+#  4. Environment
+# =============================================================================
+
+# --- PATH ---
 export PATH=$HOME/.bin:$HOME/.local/bin:$PATH
-export PATH=$HOME/.console-ninja/.bin:$PATH
 
-# Android Studio
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
-export PATH=$ANDROID_HOME/platform-tools:$PATH
-export PATH=$ANDROID_HOME/emulator/:$PATH
-
-# ----- Editor -----
+# --- Editor ---
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR='nvim'
 fi
 
-# ----- nvm -----
+# --- nvm ---
 export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# ----- fzf -----
+# --- Secrets ---
+[[ -f ~/.secrets ]] && source ~/.secrets
+
+# =============================================================================
+#  5. Tool integrations (eval / completions)
+# =============================================================================
+
+# --- fzf ---
 eval "$(fzf --zsh)"
 
-# ----- zoxide -----
+# --- zoxide ---
 eval "$(zoxide init zsh)"
 
-# ----- atuin -----
+# --- atuin ---
 ATUIN_PATH="$HOME/.atuin/bin"
 if [ -d "$ATUIN_PATH" ]; then
   export PATH="$ATUIN_PATH:$PATH"
   eval "$(atuin init zsh)"
 fi
 
-# ----- uv completions -----
+# --- uv ---
 eval "$(uv generate-shell-completion zsh)"
 
-# ----- yt-dlp aliases -----
+# --- thefuck ---
+eval $(thefuck --alias)
+
+# =============================================================================
+#  6. Aliases
+# =============================================================================
+
+# --- Navigation ---
+mkcd() { mkdir -p "$1" && cd "$1" }
+
+# --- yt-dlp ---
 yt() {
     local format="bestvideo+bestaudio/best"
-    local cookies=""
     local output="%(title)s.%(ext)s"
     local extra_args=()
 
@@ -110,37 +127,34 @@ yt() {
             --720)    extra_args+=(-S res:720) ;;
             --1080)   extra_args+=(-S res:1080) ;;
             --pl)     output="%(playlist_index)s-%(title)s.%(ext)s" ;;
-            --nc)     cookies="" ;;
+            --fc)     extra_args+=(--cookies-from-browser firefox) ;;
             *)        extra_args+=("$1") ;;
         esac
         shift
     done
 
-    [[ -n "$cookies" ]] && extra_args+=(--cookies-from-browser firefox)
-
     noglob yt-dlp -o "$output" "${extra_args[@]}"
 }
 
-# ----- Trashy -----
-alias tp="trashy put"
-alias tl="trashy list"
-alias tR="trashy restore"
-alias te="trashy empty"
+# --- Trashy ---
+alias tp='trashy put'
+alias tl='trashy list'
+alias tR='trashy restore'
+alias te='trashy empty'
 
-# ----- Custom aliases -----
-alias gdrive-sync="rclone bisync ~/Documents/gdrive gdrive:/ --progress"
-alias gdrive-test="rclone bisync ~/Documents/gdrive gdrive:/ --progress --dry-run"
+# --- Cloud ---
+alias gdrive-sync='rclone bisync ~/Documents/gdrive gdrive:/ --progress'
+alias gdrive-test='rclone bisync ~/Documents/gdrive gdrive:/ --progress --dry-run'
 
-# ----- Quick edit configs -----
+# --- Config quick edit ---
 alias zshrc='$EDITOR ~/.zshrc'
 alias zshr='source ~/.zshrc'
 
-# ----- Quick directory creation and navigation -----
-mkcd() {
-    mkdir -p "$1" && cd "$1"
-}
+# =============================================================================
+#  7. Functions
+# =============================================================================
 
-# ----- Ok sound notifier -----
+# Sound notifier: run after a long command to get audio feedback
 oks() {
     local s=$?
     local sound_success="/usr/share/sounds/freedesktop/stereo/complete.oga"
@@ -155,23 +169,7 @@ oks() {
     fi
 }
 
-# ----- Completion styling -----
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color $realpath'
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# VIM/EMACS mode
-# bindkey -e
-
-# ----- Secrets -----
-[[ -f ~/.secrets ]] && source ~/.secrets
-
-# ----- Yazi -----
+# Yazi: provides the ability to change the current working directory when exiting Yazi
 function y() {
   local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
   command yazi "$@" --cwd-file="$tmp"
@@ -180,5 +178,26 @@ function y() {
   command rm -f -- "$tmp"
 }
 
-# ----- TheFuck -----
-eval $(thefuck --alias)
+# =============================================================================
+#  8. Completion styling
+# =============================================================================
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
+zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color $realpath'
+
+# =============================================================================
+#  9. Prompt
+# =============================================================================
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# =============================================================================
+# 10. Keybindings
+# =============================================================================
+
+# bindkey -e  # Emacs mode
+# bindkey -v  # Vi mode
