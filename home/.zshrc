@@ -44,22 +44,33 @@ zinit light romkatv/powerlevel10k
 
 # --- Core ---
 zinit light zsh-users/zsh-completions
+zinit ice wait'0a' lucid
 zinit light zsh-users/zsh-autosuggestions
+zinit ice wait'0a' lucid atload'zle -N clear-screen'
 zinit light zsh-users/zsh-syntax-highlighting
 
 # --- Useful ---
 zinit light Aloxaf/fzf-tab
+zinit ice wait'0a' lucid
 zinit light MichaelAquilina/zsh-you-should-use
 zinit light z-shell/zsh-eza
 
 # --- Oh-My-Zsh snippets ---
+zinit ice wait'0a' lucid
 zinit snippet OMZP::archlinux
+zinit ice wait'0a' lucid
 zinit snippet OMZP::colored-man-pages
+zinit ice wait'0a' lucid
 zinit snippet OMZP::docker
+zinit ice wait'0a' lucid
 zinit snippet OMZP::docker-compose
+zinit ice wait'0a' lucid
 zinit snippet OMZP::extract
+zinit ice wait'0a' lucid
 zinit snippet OMZP::git
+zinit ice wait'0a' lucid
 zinit snippet OMZP::systemadmin
+zinit ice wait'0a' lucid
 zinit snippet OMZP::systemd
 
 # =============================================================================
@@ -76,10 +87,15 @@ else
   export EDITOR='nvim'
 fi
 
-# --- nvm ---
+# --- nvm (lazy-load) ---
 export NVM_DIR="$HOME/.config/nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+lazy_nvm() {
+  unset -f nvm node npm yarn 2>/dev/null
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+  nvm "$@"
+}
+for cmd in nvm node npm yarn; do eval "$cmd() { lazy_nvm \"\$@\"; }"; done
 
 # --- Secrets ---
 [[ -f ~/.secrets ]] && source ~/.secrets
@@ -104,8 +120,12 @@ fi
 # --- uv ---
 eval "$(uv generate-shell-completion zsh)"
 
-# --- thefuck ---
-eval $(thefuck --alias)
+# --- thefuck (lazy-load) ---
+function fuck() {
+  eval "$(thefuck --alias)"
+  unset -f fuck
+  fuck "$@"
+}
 
 # =============================================================================
 #  6. Aliases

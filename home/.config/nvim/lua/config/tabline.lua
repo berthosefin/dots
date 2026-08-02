@@ -19,4 +19,4 @@ function _G.tabline()
 end
 
 vim.opt.tabline = '%!v:lua.tabline()'
-vim.opt.showtabline = 2
+vim.opt.showtabline = 1
