@@ -1,0 +1,14 @@
+# Batterie à surveiller (défaut BAT0)
+-n
+BAT1
+# Seuil warning
+-w
+30
+# Seuil critique
+-c
+20
+# Seuil pleine charge
+-f
+95
+# Notif aux transitions charge/décharge
+-p
