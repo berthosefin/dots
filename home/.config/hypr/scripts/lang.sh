@@ -63,7 +63,7 @@ _lang() {
       T_POWEROFF="⏻ Spegni"
       T_REBOOT="󰜉 Riavvia"
       T_SUSPEND="⏾ Sospensione"
-      T_LOCK="�1 Blocca"
+      T_LOCK="󰍁 Blocca"
       T_LOGOUT="󰗼 Disconnetti"
       T_UPTIME="Uptime"
       T_ARE_YOU_SURE="Sei sicuro?"
@@ -76,7 +76,7 @@ _lang() {
       ;;
     pt)
       T_POWEROFF="⏻ Desligar"
-      T_REBOOT="�9 Reiniciar"
+      T_REBOOT="󰜉 Reiniciar"
       T_SUSPEND="⏾ Suspender"
       T_LOCK="󰍁 Bloquear"
       T_LOGOUT="󰗼 Sair"
@@ -151,7 +151,7 @@ _lang() {
       ;;
     ar)
       T_POWEROFF="⏻ إيقاف"
-      T_REBOOT="�92 إعادة تشغيل"
+      T_REBOOT="󰜉 إعادة تشغيل"
       T_SUSPEND="⏾ إسبات"
       T_LOCK="󰍁 قفل"
       T_LOGOUT="󰗼 خروج"
@@ -183,7 +183,7 @@ _lang() {
       T_POWEROFF="⏻ Stäng av"
       T_REBOOT="󰜉 Starta om"
       T_SUSPEND="⏾ Vila"
-      T_LOCK="�1 Lås"
+      T_LOCK="󰍁 Lås"
       T_LOGOUT="󰗼 Logga ut"
       T_UPTIME="Drifttid"
       T_ARE_YOU_SURE="Är du säker?"
@@ -211,7 +211,7 @@ _lang() {
       ;;
     tr)
       T_POWEROFF="⏻ Kapat"
-      T_REBOOT="�9 Yeniden başlat"
+      T_REBOOT="󰜉 Yeniden başlat"
       T_SUSPEND="⏾ Askıya al"
       T_LOCK="󰍁 Kilitle"
       T_LOGOUT="󰗼 Çıkış"
@@ -226,7 +226,7 @@ _lang() {
       ;;
     uk)
       T_POWEROFF="⏻ Вимкнення"
-      T_REBOOT="�92 Перезавантаження"
+      T_REBOOT="󰜉 Перезавантаження"
       T_SUSPEND="⏾ Сплячий режим"
       T_LOCK="󰍁 Блокування"
       T_LOGOUT="󰗼 Вихід"
@@ -256,7 +256,7 @@ _lang() {
       ;;
     hu)
       T_POWEROFF="⏻ Leállítás"
-      T_REBOOT="󰜉 �jraindítás"
+      T_REBOOT="󰜉 Újraindítás"
       T_SUSPEND="⏾ Alvó üzemmód"
       T_LOCK="󰍁 Zárolás"
       T_LOGOUT="󰗼 Kijelentkezés"
@@ -271,7 +271,7 @@ _lang() {
       ;;
     ro)
       T_POWEROFF="⏻ Oprire"
-      T_REBOOT="�9 Repornire"
+      T_REBOOT="󰜉 Repornire"
       T_SUSPEND="⏾ Repaus"
       T_LOCK="󰍁 Blocare"
       T_LOGOUT="󰗼 Deconectare"
@@ -286,9 +286,9 @@ _lang() {
       ;;
     el)
       T_POWEROFF="⏻ Τερματισμός"
-      T_REBOOT="�9 Επανεκκίνηση"
+      T_REBOOT="󰜉 Επανεκκίνηση"
       T_SUSPEND="⏾ Αναστολή"
-      T_LOCK="�71 Κλείδωμα"
+      T_LOCK="󰍁 Κλείδωμα"
       T_LOGOUT="󰗼 Αποσύνδεση"
       T_UPTIME="Χρόνος λειτουργίας"
       T_ARE_YOU_SURE="Είσαι σίγουρος;"
@@ -301,7 +301,7 @@ _lang() {
       ;;
     th)
       T_POWEROFF="⏻ ปิดเครื่อง"
-      T_REBOOT="�9重启"
+      T_REBOOT="󰜉 รีสตาร์ท"
       T_SUSPEND="⏾ โหมดพัก"
       T_LOCK="󰍁 ล็อก"
       T_LOGOUT="󰗼 ออกจากระบบ"
@@ -331,9 +331,9 @@ _lang() {
       ;;
     id)
       T_POWEROFF="⏻ Matikan"
-      T_REBOOT="�9重启 Ulang"
+      T_REBOOT="󰜉 Mulai Ulang"
       T_SUSPEND="⏾ Tidur"
-      T_LOCK="�1 Kunci"
+      T_LOCK="󰍁 Kunci"
       T_LOGOUT="󰗼 Keluar"
       T_UPTIME="Waktu aktif"
       T_ARE_YOU_SURE="Apakah Anda yakin?"
@@ -376,7 +376,7 @@ _lang() {
       ;;
     he)
       T_POWEROFF="⏻ כיבוי"
-      T_REBOOT="�92 אתחול"
+      T_REBOOT="󰜉 אתחול"
       T_SUSPEND="⏾ שינה"
       T_LOCK="󰍁 נעילה"
       T_LOGOUT="󰗼 התנתקות"
@@ -390,11 +390,11 @@ _lang() {
       T_UNSUPPORTED="פעולה לא נתמכת"
       ;;
     ga)
-      T_POWEROFF="�1 Muir"
+      T_POWEROFF="⏻ Múch"
       T_REBOOT="󰜉 Atosaí"
       T_SUSPEND="⏾ Sosaint"
       T_LOCK="󰍁 Glasáil"
-      T_LOGOUT="�1 Logáil amach"
+      T_LOGOUT="󰗼 Logáil amach"
       T_UPTIME="Am feidhme"
       T_ARE_YOU_SURE="An bhfuil tú cinnte?"
       T_YES="Tá"
@@ -408,7 +408,7 @@ _lang() {
       T_POWEROFF="⏻ გამორთვა"
       T_REBOOT="󰜉 გადატვირთვა"
       T_SUSPEND="⏾ ძილი"
-      T_LOCK="�71 დაბლოკვა"
+      T_LOCK="󰍁 დაბლოკვა"
       T_LOGOUT="󰗼 გასვლა"
       T_UPTIME="მუშაობის დრო"
       T_ARE_YOU_SURE="დარწმუნებული ხარ?"
