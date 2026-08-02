@@ -96,14 +96,6 @@ post_hook = "/usr/sbin/pkill -SIGUSR1 nvim || true"
 input_path = "~/.config/matugen/templates/opencode-colors.json"
 output_path = "~/.config/opencode/themes/matugen.json"
 
-[templates.vscode-raw]
-input_path = '~/.config/matugen/templates/vscode-colors'
-output_path = '~/.cache/matugen/vscode-colors'
-
-[templates.vscode-json]
-input_path = "~/.config/matugen/templates/vscode-colors.json"
-output_path = "~/.cache/matugen/vscode-colors.json"
-
 [templates.zed]
 input_path = "~/.config/matugen/templates/zed-colors.json"
 output_path = "~/.config/zed/themes/matugen.json"
