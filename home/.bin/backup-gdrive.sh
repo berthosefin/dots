@@ -14,11 +14,14 @@ echo "Debut du backup : $DATE" | tee -a "$LOG_FILE"
 
 # Backup crypté (push uniquement)
 echo "Backup crypté (crypt)" | tee -a "$LOG_FILE"
-rclone copy "$CRYPT_DIR" gdrive-crypt: --progress 2>&1 | tee -a "$LOG_FILE"
+rclone copy "$CRYPT_DIR" gdrive-crypt: --stats=1m 2>&1 | tee -a "$LOG_FILE"
 
 # Synchronisation bidirectionnelle du dossier normal
+# --max-delete protege contre les suppressions en cascade.
+# Si les conflits persistent, recreer un etat sain :
+#   rclone bisync "$NORMAL_DIR" gdrive:/ --exclude "crypt/**" --resync
 echo "Synchronisation bidirectionnelle (normal)" | tee -a "$LOG_FILE"
-rclone bisync "$NORMAL_DIR" gdrive:/ --exclude "crypt/**" 2>&1 | tee -a "$LOG_FILE"
+rclone bisync "$NORMAL_DIR" gdrive:/ --exclude "crypt/**" --max-delete 50 2>&1 | tee -a "$LOG_FILE"
 
 # Detection des conflits
 echo "Recherche des conflits" | tee -a "$LOG_FILE"

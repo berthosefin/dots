@@ -18,7 +18,7 @@ case "$action" in
         ;;
     quit)
         message="$T_QUIT_HYPRLAND"
-        command="hyprctl dispatch 'hl.dsp.exit()'"
+        command="hyprctl dispatch hl.dsp.exit()"
         ;;
     *)
         notify-send "$T_UNSUPPORTED" "$action"

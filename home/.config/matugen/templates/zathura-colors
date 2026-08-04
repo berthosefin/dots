@@ -22,7 +22,7 @@ set highlight-color         "{{colors.primary_fixed.default.hex}}"
 set highlight-active-color  "{{colors.primary_fixed_dim.default.hex}}"
 
 set completion-highlight-fg "{{colors.on_primary.default.hex}}"
-set completion-highlight-bg {{colors.primary.default.hex}}""
+set completion-highlight-bg "{{colors.primary.default.hex}}"
 
 set completion-bg           "{{colors.on_primary.default.hex}}"
 set completion-fg           "{{colors.primary.default.hex}}"

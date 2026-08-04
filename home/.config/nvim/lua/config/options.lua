@@ -24,6 +24,10 @@ o.splitbelow = true
 
 -- Misc
 o.undofile = true
+local undodir = vim.fn.stdpath('cache') .. '/undo'
+vim.fn.mkdir(undodir, 'p')
+o.undodir = undodir
+o.swapfile = false
 o.scrolloff = 8
 o.updatetime = 250
 o.timeoutlen = 1000

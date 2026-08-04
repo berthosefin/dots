@@ -136,7 +136,7 @@ hl.config({
     rounding = 4,
     rounding_power = 2,
 
-    active_opacity = 0.8,
+    active_opacity = 0.9,
     inactive_opacity = 0.8,
 
     shadow = {
@@ -148,8 +148,8 @@ hl.config({
 
     blur = {
       enabled = true,
-      size = 8,
-      passes = 2,
+      size = 6,
+      passes = 1,
       vibrancy = 0.1696,
     },
   },
@@ -365,14 +365,14 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true 
 hl.bind(
   mainMod .. " + KP_ADD",
   hl.dsp.exec_cmd(
-    "hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '.float * 1.1')"
+    "hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | awk -F'\"float\": *' '{split($2,a,\",\"); print a[1] * 1.1}')"
   ),
   { repeating = true }
 )
 hl.bind(
   mainMod .. " + KP_SUBTRACT",
   hl.dsp.exec_cmd(
-    "hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | jq '(.float * 0.9) | if . < 1 then 1 else . end')"
+    "hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | awk -F'\"float\": *' '{split($2,a,\",\"); v=a[1]*0.9; if (v<1) v=1; print v}')"
   ),
   { repeating = true }
 )
