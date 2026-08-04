@@ -20,10 +20,6 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Completion system
-autoload -Uz compinit
-compinit
-
 # Zinit annexes
 zinit light-mode for \
     zdharma-continuum/zinit-annex-as-monitor \
@@ -44,9 +40,7 @@ zinit light romkatv/powerlevel10k
 
 # --- Core ---
 zinit light zsh-users/zsh-completions
-zinit ice wait'0a' lucid
 zinit light zsh-users/zsh-autosuggestions
-zinit ice wait'0a' lucid atload'zle -N clear-screen'
 zinit light zsh-users/zsh-syntax-highlighting
 
 # --- Useful ---
@@ -54,6 +48,10 @@ zinit light Aloxaf/fzf-tab
 zinit ice wait'0a' lucid
 zinit light MichaelAquilina/zsh-you-should-use
 zinit light z-shell/zsh-eza
+
+# --- Completion system ---
+autoload -Uz compinit
+compinit -u
 
 # --- Oh-My-Zsh snippets ---
 zinit ice wait'0a' lucid
@@ -99,6 +97,16 @@ for cmd in nvm node npm yarn; do eval "$cmd() { lazy_nvm \"\$@\"; }"; done
 
 # --- Secrets ---
 [[ -f ~/.secrets ]] && source ~/.secrets
+
+# --- Shell options ---
+unsetopt BEEP
+setopt EXTENDED_GLOB
+
+# --- History ---
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=10000
+SAVEHIST=10000
+setopt HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE SHARE_HISTORY
 
 # =============================================================================
 #  5. Tool integrations (eval / completions)
@@ -205,6 +213,9 @@ function y() {
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' menu no
+zstyle ':completion:*' rehash true
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color $realpath'
 
