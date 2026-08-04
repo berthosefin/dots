@@ -192,11 +192,19 @@ tooltip label {
   border-color: @tertiary;
   background: @tertiary_container;
 }
+#battery.warning:not(.charging):hover {
+  background: @tertiary;
+  color: @on_tertiary;
+}
 #battery.critical:not(.charging) {
   color: @error;
   border-color: @error;
   background: @surface_container_low;
   animation: blink 0.8s steps(1) infinite;
+}
+#battery.critical:not(.charging):hover {
+  background: @error;
+  color: @on_error;
 }
 #battery.charging {
   color: @on_secondary_container;
