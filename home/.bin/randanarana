@@ -2,6 +2,7 @@
 set -euo pipefail
 
 DEFAULT_LENGTH=8
+PREVIEW_MAX=20
 LENGTH=$DEFAULT_LENGTH
 PREFIX=""
 SUFFIX=""
@@ -24,7 +25,8 @@ of a common length, keeping the original extension.
 
 Paths are shown relative to the target directory. Items whose name
 already matches the random pattern are skipped (use --force to rename
-them anyway).
+them anyway). When there are more than $PREVIEW_MAX items, the preview
+is truncated.
 
 Options:
   -l, --length N     Length of the random part (default: $DEFAULT_LENGTH)
@@ -227,14 +229,42 @@ mapfile -t file_names < <(generate_names "${files_do[@]}")
 mapfile -t dir_names < <(generate_names "${dirs_do[@]}")
 
 show_preview() {
+  local shown=0 hidden=0 line
   echo "Target: $TARGET"
   echo "Items to rename ($RENAME_TOTAL):"
   for i in "${!files_do[@]}"; do
-    echo "  $(display_path "${files_do[$i]}") -> $(display_path "${file_names[$i]}")"
+    line="  $(display_path "${files_do[$i]}") -> $(display_path "${file_names[$i]}")"
+    if [[ "$shown" -lt "$PREVIEW_MAX" ]]; then
+      echo "$line"
+      ((shown += 1))
+    else
+      ((hidden += 1))
+    fi
   done
   for i in "${!dirs_do[@]}"; do
-    echo "  $(display_path "${dirs_do[$i]}") -> $(display_path "${dir_names[$i]}")"
+    line="  $(display_path "${dirs_do[$i]}") -> $(display_path "${dir_names[$i]}")"
+    if [[ "$shown" -lt "$PREVIEW_MAX" ]]; then
+      echo "$line"
+      ((shown += 1))
+    else
+      ((hidden += 1))
+    fi
   done
+  if [[ "$hidden" -gt 0 ]]; then
+    echo "  ... and $hidden more (preview truncated, showing $PREVIEW_MAX)"
+  fi
+  if [[ "$PRESKIPPED" -gt 0 ]]; then
+    echo "$PRESKIPPED already-random item(s) skipped (use --force to rename them)."
+  fi
+}
+
+show_interactive_header() {
+  echo "Target: $TARGET"
+  if [[ "$RENAME_TOTAL" -eq 1 ]]; then
+    echo "1 item to rename."
+  else
+    echo "$RENAME_TOTAL items to rename."
+  fi
   if [[ "$PRESKIPPED" -gt 0 ]]; then
     echo "$PRESKIPPED already-random item(s) skipped (use --force to rename them)."
   fi
@@ -288,7 +318,7 @@ rename_item() {
 # Interactive mode: confirm each item, y/N/a/q, Ctrl+C to quit
 if [[ "$INTERACTIVE" == 1 ]]; then
   trap 'interrupted' INT
-  show_preview
+  show_interactive_header
   echo ""
   all=0
   quit=0
