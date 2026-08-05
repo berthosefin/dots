@@ -1,0 +1,226 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DEFAULT_LENGTH=8
+LENGTH=$DEFAULT_LENGTH
+PREFIX=""
+SUFFIX=""
+RECURSIVE=0
+RENAME_DIRS=0
+DRY_RUN=0
+TARGET=""
+
+usage() {
+  cat <<EOF
+Usage: $0 [OPTIONS] <DIRECTORY>
+
+Rename the files in a directory with random names (a-zA-Z0-9)
+of a common length, keeping the original extension.
+
+Options:
+  -l, --length N     Length of the random part (default: $DEFAULT_LENGTH)
+  -p, --prefix P     Prefix added to the name (e.g. img_)
+  -s, --suffix S     Suffix added to the name (e.g. _2026)
+  -r, --recursive    Also process files in subdirectories
+                     (subdirectory names are kept)
+  -D, --dirs         Also rename the subdirectories (implies --recursive)
+  -n, --dry-run      Show the preview without renaming
+  -h, --help         Show this help
+
+Examples:
+  $0 /path/to/directory
+  $0 -l 12 -p img_ -s _backup /path/to/directory
+  $0 -r -n /path/to/directory
+EOF
+}
+
+die() {
+  echo "Error: $*" >&2
+  exit 1
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -l | --length)
+      [[ $# -ge 2 ]] || die "$1 requires a value"
+      LENGTH="$2"
+      shift 2
+      ;;
+    -p | --prefix)
+      [[ $# -ge 2 ]] || die "$1 requires a value"
+      PREFIX="$2"
+      shift 2
+      ;;
+    -s | --suffix)
+      [[ $# -ge 2 ]] || die "$1 requires a value"
+      SUFFIX="$2"
+      shift 2
+      ;;
+    -r | --recursive)
+      RECURSIVE=1
+      shift
+      ;;
+    -D | --dirs)
+      RENAME_DIRS=1
+      RECURSIVE=1
+      shift
+      ;;
+    -n | --dry-run)
+      DRY_RUN=1
+      shift
+      ;;
+    -h | --help)
+      usage
+      exit 0
+      ;;
+    -*)
+      die "Unknown option: $1 (see --help)"
+      ;;
+    *)
+      [[ -n "$TARGET" ]] && die "Only one directory expected: $TARGET"
+      TARGET="$1"
+      shift
+      ;;
+  esac
+done
+
+[[ -n "$TARGET" ]] || die "Missing directory (see --help)"
+[[ -d "$TARGET" ]] || die "Not a directory: $TARGET"
+[[ "$LENGTH" =~ ^[0-9]+$ ]] && [[ "$LENGTH" -gt 0 ]] || die "Invalid length: $LENGTH"
+
+CHARS='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+
+random_string() {
+  local n=$1 out="" i
+  for ((i = 0; i < n; i++)); do
+    out+="${CHARS:RANDOM % ${#CHARS}:1}"
+  done
+  printf '%s' "$out"
+}
+
+split_ext() {
+  local name=$1
+  if [[ "$name" == *.* ]]; then
+    printf '.%s' "${name##*.}"
+  fi
+}
+
+generate_names() {
+  local dir=$1
+  shift
+  local files=("$@")
+  local names=()
+  local -A used
+  local f base dirbase new
+  # Track existing names so generated ones stay unique within the directory
+  for f in "${files[@]}"; do
+    used["$(basename "$f")"]=1
+  done
+  for f in "${files[@]}"; do
+    base=$(basename "$f")
+    dirbase=$(dirname "$f")
+    # Regenerate until the name is unique
+    while true; do
+      new="${PREFIX}$(random_string "$LENGTH")${SUFFIX}$(split_ext "$base")"
+      [[ -z "${used[$new]:-}" ]] && break
+    done
+    used["$new"]=1
+    names+=("$dirbase/$new")
+  done
+  printf '%s\n' "${names[@]}"
+}
+
+# Resolve the target to an absolute path
+TARGET="$(cd "$TARGET" && pwd)"
+
+# Collect files (hidden files and directories are skipped)
+files=()
+while IFS= read -r -d '' f; do
+  files+=("$f")
+done < <(
+  if [[ "$RECURSIVE" == 1 ]]; then
+    find "$TARGET" -mindepth 1 \( -type d -name '.*' \) -prune -o -type f ! -name '.*' -print0
+  else
+    find "$TARGET" -mindepth 1 -maxdepth 1 -type f ! -name '.*' -print0
+  fi
+)
+
+# --dry-run: preview only
+if [[ "$DRY_RUN" == 1 ]]; then
+  [[ ${#files[@]} -eq 0 ]] && { echo "No files to rename."; exit 0; }
+  echo "Preview (${#files[@]} file(s) to rename):"
+  mapfile -t names < <(generate_names "$TARGET" "${files[@]}")
+  for i in "${!files[@]}"; do
+    echo "  ${files[$i]} -> ${names[$i]}"
+  done
+  exit 0
+fi
+
+# --dirs: collect subdirectories (bottom-up) as items to rename
+dirs=()
+if [[ "$RENAME_DIRS" == 1 ]]; then
+  while IFS= read -r -d '' d; do
+    dirs+=("$d")
+  done < <(find "$TARGET" -mindepth 1 -type d ! -name '.*' -depth -print0)
+fi
+
+total=$(( ${#files[@]} + ${#dirs[@]} ))
+if [[ "$total" -eq 0 ]]; then
+  echo "No items to rename."
+  exit 0
+fi
+
+echo "Items to rename ($total):"
+mapfile -t file_names < <(generate_names "$TARGET" "${files[@]}")
+for i in "${!files[@]}"; do
+  echo "  ${files[$i]} -> ${file_names[$i]}"
+done
+
+# Final names for directories (no extension)
+dir_names=()
+if [[ "$RENAME_DIRS" == 1 ]]; then
+  declare -A used_dirs=()
+  for d in "${dirs[@]}"; do
+    base=$(basename "$d")
+    parent=$(dirname "$d")
+    used_dirs["$base"]=1
+  done
+  for d in "${dirs[@]}"; do
+    base=$(basename "$d")
+    parent=$(dirname "$d")
+    # Regenerate until the name is unique
+    while true; do
+      new="${PREFIX}$(random_string "$LENGTH")${SUFFIX}"
+      [[ -z "${used_dirs[$new]:-}" ]] && break
+    done
+    used_dirs["$new"]=1
+    dir_names+=("$parent/$new")
+  done
+  for i in "${!dirs[@]}"; do
+    echo "  ${dirs[$i]} -> ${dir_names[$i]}"
+  done
+fi
+
+echo ""
+read -r -p "Rename these $total items? [y/N] " answer
+[[ "$answer" =~ ^[yY]([eE][sS])?$ ]] || { echo "Cancelled."; exit 0; }
+
+# Phase 1: move every file to a unique temporary name in its directory
+declare -a tmp_names
+for f in "${files[@]}"; do
+  tmp="$f.rr-$$-$(random_string 4)"
+  mv "$f" "$tmp"
+  tmp_names+=("$tmp")
+done
+
+# Phase 2: move temporary names to their final names
+for i in "${!tmp_names[@]}"; do
+  mv "${tmp_names[$i]}" "${file_names[$i]}"
+done
+
+# Directories: renamed after their files (bottom-up)
+for i in "${!dirs[@]}"; do
+  mv "${dirs[$i]}" "${dir_names[$i]}"
+done
+
+echo "Done: $total item(s) renamed."
