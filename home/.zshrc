@@ -88,12 +88,25 @@ fi
 # --- nvm (lazy-load) ---
 export NVM_DIR="$HOME/.config/nvm"
 lazy_nvm() {
+  local cmd="${1:-nvm}"
+  shift || true
   unset -f nvm node npm yarn 2>/dev/null
+  setopt LOCAL_OPTIONS NO_EXTENDED_GLOB
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  nvm "$@"
+  local _nvm_impl="${functions[nvm]}"
+  nvm() {
+    setopt LOCAL_OPTIONS NO_EXTENDED_GLOB
+    nvm_impl "$@"
+  }
+  functions[nvm_impl]="$_nvm_impl"
+  if [[ "$cmd" == nvm ]]; then
+    nvm "$@"
+  else
+    command "$cmd" "$@"
+  fi
 }
-for cmd in nvm node npm yarn; do eval "$cmd() { lazy_nvm \"\$@\"; }"; done
+for cmd in nvm node npm yarn; do eval "$cmd() { lazy_nvm $cmd \"\$@\"; }"; done
 
 # --- Secrets ---
 [[ -f ~/.secrets ]] && source ~/.secrets
