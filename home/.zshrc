@@ -148,6 +148,13 @@ function fuck() {
   fuck "$@"
 }
 
+# bun completions
+[ -s "/home/thos/.bun/_bun" ] && source "/home/thos/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
+
 # =============================================================================
 #  6. Aliases
 # =============================================================================
