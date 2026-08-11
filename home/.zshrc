@@ -20,13 +20,6 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-# Zinit annexes
-zinit light-mode for \
-    zdharma-continuum/zinit-annex-as-monitor \
-    zdharma-continuum/zinit-annex-bin-gem-node \
-    zdharma-continuum/zinit-annex-patch-dl \
-    zdharma-continuum/zinit-annex-rust
-
 # =============================================================================
 #  2. Theme
 # =============================================================================
@@ -52,30 +45,6 @@ compinit -C
 # Useful
 zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-autosuggestions
-
-# Turbo (loaded at first prompt)
-zinit ice wait'0a' lucid
-zinit light MichaelAquilina/zsh-you-should-use
-zinit ice wait'0a' lucid
-zinit light z-shell/zsh-eza
-
-# Oh-My-Zsh snippets
-zinit ice wait'0a' lucid
-zinit snippet OMZP::archlinux
-zinit ice wait'0a' lucid
-zinit snippet OMZP::colored-man-pages
-zinit ice wait'0a' lucid
-zinit snippet OMZP::docker
-zinit ice wait'0a' lucid
-zinit snippet OMZP::docker-compose
-zinit ice wait'0a' lucid
-zinit snippet OMZP::extract
-zinit ice wait'0a' lucid
-zinit snippet OMZP::git
-zinit ice wait'0a' lucid
-zinit snippet OMZP::systemadmin
-zinit ice wait'0a' lucid
-zinit snippet OMZP::systemd
 
 # =============================================================================
 #  4. Environment
@@ -161,19 +130,8 @@ fi
 # uv
 zsh-defer _cached_init uv uv generate-shell-completion zsh
 
-# pay-respects (fuck replacement)
-zsh-defer _cached_init pay-respects pay-respects zsh
-# p10k's $PROMPT is unsafe to re-expand with print -P (bad substitution);
-# override __pr_base with a static, p10k-safe prefix.
-zsh-defer -c '
-  function __pr_base() {
-    local prefix="$(print -P "%n@%m")"
-    _PR_MODE="$1" _PR_PREFIX="$prefix" _PR_LAST_COMMAND="$2" _PR_ALIAS="`alias`" _PR_SHELL="zsh" "${commands[pay-respects]:-pay-respects}"
-  }
-'
-
 # bun completions
-[ -s "/home/thos/.bun/_bun" ] && source "/home/thos/.bun/_bun"
+[ -s "/home/thos/.bun/_bun" ] && zsh-defer source "/home/thos/.bun/_bun"
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -185,6 +143,9 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Navigation
 mkcd() { mkdir -p "$1" && cd "$1" }
+
+# List
+alias ls='eza --group-directories-first --icons=auto'
 
 # yt-dlp
 yt() {
