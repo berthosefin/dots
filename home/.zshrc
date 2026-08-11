@@ -52,7 +52,6 @@ compinit -C
 # Useful
 zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-autosuggestions
-zinit light zsh-users/zsh-syntax-highlighting
 
 # Turbo (loaded at first prompt)
 zinit ice wait'0a' lucid
@@ -164,6 +163,14 @@ zsh-defer _cached_init uv uv generate-shell-completion zsh
 
 # pay-respects (fuck replacement)
 zsh-defer _cached_init pay-respects pay-respects zsh
+# p10k's $PROMPT is unsafe to re-expand with print -P (bad substitution);
+# override __pr_base with a static, p10k-safe prefix.
+zsh-defer -c '
+  function __pr_base() {
+    local prefix="$(print -P "%n@%m")"
+    _PR_MODE="$1" _PR_PREFIX="$prefix" _PR_LAST_COMMAND="$2" _PR_ALIAS="`alias`" _PR_SHELL="zsh" "${commands[pay-respects]:-pay-respects}"
+  }
+'
 
 # bun completions
 [ -s "/home/thos/.bun/_bun" ] && source "/home/thos/.bun/_bun"
@@ -272,3 +279,6 @@ zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color $realpath'
 
 # Replay completions registered by plugins
 zinit cdreplay -q
+
+# Syntax highlighting: zsh-patina (Rust daemon) replaces zsh-syntax-highlighting
+eval "$(~/.cargo/bin/zsh-patina activate)"
