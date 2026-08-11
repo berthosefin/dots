@@ -127,3 +127,7 @@ post_hook = 'pywalfox update'
 [templates.obs]
 input_path = '~/.config/matugen/templates/matugen.obt'
 output_path = '~/.config/obs-studio/themes/matugen.obt'
+
+[templates.obsidian]
+input_path = '~/.config/matugen/templates/obsidian.css'
+output_path = '~/Documents/Brainsthos/.obsidian/snippets/matugen.css'

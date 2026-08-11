@@ -142,11 +142,7 @@ fi
 eval "$(uv generate-shell-completion zsh)"
 
 # --- thefuck (lazy-load) ---
-function fuck() {
-  eval "$(thefuck --alias)"
-  unset -f fuck
-  fuck "$@"
-}
+eval "$(thefuck --alias)"
 
 # bun completions
 [ -s "/home/thos/.bun/_bun" ] && source "/home/thos/.bun/_bun"
