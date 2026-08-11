@@ -38,22 +38,29 @@ zinit light romkatv/powerlevel10k
 #  3. Plugins
 # =============================================================================
 
-# --- Core ---
+# Core
+zinit light romkatv/zsh-defer
 zinit light zsh-users/zsh-completions
+
+# Completion system (regenerate daily)
+autoload -Uz compinit
+for dump in ~/.zcompdump(N.mh+24); do
+  command rm -f "$dump"
+done
+compinit -C
+
+# Useful
+zinit light Aloxaf/fzf-tab
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
 
-# --- Useful ---
-zinit light Aloxaf/fzf-tab
+# Turbo (loaded at first prompt)
 zinit ice wait'0a' lucid
 zinit light MichaelAquilina/zsh-you-should-use
+zinit ice wait'0a' lucid
 zinit light z-shell/zsh-eza
 
-# --- Completion system ---
-autoload -Uz compinit
-compinit -u
-
-# --- Oh-My-Zsh snippets ---
+# Oh-My-Zsh snippets
 zinit ice wait'0a' lucid
 zinit snippet OMZP::archlinux
 zinit ice wait'0a' lucid
@@ -75,17 +82,17 @@ zinit snippet OMZP::systemd
 #  4. Environment
 # =============================================================================
 
-# --- PATH ---
+# PATH
 export PATH=$HOME/.bin:$HOME/.local/bin:$PATH
 
-# --- Editor ---
+# Editor
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='vim'
 else
   export EDITOR='nvim'
 fi
 
-# --- nvm (lazy-load) ---
+# nvm (lazy-load)
 export NVM_DIR="$HOME/.config/nvm"
 lazy_nvm() {
   local cmd="${1:-nvm}"
@@ -108,14 +115,14 @@ lazy_nvm() {
 }
 for cmd in nvm node npm yarn; do eval "$cmd() { lazy_nvm $cmd \"\$@\"; }"; done
 
-# --- Secrets ---
+# Secrets
 [[ -f ~/.secrets ]] && source ~/.secrets
 
-# --- Shell options ---
+# Shell options
 unsetopt BEEP
 setopt EXTENDED_GLOB
 
-# --- History ---
+# History
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=10000
 SAVEHIST=10000
@@ -125,24 +132,38 @@ setopt HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE SHARE_HISTORY
 #  5. Tool integrations (eval / completions)
 # =============================================================================
 
-# --- fzf ---
+# Cached eval helper: sources a cached init script, regenerating it only
+# when the tool binary is newer than the cache.
+_cached_init() {
+  local name="$1"; shift
+  local cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/init-$name.zsh"
+  command mkdir -p "${cache:h}"
+  local bin
+  bin="$(command -v "$name" 2>/dev/null)"
+  if [[ ! -s "$cache" ]] || [[ -n "$bin" && "$bin" -nt "$cache" ]]; then
+    "$@" > "$cache" 2>/dev/null || { command rm -f "$cache"; return 1 }
+  fi
+  source "$cache"
+}
+
+# fzf (kept synchronous)
 eval "$(fzf --zsh)"
 
-# --- zoxide ---
-eval "$(zoxide init zsh)"
+# zoxide
+zsh-defer _cached_init zoxide zoxide init zsh
 
-# --- atuin ---
+# atuin
 ATUIN_PATH="$HOME/.atuin/bin"
 if [ -d "$ATUIN_PATH" ]; then
   export PATH="$ATUIN_PATH:$PATH"
-  eval "$(atuin init zsh)"
+  zsh-defer _cached_init atuin atuin init zsh
 fi
 
-# --- uv ---
-eval "$(uv generate-shell-completion zsh)"
+# uv
+zsh-defer _cached_init uv uv generate-shell-completion zsh
 
-# --- thefuck (lazy-load) ---
-eval "$(thefuck --alias)"
+# pay-respects (fuck replacement)
+zsh-defer _cached_init pay-respects pay-respects zsh
 
 # bun completions
 [ -s "/home/thos/.bun/_bun" ] && source "/home/thos/.bun/_bun"
@@ -155,10 +176,10 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 #  6. Aliases
 # =============================================================================
 
-# --- Navigation ---
+# Navigation
 mkcd() { mkdir -p "$1" && cd "$1" }
 
-# --- yt-dlp ---
+# yt-dlp
 yt() {
     local format="bestvideo+bestaudio/best"
     local output="%(title)s.%(ext)s"
@@ -180,17 +201,17 @@ yt() {
     noglob yt-dlp -o "$output" "${extra_args[@]}"
 }
 
-# --- Trashy ---
+# Trashy
 alias tp='trashy put'
 alias tl='trashy list'
 alias tR='trashy restore'
 alias te='trashy empty'
 
-# --- Cloud ---
+# Cloud
 alias gdrive-sync='rclone bisync ~/Documents/gdrive gdrive:/ --progress'
 alias gdrive-test='rclone bisync ~/Documents/gdrive gdrive:/ --progress --dry-run'
 
-# --- Config quick edit ---
+# Config quick edit
 alias zshrc='$EDITOR ~/.zshrc'
 alias zshr='source ~/.zshrc'
 
@@ -248,3 +269,6 @@ zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color $realpath'
 
 # bindkey -e  # Emacs mode
 # bindkey -v  # Vi mode
+
+# Replay completions registered by plugins
+zinit cdreplay -q
