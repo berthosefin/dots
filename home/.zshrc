@@ -75,7 +75,7 @@ plug "zsh-users/zsh-syntax-highlighting"   # must stay the LAST plugin loaded
 eval "$(starship init zsh)"
 
 # nvm (lazy load)
-export NVM_DIR="$HOME/.nvm"
+export NVM_DIR="$HOME/.config/nvm"
 
 nvm() {
   unset -f nvm node npm npx
