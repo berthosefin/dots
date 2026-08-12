@@ -65,13 +65,16 @@ plug "zsh-users/zsh-autosuggestions"
 plug "zsh-users/zsh-syntax-highlighting"   # must stay the LAST plugin loaded
 
 # ==============================================================
-# 5. STARSHIP
+# 5. TOOL INTEGRATIONS
 # ==============================================================
+# Shell init scripts, key bindings and completions for external tools.
+# Add a new tool as its own block below.
+# IMPORTANT: atuin must stay the LAST block (overrides Ctrl+R and the up arrow).
+
+# starship (prompt)
 eval "$(starship init zsh)"
 
-# ==============================================================
-# 6. NVM — lazy load
-# ==============================================================
+# nvm (lazy load)
 export NVM_DIR="$HOME/.nvm"
 
 nvm() {
@@ -84,34 +87,28 @@ node() { nvm; node "$@"; }
 npm()  { nvm; npm "$@"; }
 npx()  { nvm; npx "$@"; }
 
-# ==============================================================
-# 7. FZF
-# ==============================================================
-# Enable Ctrl+T (file search), Ctrl+R (history search)
+# fzf (Ctrl+T files / Ctrl+R history)
 source <(fzf --zsh)
 
-# ==============================================================
-# 8. ZOXIDE
-# ==============================================================
+# zoxide (smart cd)
 eval "$(zoxide init zsh)"
 
-# ==============================================================
-# 9. UV
-# ==============================================================
+# uv (Python tool manager)
 eval "$(uv generate-shell-completion zsh)"
+
+# uvx (uv runner)
 eval "$(uvx --generate-shell-completion zsh)"
 
-# ==============================================================
-# 10. BUN
-# ==============================================================
+# bun (JS runtime + completions)
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
-
-# bun completions
 [[ -s "$BUN_INSTALL/_bun" ]] && source "$BUN_INSTALL/_bun"
 
+# atuin (history UI) — MUST stay last
+eval "$(atuin init zsh)"
+
 # ==============================================================
-# 11. ALIASES
+# 6. ALIASES
 # ==============================================================
 
 # Config quick edit
@@ -134,7 +131,7 @@ alias gdrive-sync='rclone bisync ~/Documents/gdrive gdrive:/ --progress'
 alias gdrive-test='rclone bisync ~/Documents/gdrive gdrive:/ --progress --dry-run'
 
 # ==============================================================
-# 12. USEFUL FUNCTIONS
+# 7. USEFUL FUNCTIONS
 # ==============================================================
 
 # Yazi: provides the ability to change the current working directory when exiting Yazi
@@ -173,8 +170,3 @@ function yt() {
 
     noglob yt-dlp -f "$format" -o "$output" "${extra_args[@]}"
 }
-
-# ==============================================================
-# 13. ATUIN — always LAST (it overrides Ctrl+R and the up arrow)
-# ==============================================================
-eval "$(atuin init zsh)"
