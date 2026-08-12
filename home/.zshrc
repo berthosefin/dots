@@ -84,6 +84,7 @@ zsh_cache_eval() {
   local name="$1" cache="$HOME/.cache/zsh/$1.zsh"
   shift
   if [[ ! -s "$cache" ]]; then
+    mkdir -p "$HOME/.cache/zsh"
     "$@" > "$cache" 2>/dev/null
     zcompile "$cache"
   fi
@@ -95,7 +96,9 @@ alias zsh-cache-clear='rm -rf ~/.cache/zsh && mkdir -p ~/.cache/zsh'
 zsh_cache_eval starship starship init zsh
 
 # fnm (node version manager)
-zsh_cache_eval fnm fnm env --use-on-cd --shell zsh
+# Must run fresh every shell: the output contains a per-shell multishell path
+# (caching it would share one node version across all open terminals).
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 # fzf (Ctrl+T files / Ctrl+R history)
 zsh_cache_eval fzf fzf --zsh
@@ -104,10 +107,10 @@ zsh_cache_eval fzf fzf --zsh
 zsh_cache_eval zoxide zoxide init zsh
 
 # uv (Python tool manager)
-zsh_cache_eval uv uv generate-shell-completion zsh
+# zsh_cache_eval uv uv generate-shell-completion zsh
 
 # uvx (uv runner)
-zsh_cache_eval uvx uvx --generate-shell-completion zsh
+# zsh_cache_eval uvx uvx --generate-shell-completion zsh
 
 # bun (JS runtime + completions)
 export BUN_INSTALL="$HOME/.bun"
