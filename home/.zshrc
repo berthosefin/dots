@@ -115,10 +115,24 @@ eval "$(atuin init zsh)"
 alias zshrc='$EDITOR ~/.zshrc'
 alias zshr='source ~/.zshrc'
 
+# Navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+
 # eza
 alias ls='eza --group-directories-first --icons=auto'
-alias ll='eza -lah --group-directories-first --icons=auto'
 alias la='eza -a --group-directories-first --icons=auto'
+alias ll='eza -lah --group-directories-first --icons=auto'
+alias lt='eza --tree --level=2 --icons=auto'
+
+# systemctl
+alias sc='sudo systemctl'
+alias scu='systemctl --user'
+
+# Git
+alias gst='git status'
+alias glog='git log --oneline --graph --decorate'
+alias lg='lazygit'
 
 # Trashy
 alias tp='trashy put'
