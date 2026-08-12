@@ -56,12 +56,20 @@ bindkey -M viins '^E' end-of-line
 
 plug "zsh-users/zsh-completions"
 
-# Required: initialize the zsh completion engine (compinit).
+# Skip the security audit (Compaudit) on each opening
 autoload -Uz compinit
-compinit
+compinit -C
+alias compinit-full='autoload -Uz compinit && compinit'
+
+# Compiles the dump into bytecode for faster loading
+if [[ -s "$HOME/.zcompdump" && (! -s "$HOME/.zcompdump.zwc" || "$HOME/.zcompdump" -nt "$HOME/.zcompdump.zwc") ]]; then
+  zcompile "$HOME/.zcompdump"
+fi
 
 plug "Aloxaf/fzf-tab"
 plug "zsh-users/zsh-autosuggestions"
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main)
 plug "zsh-users/zsh-syntax-highlighting"   # must stay the LAST plugin loaded
 
 # ==============================================================
@@ -71,23 +79,35 @@ plug "zsh-users/zsh-syntax-highlighting"   # must stay the LAST plugin loaded
 # Add a new tool as its own block below.
 # IMPORTANT: atuin must stay the LAST block (overrides Ctrl+R and the up arrow).
 
+# Cache eval — run a command and cache its output to avoid re-running on each shell open
+zsh_cache_eval() {
+  local name="$1" cache="$HOME/.cache/zsh/$1.zsh"
+  shift
+  if [[ ! -s "$cache" ]]; then
+    "$@" > "$cache" 2>/dev/null
+    zcompile "$cache"
+  fi
+  source "$cache"
+}
+alias zsh-cache-clear='rm -rf ~/.cache/zsh && mkdir -p ~/.cache/zsh'
+
 # starship (prompt)
-eval "$(starship init zsh)"
+zsh_cache_eval starship starship init zsh
 
 # fnm (node version manager)
-eval "$(fnm env --use-on-cd --shell zsh)"
+zsh_cache_eval fnm fnm env --use-on-cd --shell zsh
 
 # fzf (Ctrl+T files / Ctrl+R history)
-source <(fzf --zsh)
+zsh_cache_eval fzf fzf --zsh
 
 # zoxide (smart cd)
-eval "$(zoxide init zsh)"
+zsh_cache_eval zoxide zoxide init zsh
 
 # uv (Python tool manager)
-eval "$(uv generate-shell-completion zsh)"
+zsh_cache_eval uv uv generate-shell-completion zsh
 
 # uvx (uv runner)
-eval "$(uvx --generate-shell-completion zsh)"
+zsh_cache_eval uvx uvx --generate-shell-completion zsh
 
 # bun (JS runtime + completions)
 export BUN_INSTALL="$HOME/.bun"
@@ -95,7 +115,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 [[ -s "$BUN_INSTALL/_bun" ]] && source "$BUN_INSTALL/_bun"
 
 # atuin (history UI) — MUST stay last
-eval "$(atuin init zsh)"
+zsh_cache_eval atuin atuin init zsh
 
 # ==============================================================
 # 6. ALIASES
