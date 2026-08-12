@@ -1,154 +1,159 @@
-# =============================================================================
-#  1. Bootstrap
-# =============================================================================
-
-# Powerlevel10k instant prompt
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-# Zinit
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
-
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
-# =============================================================================
-#  2. Theme
-# =============================================================================
-
-zinit ice depth"1"
-zinit light romkatv/powerlevel10k
-
-# =============================================================================
-#  3. Plugins
-# =============================================================================
-
-# Core
-zinit light romkatv/zsh-defer
-zinit light zsh-users/zsh-completions
-
-# Completion system (regenerate daily)
-autoload -Uz compinit
-for dump in ~/.zcompdump(N.mh+24); do
-  command rm -f "$dump"
-done
-compinit -C
-
-# Useful
-zinit light Aloxaf/fzf-tab
-zinit light zsh-users/zsh-autosuggestions
-
-# =============================================================================
-#  4. Environment
-# =============================================================================
+# ==============================================================
+# 1. ENVIRONMENT
+# ==============================================================
+export EDITOR="nvim"
 
 # PATH
-export PATH=$HOME/.bin:$HOME/.local/bin:$PATH
+export PATH="$HOME/.local/bin:$HOME/.bin:$PATH"
 
-# Editor
-if [[ -n $SSH_CONNECTION ]]; then
-  export EDITOR='vim'
-else
-  export EDITOR='nvim'
-fi
+# ==============================================================
+# 2. HISTORY
+# ==============================================================
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=50000
+SAVEHIST=50000
 
-# nvm (lazy-load)
-export NVM_DIR="$HOME/.config/nvm"
-lazy_nvm() {
-  local cmd="${1:-nvm}"
-  shift || true
-  unset -f nvm node npm yarn 2>/dev/null
-  setopt LOCAL_OPTIONS NO_EXTENDED_GLOB
+setopt EXTENDED_HISTORY        # record command timestamp + duration
+setopt HIST_EXPIRE_DUPS_FIRST  # evict duplicates first when history is full
+setopt HIST_IGNORE_DUPS        # ignore consecutive duplicates
+# setopt HIST_IGNORE_ALL_DUPS    # remove older duplicates from the whole history
+setopt HIST_IGNORE_SPACE       # commands prefixed with a space are not recorded
+setopt HIST_VERIFY             # show the command before running it after !!
+# setopt SHARE_HISTORY           # share history across open sessions
+setopt INC_APPEND_HISTORY      # write each command immediately, not on shell exit
+
+# ==============================================================
+# 3. KEYBINDINGS
+# ==============================================================
+
+# Emacs mode
+# bindkey -e
+
+# Vi mode
+bindkey -v
+export KEYTIMEOUT=5   # reduce the delay after Escape (default 400ms, annoying)
+
+# Cursor changes shape depending on mode (bar in insert, block in normal)
+function zle-keymap-select() {
+  case $KEYMAP in
+    vicmd)
+      echo -ne '\e[1 q' ;;  # blinking block
+    viins|main)
+      echo -ne '\e[5 q' ;;  # blinking bar
+  esac
+}
+zle -N zle-keymap-select
+echo -ne '\e[5 q' # bar on shell startup
+
+# Ctrl+A / Ctrl+E work even in vim mode (lost by default)
+bindkey -M viins '^A' beginning-of-line
+bindkey -M viins '^E' end-of-line
+
+# ==============================================================
+# 4. ZAP — plugin manager
+# ==============================================================
+[ -f "${ZAP_DIR:-$HOME/.local/share/zap}/zap.zsh" ] && source "${ZAP_DIR:-$HOME/.local/share/zap}/zap.zsh"
+
+plug "zsh-users/zsh-completions"
+
+# Required: initialize the zsh completion engine (compinit).
+autoload -Uz compinit
+compinit
+
+plug "Aloxaf/fzf-tab"
+plug "zsh-users/zsh-autosuggestions"
+plug "zsh-users/zsh-syntax-highlighting"   # must stay the LAST plugin loaded
+
+# ==============================================================
+# 5. STARSHIP
+# ==============================================================
+eval "$(starship init zsh)"
+
+# ==============================================================
+# 6. NVM — lazy load
+# ==============================================================
+export NVM_DIR="$HOME/.nvm"
+
+nvm() {
+  unset -f nvm node npm npx
   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
   [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  local _nvm_impl="${functions[nvm]}"
-  nvm() {
-    setopt LOCAL_OPTIONS NO_EXTENDED_GLOB
-    nvm_impl "$@"
-  }
-  functions[nvm_impl]="$_nvm_impl"
-  if [[ "$cmd" == nvm ]]; then
-    nvm "$@"
-  else
-    command "$cmd" "$@"
-  fi
+  nvm "$@"
 }
-for cmd in nvm node npm yarn; do eval "$cmd() { lazy_nvm $cmd \"\$@\"; }"; done
+node() { nvm; node "$@"; }
+npm()  { nvm; npm "$@"; }
+npx()  { nvm; npx "$@"; }
 
-# Secrets
-[[ -f ~/.secrets ]] && source ~/.secrets
+# ==============================================================
+# 7. FZF
+# ==============================================================
+# Enable Ctrl+T (file search), Ctrl+R (history search)
+source <(fzf --zsh)
 
-# Shell options
-unsetopt BEEP
-setopt EXTENDED_GLOB
+# ==============================================================
+# 8. ZOXIDE
+# ==============================================================
+eval "$(zoxide init zsh)"
 
-# History
-HISTFILE="$HOME/.zsh_history"
-HISTSIZE=10000
-SAVEHIST=10000
-setopt HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE SHARE_HISTORY
+# ==============================================================
+# 9. UV
+# ==============================================================
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion zsh)"
 
-# =============================================================================
-#  5. Tool integrations (eval / completions)
-# =============================================================================
-
-# Cached eval helper: sources a cached init script, regenerating it only
-# when the tool binary is newer than the cache.
-_cached_init() {
-  local name="$1"; shift
-  local cache="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/init-$name.zsh"
-  command mkdir -p "${cache:h}"
-  local bin
-  bin="$(command -v "$name" 2>/dev/null)"
-  if [[ ! -s "$cache" ]] || [[ -n "$bin" && "$bin" -nt "$cache" ]]; then
-    "$@" > "$cache" 2>/dev/null || { command rm -f "$cache"; return 1 }
-  fi
-  source "$cache"
-}
-
-# fzf (kept synchronous)
-eval "$(fzf --zsh)"
-
-# zoxide
-zsh-defer _cached_init zoxide zoxide init zsh
-
-# atuin
-ATUIN_PATH="$HOME/.atuin/bin"
-if [ -d "$ATUIN_PATH" ]; then
-  export PATH="$ATUIN_PATH:$PATH"
-  zsh-defer _cached_init atuin atuin init zsh
-fi
-
-# uv
-zsh-defer _cached_init uv uv generate-shell-completion zsh
-
-# bun completions
-[ -s "/home/thos/.bun/_bun" ] && zsh-defer source "/home/thos/.bun/_bun"
-
-# bun
+# ==============================================================
+# 10. BUN
+# ==============================================================
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
-# =============================================================================
-#  6. Aliases
-# =============================================================================
+# bun completions
+[[ -s "$BUN_INSTALL/_bun" ]] && source "$BUN_INSTALL/_bun"
 
-# Navigation
-mkcd() { mkdir -p "$1" && cd "$1" }
+# ==============================================================
+# 11. ALIASES
+# ==============================================================
 
-# List
+# Config quick edit
+alias zshrc='$EDITOR ~/.zshrc'
+alias zshr='source ~/.zshrc'
+
+# eza
 alias ls='eza --group-directories-first --icons=auto'
+alias ll='eza -lah --group-directories-first --icons=auto'
+alias la='eza -a --group-directories-first --icons=auto'
+
+# Trashy
+alias tp='trashy put'
+alias tl='trashy list'
+alias tR='trashy restore'
+alias te='trashy empty'
+
+# Cloud
+alias gdrive-sync='rclone bisync ~/Documents/gdrive gdrive:/ --progress'
+alias gdrive-test='rclone bisync ~/Documents/gdrive gdrive:/ --progress --dry-run'
+
+# ==============================================================
+# 12. USEFUL FUNCTIONS
+# ==============================================================
+
+# Yazi: provides the ability to change the current working directory when exiting Yazi
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  command yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
+  command rm -f -- "$tmp"
+}
+
+# mkcd: create a directory and cd into it
+function mkcd() {
+    [[ -z "$1" ]] && return 1
+    mkdir -p -- "$1" && builtin cd -- "$1"
+}
 
 # yt-dlp
-yt() {
+function yt() {
     local format="bestvideo+bestaudio/best"
     local output="%(title)s.%(ext)s"
     local extra_args=()
@@ -166,80 +171,10 @@ yt() {
         shift
     done
 
-    noglob yt-dlp -o "$output" "${extra_args[@]}"
+    noglob yt-dlp -f "$format" -o "$output" "${extra_args[@]}"
 }
 
-# Trashy
-alias tp='trashy put'
-alias tl='trashy list'
-alias tR='trashy restore'
-alias te='trashy empty'
-
-# Cloud
-alias gdrive-sync='rclone bisync ~/Documents/gdrive gdrive:/ --progress'
-alias gdrive-test='rclone bisync ~/Documents/gdrive gdrive:/ --progress --dry-run'
-
-# Config quick edit
-alias zshrc='$EDITOR ~/.zshrc'
-alias zshr='source ~/.zshrc'
-
-# =============================================================================
-#  7. Functions
-# =============================================================================
-
-# Sound notifier: run after a long command to get audio feedback
-oks() {
-    local s=$?
-    local sound_success="/usr/share/sounds/freedesktop/stereo/complete.oga"
-    local sound_error="/usr/share/sounds/freedesktop/stereo/suspend-error.oga"
-
-    if [[ $s -eq 0 ]]; then
-        echo "[✔] SUCCESS"
-        [[ -f "$sound_success" ]] && paplay "$sound_success"
-    else
-        echo "[!] ERROR: $s"
-        [[ -f "$sound_error" ]] && paplay "$sound_error"
-    fi
-}
-
-# Yazi: provides the ability to change the current working directory when exiting Yazi
-function y() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-  command yazi "$@" --cwd-file="$tmp"
-  IFS= read -r -d '' cwd < "$tmp"
-  [ "$cwd" != "$PWD" ] && [ -d "$cwd" ] && builtin cd -- "$cwd"
-  command rm -f -- "$tmp"
-}
-
-# =============================================================================
-#  8. Completion styling
-# =============================================================================
-
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
-zstyle ':completion:*' menu no
-zstyle ':completion:*' rehash true
-zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:z:*' fzf-preview 'ls --color $realpath'
-
-# =============================================================================
-#  9. Prompt
-# =============================================================================
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-# =============================================================================
-# 10. Keybindings
-# =============================================================================
-
-# bindkey -e  # Emacs mode
-# bindkey -v  # Vi mode
-
-# Replay completions registered by plugins
-zinit cdreplay -q
-
-# Syntax highlighting: zsh-patina (Rust daemon) replaces zsh-syntax-highlighting
-eval "$(~/.cargo/bin/zsh-patina activate)"
+# ==============================================================
+# 13. ATUIN — always LAST (it overrides Ctrl+R and the up arrow)
+# ==============================================================
+eval "$(atuin init zsh)"
