@@ -74,18 +74,8 @@ plug "zsh-users/zsh-syntax-highlighting"   # must stay the LAST plugin loaded
 # starship (prompt)
 eval "$(starship init zsh)"
 
-# nvm (lazy load)
-export NVM_DIR="$HOME/.config/nvm"
-
-nvm() {
-  unset -f nvm node npm npx
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-  nvm "$@"
-}
-node() { nvm; node "$@"; }
-npm()  { nvm; npm "$@"; }
-npx()  { nvm; npx "$@"; }
+# fnm (node version manager)
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 # fzf (Ctrl+T files / Ctrl+R history)
 source <(fzf --zsh)
