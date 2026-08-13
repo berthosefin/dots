@@ -117,6 +117,9 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [[ -s "$BUN_INSTALL/_bun" ]] && source "$BUN_INSTALL/_bun"
 
+# pay-respects
+eval "$(pay-respects zsh)"
+
 # atuin (history UI) — MUST stay last
 zsh_cache_eval atuin atuin init zsh
 
@@ -132,13 +135,13 @@ alias zshr='source ~/.zshrc'
 alias ..='cd ..'
 alias ...='cd ../..'
 
-# eza
+# Eza
 alias ls='eza --group-directories-first --icons=auto'
 alias la='eza -a --group-directories-first --icons=auto'
 alias ll='eza -lah --group-directories-first --icons=auto'
 alias lt='eza --tree --level=2 --icons=auto'
 
-# systemctl
+# Systemctl
 alias sc='sudo systemctl'
 alias scu='systemctl --user'
 
