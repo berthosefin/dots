@@ -181,7 +181,7 @@ function mkcd() {
 
 # yt-dlp
 function yt() {
-    local format="bestvideo+bestaudio/best"
+    local format=""
     local output="%(title)s.%(ext)s"
     local extra_args=()
 
@@ -191,6 +191,7 @@ function yt() {
             --480)    extra_args+=(-S res:480) ;;
             --720)    extra_args+=(-S res:720) ;;
             --1080)   extra_args+=(-S res:1080) ;;
+            --best)   format="bestvideo+bestaudio/best" ;;
             --pl)     output="%(playlist_index)s-%(title)s.%(ext)s" ;;
             --fc)     extra_args+=(--cookies-from-browser firefox) ;;
             *)        extra_args+=("$1") ;;
@@ -198,5 +199,9 @@ function yt() {
         shift
     done
 
-    noglob yt-dlp -f "$format" -o "$output" "${extra_args[@]}"
+    if [[ -n "$format" ]]; then
+        noglob yt-dlp -f "$format" -o "$output" "${extra_args[@]}"
+    else
+        noglob yt-dlp -o "$output" "${extra_args[@]}"
+    fi
 }
