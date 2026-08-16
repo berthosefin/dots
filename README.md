@@ -24,7 +24,6 @@ Make sure you have the following packages installed:
 - `cliphist` (clipboard manager)
 - `rofimoji` (emoji picker)
 - `networkmanager_dmenu` (network manager)
-- `xfce4-terminal` (alternative terminal)
 - `thunar` (file manager)
 - `zathura` (pdf reader)
 - `viewnior` (image viewer)
@@ -47,7 +46,7 @@ Make sure you have the following packages installed:
 ### 📦 Install dependencies on Arch (with `yay`)
 
 ```bash
-yay -S hyprland uwsm waybar kitty rofi dunst awww hypridle hyprlock hyprpolkitagent satty xfce4-terminal thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen jq xdg-user-dirs stow nvim papirus-icon-theme cliphist pavucontrol rofimoji networkmanager_dmenu yazi ffmpeg 7zip poppler fd ripgrep fzf zoxide resvg imagemagick ttf-jetbrains-mono-nerd noto-fonts-cjk noto-fonts-emoji
+yay -S hyprland uwsm waybar kitty rofi dunst awww hypridle hyprlock hyprpolkitagent satty thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen jq xdg-user-dirs stow nvim papirus-icon-theme cliphist pavucontrol rofimoji networkmanager_dmenu yazi ffmpeg 7zip poppler fd ripgrep fzf zoxide resvg imagemagick ttf-jetbrains-mono-nerd noto-fonts-cjk noto-fonts-emoji
 ```
 
 ---
@@ -80,7 +79,7 @@ Colors are dynamically generated from your wallpaper using **matugen** (HCT/CAM1
 matugen image /path/to/wallpaper.jpg
 ```
 
-This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3/4, xfce4-terminal, Neovim, Kvantum, Zathura, BTOP, OpenCode, VSCode, Zed, Tmux, Yazi, Firefox (via pywalfox), and Papirus-folders.
+This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3/4, Neovim, Kvantum, Zathura, BTOP, OpenCode, VSCode, Zed, Tmux, Yazi, Firefox (via pywalfox), and Papirus-folders.
 
 ### Icons
 
@@ -103,7 +102,7 @@ This automatically updates: Hyprland, Hyprlock, Waybar, Rofi, Kitty, Dunst, GTK3
 | `ALT + L`                | Lock screen                   |
 | **Applications**         |                               |
 | `SUPER + Return`         | Kitty (terminal)              |
-| `SUPER + Shift + Return` | xfce4-terminal                |
+| `SUPER + Shift + Return` | Kitty (floating terminal)     |
 | `SUPER + D`              | Rofi drun                     |
 | `SUPER + R`              | Rofi run                      |
 | `SUPER + E`              | File manager (Thunar)         |

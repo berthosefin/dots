@@ -105,11 +105,6 @@ input_path = '~/.config/matugen/templates/btop.theme'
 output_path = '~/.config/btop/themes/matugen.theme'
 post_hook = 'pkill -USR2 btop || true'
 
-[templates.xfce4-terminal]
-input_path = '~/.config/matugen/templates/xfce4-terminal'
-output_path = '/tmp/matugen-xfce4-terminal'
-post_hook = "~/.config/matugen/post-hook-scripts/apply-xfce4-colors.sh"
-
 [templates.tmux]
 input_path = '~/.config/matugen/templates/tmux-colors.conf'
 output_path = '~/.config/tmux/generated.conf'

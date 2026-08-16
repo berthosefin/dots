@@ -267,7 +267,7 @@ hl.bind(secondMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 
 -- Applications
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_cmd("xfce4-terminal"))
+hl.bind(mainMod .. " + SHIFT + RETURN", hl.dsp.exec_cmd("kitty --class float-term"))
 hl.bind(mainMod .. " + D", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("rofi -show run"))
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
@@ -465,9 +465,10 @@ hl.window_rule({
 })
 
 hl.window_rule({
-  name = "xfce-terminal-float",
-  match = { class = "^(xfce4-terminal)$" },
+  name = "kitty-float-term",
+  match = { class = "^(float-term)$" },
   float = true,
+  center = true,
 })
 
 hl.window_rule({
