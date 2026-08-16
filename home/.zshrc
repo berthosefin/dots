@@ -147,6 +147,7 @@ alias scu='systemctl --user'
 
 # Git
 alias gst='git status'
+alias gp='git push'
 alias glog='git log --oneline --graph --decorate'
 alias lg='lazygit'
 
