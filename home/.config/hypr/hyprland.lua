@@ -48,15 +48,9 @@ local scripts = os.getenv("HOME") .. "/.config/hypr/scripts"
 -------------------
 
 hl.on("hyprland.start", function()
-  hl.exec_cmd("waybar")
+  hl.exec_cmd("dbus-update-activation-environment --systemd --all")
+  hl.exec_cmd("systemctl --user start hyprland-session.target")
   hl.exec_cmd("awww-daemon")
-  hl.exec_cmd("hypridle")
-  hl.exec_cmd("wl-paste --type text --watch cliphist store")
-  hl.exec_cmd("wl-paste --type image --watch cliphist store")
-  -- Systemd session (needed when Hyprland is started without uwsm)
-  hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP || true")
-  hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP || true")
-  hl.exec_cmd("systemctl --user start hyprland-session.target || true")
 end)
 
 hl.on("monitor.added", function()
@@ -64,7 +58,7 @@ hl.on("monitor.added", function()
 end)
 
 hl.on("hyprland.shutdown", function()
-  os.execute("systemctl --user stop hyprland-session.target")
+  os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
 end)
 
 -------------------------------
