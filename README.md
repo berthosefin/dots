@@ -11,7 +11,6 @@ Personal dotfiles for a customized [Hyprland](https://github.com/hyprwm/Hyprland
 Make sure you have the following packages installed:
 
 - [Hyprland](https://wiki.hyprland.org/)
-- `uwsm` (session manager)
 - `waybar` (status bar)
 - `kitty` (terminal)
 - `rofi` (app launcher)
@@ -46,7 +45,7 @@ Make sure you have the following packages installed:
 ### 📦 Install dependencies on Arch (with `yay`)
 
 ```bash
-yay -S hyprland uwsm waybar kitty rofi dunst awww hypridle hyprlock hyprpolkitagent satty thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen jq xdg-user-dirs stow nvim papirus-icon-theme cliphist pavucontrol rofimoji networkmanager_dmenu yazi ffmpeg 7zip poppler fd ripgrep fzf zoxide resvg imagemagick ttf-jetbrains-mono-nerd noto-fonts-cjk noto-fonts-emoji
+yay -S hyprland waybar kitty rofi dunst awww hypridle hyprlock hyprpolkitagent satty thunar zathura viewnior firefox pamixer brightnessctl playerctl wireplumber matugen jq xdg-user-dirs stow nvim papirus-icon-theme cliphist pavucontrol rofimoji networkmanager_dmenu yazi ffmpeg 7zip poppler fd ripgrep fzf zoxide resvg imagemagick ttf-jetbrains-mono-nerd noto-fonts-cjk noto-fonts-emoji
 ```
 
 ---
