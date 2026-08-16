@@ -4,7 +4,7 @@
 export EDITOR="nvim"
 
 # PATH
-export PATH="$HOME/.local/bin:$HOME/.bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.bin:$HOME/.cargo/bin:$HOME/.atuin/bin:$PATH"
 
 # ==============================================================
 # 2. HISTORY
