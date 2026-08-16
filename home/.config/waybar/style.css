@@ -110,6 +110,10 @@ tooltip label {
   /*border: 1px solid @outline_variant;*/
 }
 
+#pulseaudio {
+  margin-left: 8px;
+}
+
 /* ── Clock ─────────────────── */
 #clock {
   color: @outline;
