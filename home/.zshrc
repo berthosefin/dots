@@ -146,9 +146,10 @@ alias sc='sudo systemctl'
 alias scu='systemctl --user'
 
 # Git
-alias gst='git status'
-alias gp='git push'
 alias glog='git log --oneline --graph --decorate'
+alias gs='git status'
+alias gp='git push'
+alias gl='git pull'
 alias lg='lazygit'
 
 # Trashy
@@ -185,6 +186,7 @@ function yt() {
     local format=""
     local output="%(title)s.%(ext)s"
     local extra_args=()
+    local playlist=0
 
     while [[ $# -gt 0 ]]; do
         case "$1" in
@@ -192,10 +194,13 @@ function yt() {
             --480)    extra_args+=(-S res:480) ;;
             --720)    extra_args+=(-S res:720) ;;
             --1080)   extra_args+=(-S res:1080) ;;
-            --best)   format="bestvideo+bestaudio/best" ;;
-            --pl)     output="%(playlist_index)s-%(title)s.%(ext)s" ;;
+            --best)   format="bv*+ba/b" ;;
+            --pl)     playlist=1; output="%(playlist_index)s-%(title)s.%(ext)s" ;;
             --fc)     extra_args+=(--cookies-from-browser firefox) ;;
-            *)        extra_args+=("$1") ;;
+            *)
+              (( playlist )) || extra_args+=(--noplaylist)
+              extra_args+=("$1")
+              ;;
         esac
         shift
     done
