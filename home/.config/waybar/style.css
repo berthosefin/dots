@@ -21,15 +21,6 @@ window#waybar {
   padding: 0 4px;
 }
 
-.modules-left,
-.modules-center,
-.modules-right {
-  background: transparent;
-  border: none;
-  margin: 0;
-  padding: 0;
-}
-
 tooltip {
   background: @surface_container;
   color: @on_surface;
@@ -42,17 +33,11 @@ tooltip label {
 
 /* ── Launcher ────────────────────────────────────── */
 #custom-launcher {
-  background: @background;
   color: @on_background;
   border-radius: 4px;
   padding: 2px 14px 2px 10px;
   margin: 4px 1px 4px 4px;
   font-weight: bold;
-  /*border: 1px solid @primary;*/
-}
-#custom-launcher:hover {
-  /*background: @primary;*/
-  color: @primary;
 }
 
 /* ── Workspaces ──────────────────────────────────── */
@@ -60,26 +45,17 @@ tooltip label {
   margin: 0 2px;
 }
 #workspaces button {
+  background: transparent;
   padding: 2px 4px;
   margin: 4px 1px;
-  background: transparent;
   color: @outline;
-  /*border-radius: 4px;*/
-  /*border: 1px solid @outline_variant;*/
 }
 #workspaces button.active {
   color: @primary;
-  border-color: @primary;
-  background: @background;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid @primary;
 }
 #workspaces button.urgent {
   color: @error;
-  background: @background;
-}
-#workspaces button:hover {
-  color: @primary;
-  background: @background;
 }
 
 /* ── Window ──────────────────────────────────────── */
@@ -90,10 +66,9 @@ tooltip label {
   letter-spacing: 0.3px;
   margin: 4px 1px;
   border-radius: 4px;
-  /*border: 1px solid @outline_variant;*/
 }
 
-/* ── Shared pill — right modules ─────────────────── */
+/* ── Right modules ───────────────────────────────── */
 #tray,
 #pulseaudio,
 #backlight,
@@ -105,109 +80,74 @@ tooltip label {
   padding: 2px 10px;
   margin: 4px 1px;
   border-radius: 4px;
-  background: @background;
   color: @on_background;
-  /*border: 1px solid @outline_variant;*/
 }
 
 #pulseaudio {
   margin-left: 8px;
 }
 
-/* ── Clock ─────────────────── */
 #clock {
   color: @outline;
-  background: @background;
   font-weight: bold;
   margin-right: 2px;
 }
-#clock:hover {
-  /*background: @primary;*/
+
+#tray {
+  padding: 2px 6px;
+}
+
+/* ── Hover accents ───────────────────────────────── */
+#custom-launcher:hover,
+#clock:hover,
+#workspaces button:hover {
   color: @primary;
-}
-
-/* ── Network / batterie / backlight */
-#network,
-#battery,
-#backlight {
-  color: @on_background;
-  background: @background;
-}
-#network:hover,
-#backlight:hover,
-#battery:hover {
-  /*background: @tertiary;*/
-  color: @tertiary;
-}
-
-/* ── Volume / CPU / memory ─ */
-#pulseaudio,
-#cpu,
-#memory {
-  color: @on_background;
-  background: @background;
 }
 #pulseaudio:hover,
 #cpu:hover,
 #memory:hover {
-  /*background: @secondary;*/
   color: @secondary;
 }
-
-/* ── Tray ────────────────────────────────────────── */
-#tray {
-  background: transparent;
-  /*border: 1px solid @outline_variant;*/
-  padding: 2px 6px;
+#network:hover,
+#backlight:hover,
+#battery:hover {
+  color: @tertiary;
 }
 
-/* ── Special ──────────────────────────────── */
+/* ── Special states ──────────────────────────────── */
 #pulseaudio.muted {
   color: @outline;
-  background: @background;
 }
 #pulseaudio.muted:hover {
-  background: @background;
   color: @error;
 }
 #pulseaudio.bluetooth {
   color: @primary_container;
-  background: @background;
 }
-
 #network.disconnected {
   color: @outline;
-  background: @background;
 }
 #network.disconnected:hover {
-  /*background: @error;*/
   color: @error;
 }
-
 #battery.warning:not(.charging) {
   color: @outline;
-  background: @background;
 }
 #battery.warning:not(.charging):hover {
-  /*background: @tertiary;*/
   color: @tertiary;
 }
 #battery.critical:not(.charging) {
   color: @outline;
-  background: @background;
   animation: blink 0.8s steps(1) infinite;
 }
 #battery.critical:not(.charging):hover {
-  /*background: @error;*/
   color: @error;
   animation: none;
 }
 #battery.charging {
   color: @outline;
-  background: @background;
 }
 #battery.charging:hover {
-  /*background: @secondary;*/
   color: @secondary;
 }
 
@@ -217,12 +157,9 @@ tooltip label {
   }
 }
 
-/* ── Divider ─────────────────── */
+/* ── Divider ─────────────────────────────────────── */
 #custom-divider {
   color: @outline_variant;
-  background: transparent;
-  border: none;
-  margin: 0;
   padding: 0 2px;
 }
 
@@ -235,24 +172,16 @@ tooltip label {
   padding: 2px 10px;
   margin: 4px 1px;
   border-radius: 4px;
-  background: transparent;
   color: @outline;
-  /*border: 1px solid @outline_variant;*/
 }
 #custom-power {
-  color: @outline;
-  background: @background;
-  /*border: 1px solid @error;*/
   margin: 4px 4px 4px 1px;
   padding-right: 12px;
 }
-
 #custom-power:hover,
 #custom-quit:hover,
 #custom-lock:hover,
 #custom-suspend:hover,
 #custom-reboot:hover {
-  /*background: @error;*/
   color: @error;
-  border-color: @error;
 }
