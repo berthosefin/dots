@@ -1,2 +1,4 @@
+scan_timeout = 150
+
 [battery]
 disabled = true
