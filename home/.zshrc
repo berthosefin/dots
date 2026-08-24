@@ -150,6 +150,7 @@ alias glog='git log --oneline --graph --decorate'
 alias gs='git status'
 alias gp='git push'
 alias gl='git pull'
+alias gb='git branch'
 alias lg='lazygit'
 
 # Trashy
