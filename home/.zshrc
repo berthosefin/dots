@@ -163,6 +163,9 @@ alias te='trashy empty'
 alias gdrive-sync='rclone bisync ~/Documents/gdrive gdrive:/sync --max-delete 50 --create-empty-src-dirs --progress'
 alias gdrive-test='rclone bisync ~/Documents/gdrive gdrive:/sync --max-delete 50 --create-empty-src-dirs --progress --dry-run'
 
+# Vault Obsidian (FIT sync)
+alias brain-fix='git -C ~/Documents/Brainsthos fetch origin && git -C ~/Documents/Brainsthos reset --hard origin/main'
+
 # ==============================================================
 # 7. USEFUL FUNCTIONS
 # ==============================================================
