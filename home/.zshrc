@@ -202,8 +202,9 @@ function yt() {
             --pl)     playlist=1; output="%(playlist_index)s-%(title)s.%(ext)s" ;;
             --fc)     extra_args+=(--cookies-from-browser firefox) ;;
             *)
-              (( playlist )) || extra_args+=(--noplaylist)
-              extra_args+=("$1")
+              local arg="${1#\'}"; arg="${arg%\'}"
+              (( playlist )) || extra_args+=(--no-playlist)
+              extra_args+=("$arg")
               ;;
         esac
         shift
