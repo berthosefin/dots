@@ -160,8 +160,8 @@ alias tR='trashy restore'
 alias te='trashy empty'
 
 # Cloud
-alias gdrive-sync='rclone bisync ~/Documents/gdrive gdrive:/ --progress'
-alias gdrive-test='rclone bisync ~/Documents/gdrive gdrive:/ --progress --dry-run'
+alias gdrive-sync='rclone bisync ~/Documents/gdrive gdrive:/sync --max-delete 50 --create-empty-src-dirs --progress'
+alias gdrive-test='rclone bisync ~/Documents/gdrive gdrive:/sync --max-delete 50 --create-empty-src-dirs --progress --dry-run'
 
 # ==============================================================
 # 7. USEFUL FUNCTIONS
