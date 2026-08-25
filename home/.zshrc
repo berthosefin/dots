@@ -123,6 +123,9 @@ eval "$(pay-respects zsh)"
 # atuin (history UI) — MUST stay last
 zsh_cache_eval atuin atuin init zsh
 
+# ntfy
+eval "$(ntfy shell-integration)"
+
 # ==============================================================
 # 6. ALIASES
 # ==============================================================
