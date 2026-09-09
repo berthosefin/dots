@@ -338,9 +338,6 @@ hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:mag
 
 -- Mouse
 hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
-hl.bind(mainMod .. " + mouse:274", hl.dsp.focus({ workspace = "e+1" }))
-hl.bind(mainMod .. " + mouse:275", hl.dsp.focus({ workspace = "e-1" }))
 
 -- Media
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pamixer -i 5"), { locked = true, repeating = true })
@@ -361,23 +358,6 @@ hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
 hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
-
--- Zoom
-hl.bind(
-  mainMod .. " + KP_ADD",
-  hl.dsp.exec_cmd(
-    "hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | awk -F'\"float\": *' '{split($2,a,\",\"); print a[1] * 1.1}')"
-  ),
-  { repeating = true }
-)
-hl.bind(
-  mainMod .. " + KP_SUBTRACT",
-  hl.dsp.exec_cmd(
-    "hyprctl -q keyword cursor:zoom_factor $(hyprctl getoption cursor:zoom_factor -j | awk -F'\"float\": *' '{split($2,a,\",\"); v=a[1]*0.9; if (v<1) v=1; print v}')"
-  ),
-  { repeating = true }
-)
-hl.bind(mainMod .. " + equal", hl.dsp.exec_cmd("hyprctl -q keyword cursor:zoom_factor 1"))
 
 --------------------------------
 ---- WINDOWS AND WORKSPACES ----
