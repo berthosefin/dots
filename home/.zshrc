@@ -58,7 +58,11 @@ plug "zsh-users/zsh-completions"
 
 # Skip the security audit (Compaudit) on each opening
 autoload -Uz compinit
-compinit -C
+if [[ ! -s "$HOME/.zcompdump" ]] || [[ -n "$(find "$HOME/.zcompdump" -mtime +0 2>/dev/null)" ]]; then
+  compinit
+else
+  compinit -C
+fi
 alias compinit-full='autoload -Uz compinit && compinit'
 
 # Compiles the dump into bytecode for faster loading
@@ -150,7 +154,7 @@ alias scu='systemctl --user'
 
 # Git
 alias glog='git log --oneline --graph --decorate'
-alias gs='git status'
+alias gst='git status'
 alias gp='git push'
 alias gl='git pull'
 alias gb='git branch'
