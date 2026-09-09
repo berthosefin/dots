@@ -188,22 +188,6 @@ hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "al
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
 
--- "Smart gaps" / "No gaps when only"
--- hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
--- hl.workspace_rule({ workspace = "f[1]", gaps_out = 0, gaps_in = 0 })
--- hl.window_rule({
---   name = "no-gaps-wtv1",
---   match = { float = false, workspace = "w[tv1]" },
---   border_size = 0,
---   rounding = 0,
--- })
--- hl.window_rule({
---   name = "no-gaps-f1",
---   match = { float = false, workspace = "f[1]" },
---   border_size = 0,
---   rounding = 0,
--- })
-
 -- Layout
 hl.config({
   dwindle = {
@@ -274,10 +258,7 @@ hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("rofimoji"))
 hl.bind(mainMod .. " + N", hl.dsp.exec_cmd("networkmanager_dmenu"))
-hl.bind(
-  mainMod .. " + V",
-  hl.dsp.exec_cmd("cliphist list | rofi -dmenu -display-columns 2 -p 'Clipboard' -l 10 | cliphist decode | wl-copy")
-)
+hl.bind(mainMod .. " + V", hl.dsp.exec_cmd(scripts .. "/clipboard-pick.sh"))
 
 -- Window management
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
@@ -292,12 +273,7 @@ hl.bind(secondMod .. " + less", hl.dsp.group.prev())
 hl.bind(secondMod .. " + greater", hl.dsp.group.next())
 
 -- Screenshots
-hl.bind(
-  "PRINT",
-  hl.dsp.exec_cmd(
-    'grim - | satty -f - --output-filename "$(xdg-user-dir PICTURES)/Screenshots/$(date +%Y-%m-%d_%H-%M-%S).png"'
-  )
-)
+hl.bind("PRINT", hl.dsp.exec_cmd(scripts .. "/screenshot.sh"))
 
 -- Focus (arrows)
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
@@ -386,14 +362,6 @@ hl.window_rule({
 
   no_focus = true,
 })
-
--- Layer rules also return a handle
--- local overlayLayerRule = hl.layer_rule({
---     name  = "no-anim-overlay",
---     match = { namespace = "^my-overlay$" },
---     no_anim = true,
--- })
--- overlayLayerRule:set_enabled(false)
 
 -- Enable blur and ignore_alpha for rofi
 hl.layer_rule({
