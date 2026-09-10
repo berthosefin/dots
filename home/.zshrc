@@ -166,9 +166,9 @@ alias tl='trashy list'
 alias tR='trashy restore'
 alias te='trashy empty'
 
-# Cloud
-alias gdrive-sync='rclone bisync ~/Documents/gdrive gdrive:/sync --max-delete 50 --create-empty-src-dirs --progress'
-alias gdrive-test='rclone bisync ~/Documents/gdrive gdrive:/sync --max-delete 50 --create-empty-src-dirs --progress --dry-run'
+# Cloud — Drive = snapshot
+# One-way copy
+alias gdrive-backup='rclone copy ~/Documents/ThoSync gdrive:/ThoSync --progress'
 
 # Vault Obsidian (FIT sync)
 alias brain-fix='git -C ~/Documents/Brainsthos fetch origin && git -C ~/Documents/Brainsthos reset --hard origin/main'
