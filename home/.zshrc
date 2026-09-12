@@ -196,6 +196,7 @@ function mkcd() {
 function yt() {
     local format=""
     local output="%(title)s.%(ext)s"
+    local outdir=""
     local extra_args=()
     local playlist=0
 
@@ -208,6 +209,7 @@ function yt() {
             --best)   format="bv*+ba/b" ;;
             --pl)     playlist=1; output="%(playlist_index)s-%(title)s.%(ext)s" ;;
             --fc)     extra_args+=(--cookies-from-browser firefox) ;;
+            --dir)    outdir="$2"; shift ;;
             *)
               local arg="${1#\'}"; arg="${arg%\'}"
               (( playlist )) || extra_args+=(--no-playlist)
@@ -216,6 +218,11 @@ function yt() {
         esac
         shift
     done
+
+    if [[ -n "$outdir" ]]; then
+        mkdir -p -- "$outdir"
+        output="$outdir/$output"
+    fi
 
     if [[ -n "$format" ]]; then
         noglob yt-dlp -f "$format" -o "$output" "${extra_args[@]}"
