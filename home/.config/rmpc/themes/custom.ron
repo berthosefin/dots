@@ -75,14 +75,21 @@
                 default: (kind: Text("Unknown"))
             ),
             label_prop: (kind: Text("Filename")),
-            width: "45%",
+            width: "25%",
+        ),
+        (
+            prop: (kind: Property(Title),
+                default: (kind: Text(""))
+            ),
+            label_prop: (kind: Text("Title")),
+            width: "35%",
         ),
         (
             prop: (kind: Property(LastModified()),
                 default: (kind: Text("-"))
             ),
             label_prop: (kind: Text("Last modified")),
-            width: "20%",
+            width: "15%",
         ),
         (
             prop: (kind: Sticker("playCount"),
@@ -197,10 +204,15 @@
         "header_center": Split(
             direction: Vertical,
             panes: [
-                (size: "1", pane: Pane(Empty())),
                 (size: "1", pane: Pane(Property(
                     content: [
                         (kind: Property(Song(Filename)), style: (modifiers: "Bold"),
+                            default: (kind: Text("Unknown"), style: (modifiers: "Bold"))),
+                    ], align: Center, scroll_speed: 1
+                ))),
+                (size: "1", pane: Pane(Property(
+                    content: [
+                        (kind: Property(Song(Title)), style: (modifiers: "Bold"),
                             default: (kind: Text("Unknown"), style: (modifiers: "Bold"))),
                     ], align: Center, scroll_speed: 1
                 ))),

@@ -192,6 +192,9 @@ function mkcd() {
     mkdir -p -- "$1" && builtin cd -- "$1"
 }
 
+# rmpc
+alias yts='rmpc searchyt --interactive'
+
 # yt-dlp
 function yt() {
     local format=""
