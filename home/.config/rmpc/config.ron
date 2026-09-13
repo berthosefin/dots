@@ -124,8 +124,8 @@
         search_button: false,
         mode: Contains,
         tags: [
-            (value: "any",         label: "Any Tag"),
             (value: "filename",    label: "Filename"),
+            (value: "any",         label: "Any Tag"),
         ],
     ),
     artists: (
