@@ -166,6 +166,19 @@ alias tl='trashy list'
 alias tR='trashy restore'
 alias te='trashy empty'
 
+# WorkTUImer
+alias wt='work-tuimer'
+
+# rmpc
+alias yts='rmpc searchyt --interactive'
+alias mpt='rmpc togglepause'
+alias mps='rmpc stop'
+alias mpn='rmpc next'
+alias mpp='rmpc prev'
+alias mpz='rmpc togglerepeat'
+alias mpx='rmpc togglerandom'
+alias mrv='rmpc volume'
+
 # Cloud — Drive = snapshot
 # One-way copy
 alias gdrive-backup='rclone copy ~/Documents/ThoSync gdrive:/ThoSync --progress'
@@ -191,9 +204,6 @@ function mkcd() {
     [[ -z "$1" ]] && return 1
     mkdir -p -- "$1" && builtin cd -- "$1"
 }
-
-# rmpc
-alias yts='rmpc searchyt --interactive'
 
 # yt-dlp
 function yt() {
