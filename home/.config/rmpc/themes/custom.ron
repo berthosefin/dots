@@ -66,15 +66,19 @@
                 (kind: Text(" - ")),
                 (kind: Property(Title)),
             ]),
-            default: (kind: Property(Filename))
+            default: (
+                kind: Property(Other("name")),
+                default: (kind: Property(Filename)),
+            ),
         ),
     ],
     song_table_format: [
         (
-            prop: (kind: Property(Filename),
-                default: (kind: Text("Unknown"))
+            prop: (
+                kind: Property(Other("name")),
+                default: (kind: Property(Filename)),
             ),
-            label_prop: (kind: Text("Filename")),
+            label_prop: (kind: Text("Station / File")),
             width: "25%",
         ),
         (
