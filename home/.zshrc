@@ -207,20 +207,17 @@ function mkcd() {
 
 # yt-dlp
 function yt() {
-    local format=""
     local output="%(title)s.%(ext)s"
     local outdir=""
     local extra_args=()
     local playlist=0
+    local quality=""
+    local audio=0
 
     while [[ $# -gt 0 ]]; do
         case "$1" in
-            --mp3)    extra_args+=(-x --audio-format mp3) ;;
-            --audio)  extra_args+=(-x -f bestaudio --embed-thumbnail --embed-metadata --convert-thumbnails jpg) ;;
-            --480)    extra_args+=(-S res:480) ;;
-            --720)    extra_args+=(-S res:720) ;;
-            --1080)   extra_args+=(-S res:1080) ;;
-            --best)   format="bv*+ba/b" ;;
+            --q)      quality="$2"; shift ;;
+            --aud)    audio=1; extra_args+=(-x -f bestaudio --embed-thumbnail --embed-metadata --convert-thumbnails jpg) ;;
             --pl)     playlist=1; output="%(playlist_index)s-%(title)s.%(ext)s" ;;
             --fc)     extra_args+=(--cookies-from-browser firefox) ;;
             --dir)    outdir="$2"; shift ;;
@@ -233,14 +230,12 @@ function yt() {
         shift
     done
 
+    [[ $audio -eq 0 && -n "$quality" ]] && extra_args+=(-S "res:${quality}")
+
     if [[ -n "$outdir" ]]; then
         mkdir -p -- "$outdir"
         output="$outdir/$output"
     fi
 
-    if [[ -n "$format" ]]; then
-        noglob yt-dlp -f "$format" -o "$output" "${extra_args[@]}"
-    else
-        noglob yt-dlp -o "$output" "${extra_args[@]}"
-    fi
+    noglob yt-dlp -o "$output" "${extra_args[@]}"
 }
