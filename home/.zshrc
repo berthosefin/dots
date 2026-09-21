@@ -216,6 +216,7 @@ function yt() {
     while [[ $# -gt 0 ]]; do
         case "$1" in
             --mp3)    extra_args+=(-x --audio-format mp3) ;;
+            --audio)  extra_args+=(-x -f bestaudio --embed-thumbnail --embed-metadata --convert-thumbnails jpg) ;;
             --480)    extra_args+=(-S res:480) ;;
             --720)    extra_args+=(-S res:720) ;;
             --1080)   extra_args+=(-S res:1080) ;;
