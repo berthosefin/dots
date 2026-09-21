@@ -17,7 +17,6 @@ office = [
 code = [
 	{ run = "nvim %s", block = true },
 	{ run = "zeditor %s", block = true },
-	{ run = "code %s", block = true },
 ]
 web = [
 	{ run = "firefox %s", orphan = true },
