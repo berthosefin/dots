@@ -1,0 +1,253 @@
+#!/usr/bin/python3
+
+"""
+rb — search radio-browser.info and add stations to the MPD queue.
+
+Usage:
+  rb <query>            search (5 results by default)
+  rb -l N <query>       show up to N results
+  rb --play <query>     add the chosen station, then start playback
+
+Dependencies: python3, curl, mpc (verified at startup).
+The MPD connection follows $MPD_HOST / $MPD_PORT, otherwise mpc defaults.
+"""
+
+import json
+import os
+import re
+import shutil
+import subprocess
+import sys
+import time
+import urllib.parse
+
+API_BASES = [
+    "https://de1.api.radio-browser.info",
+    "https://de2.api.radio-browser.info",
+    "https://all.api.radio-browser.info",
+]
+DEFAULT_LIMIT = 5
+USER_AGENT = "rb/1.0"
+
+
+def die(msg):
+    sys.exit(f"rb: {msg}")
+
+
+def require(cmd):
+    """Exit with an install hint if the command is not on the PATH."""
+    if shutil.which(cmd) is None:
+        die(
+            f"required command '{cmd}' not found"
+            f" (install it: 'apt install {cmd}' / 'dnf install {cmd}' / 'pacman -S {cmd}')"
+        )
+
+
+# ---------------------------------------------------------------------------
+# search
+# ---------------------------------------------------------------------------
+
+
+def search(query, limit):
+    params = urllib.parse.urlencode(
+        {
+            "name": query,
+            "limit": limit,
+            "order": "clickcount",
+            "reverse": "true",
+            "hidebroken": "true",
+        }
+    )
+    for base in API_BASES:
+        url = f"{base}/json/stations/search?{params}"
+        r = subprocess.run(
+            ["curl", "-sS", "-A", USER_AGENT, "--max-time", "15", url],
+            capture_output=True,
+            text=True,
+        )
+        if r.returncode != 0:
+            continue
+        try:
+            data = json.loads(r.stdout)
+        except json.JSONDecodeError:
+            continue
+        if isinstance(data, list):
+            return data
+    die("could not reach radio-browser.info")
+
+
+# ---------------------------------------------------------------------------
+# MPD
+# ---------------------------------------------------------------------------
+
+
+def mpc(*args):
+    return subprocess.run(["mpc", *args], capture_output=True, text=True)
+
+
+def discover_playlist_dir():
+    """Return MPD's playlist directory from its config (or a default)."""
+    env = os.environ.get("MPD_PLAYLIST_DIR")
+    if env:
+        return os.path.expanduser(env)
+    xdg = os.environ.get("XDG_CONFIG_HOME") or os.path.expanduser("~/.config")
+    for path in [
+        os.path.join(xdg, "mpd", "mpd.conf"),
+        os.path.expanduser("~/.mpdconf"),
+        os.path.expanduser("~/.mpd/mpd.conf"),
+        "/etc/mpd.conf",
+        "/etc/mpd/mpd.conf",
+    ]:
+        if not os.path.isfile(path):
+            continue
+        try:
+            with open(path, encoding="utf-8", errors="replace") as f:
+                for line in f:
+                    line = line.strip()
+                    if not line or line.startswith("#"):
+                        continue
+                    m = re.match(r"^([A-Za-z_][A-Za-z0-9_-]*)\s+(.+)$", line)
+                    if not m or m.group(1) != "playlist_directory":
+                        continue
+                    val = m.group(2).strip()
+                    if val.startswith('"'):
+                        val = val[1 : val.find('"', 1)]
+                    else:
+                        val = val.split("#", 1)[0].strip()
+                    val = val.replace("%h%", os.path.expanduser("~"))
+                    val = os.path.expanduser(val)
+                    if not os.path.isabs(val):
+                        val = os.path.join(os.path.dirname(path), val)
+                    return val
+        except OSError:
+            continue
+    return os.path.expanduser("~/.config/mpd/playlists")
+
+
+def add_station(url, name, play):
+    """Add the station to the queue, keeping its name when possible."""
+    if name:
+        # MPD derives a loaded stream's name from the #EXTINF line of a
+        # playlist file, and keeps it in the queue after the stored
+        # playlist is removed.
+        tag = f"_rb_{int(time.time() * 1000)}_{os.getpid()}"
+        path = os.path.join(discover_playlist_dir(), f"{tag}.m3u")
+        try:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write("#EXTM3U\n")
+                f.write(f"#EXTINF:-1,{name}\n")
+                f.write(f"{url}\n")
+        except OSError as e:
+            print(f"  (could not write temporary playlist: {e})")
+            name = None
+        if name:
+            r = mpc("load", tag)
+            mpc("rm", tag)
+            try:
+                os.remove(path)
+            except OSError:
+                pass
+            if r.returncode == 0:
+                if play:
+                    mpc("play")
+                return
+            print("  (load failed, retrying with a plain add)")
+
+    r = mpc("add", url)
+    if r.returncode != 0:
+        die(f"mpc add failed: {r.stderr.strip() or 'no response'}")
+    if play:
+        mpc("play")
+
+
+# ---------------------------------------------------------------------------
+# CLI
+# ---------------------------------------------------------------------------
+
+
+def parse_args(argv):
+    limit = DEFAULT_LIMIT
+    play = False
+    positional = []
+    i = 0
+    while i < len(argv):
+        a = argv[i]
+        if a in ("-l", "--limit"):
+            i += 1
+            if i >= len(argv):
+                die("option -l requires a number (e.g. rb -l 15 jazz)")
+            try:
+                limit = int(argv[i])
+            except ValueError:
+                die(f"invalid limit: {argv[i]!r}")
+            if limit < 1:
+                die("limit must be >= 1")
+        elif a == "--play":
+            play = True
+        elif a in ("-h", "--help"):
+            print(__doc__)
+            sys.exit(0)
+        else:
+            positional.append(a)
+        i += 1
+    return " ".join(positional).strip(), limit, play
+
+
+def select_station(stations):
+    print(f"{len(stations)} result(s):")
+    for idx, s in enumerate(stations, 1):
+        country = s.get("country") or "-"
+        codec = s.get("codec") or "-"
+        bitrate = s.get("bitrate") or 0
+        print(f"  {idx:>2}. {s.get('name') or '?'}  —  {country}  —  {codec} {bitrate} kbps")
+    while True:
+        try:
+            raw = input("Pick a number (Enter to cancel): ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            return None
+        if not raw:
+            return None
+        try:
+            n = int(raw)
+        except ValueError:
+            print("  invalid number")
+            continue
+        if 1 <= n <= len(stations):
+            return stations[n - 1]
+        print(f"  invalid number (1-{len(stations)})")
+
+
+def main():
+    query, limit, play = parse_args(sys.argv[1:])
+    require("curl")
+    require("mpc")
+
+    if not query:
+        try:
+            query = input("Search radio: ").strip()
+        except (EOFError, KeyboardInterrupt):
+            print()
+            sys.exit(130)
+        if not query:
+            die("empty query")
+
+    stations = search(query, limit)
+    if not stations:
+        die(f"no results for {query!r}")
+
+    s = select_station(stations)
+    if s is None:
+        return
+
+    url = s.get("url_resolved") or s.get("url")
+    name = " ".join((s.get("name") or "").split())
+    if not url:
+        die("station has no usable url")
+
+    add_station(url, name, play)
+    print(f"Added: {name}" if name else f"Added: {url}")
+
+
+if __name__ == "__main__":
+    main()
