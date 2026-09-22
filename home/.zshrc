@@ -160,6 +160,9 @@ alias gl='git pull'
 alias gb='git branch'
 alias lg='lazygit'
 
+# czkawka
+alias czk="czkawka-cli"
+
 # Trashy
 alias tp='trashy put'
 alias tl='trashy list'
