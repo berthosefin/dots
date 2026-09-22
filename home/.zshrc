@@ -215,15 +215,15 @@ function yt() {
     local extra_args=()
     local playlist=0
     local quality=""
-    local audio=0
+    local song=0
 
     while [[ $# -gt 0 ]]; do
         case "$1" in
-            --q)      quality="$2"; shift ;;
-            --aud)    audio=1; extra_args+=(-x -f bestaudio --embed-thumbnail --embed-metadata --convert-thumbnails jpg) ;;
-            --pl)     playlist=1; output="%(playlist_index)s-%(title)s.%(ext)s" ;;
-            --fc)     extra_args+=(--cookies-from-browser firefox) ;;
-            --dir)    outdir="$2"; shift ;;
+            -q)       quality="$2"; shift ;;
+            -s)       song=1; extra_args+=(-x -f bestaudio --embed-thumbnail --embed-metadata --convert-thumbnails jpg) ;;  # song = audio
+            -p)       playlist=1; output="%(playlist_index)s-%(title)s.%(ext)s" ;;
+            -c)       extra_args+=(--cookies-from-browser firefox) ;;  # cookies Firefox
+            -d)       outdir="$2"; shift ;;
             *)
               local arg="${1#\'}"; arg="${arg%\'}"
               (( playlist )) || extra_args+=(--no-playlist)
@@ -233,7 +233,7 @@ function yt() {
         shift
     done
 
-    [[ $audio -eq 0 && -n "$quality" ]] && extra_args+=(-S "res:${quality}")
+    [[ $song -eq 0 && -n "$quality" ]] && extra_args+=(-S "res:${quality}")
 
     if [[ -n "$outdir" ]]; then
         mkdir -p -- "$outdir"
