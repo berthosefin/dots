@@ -2,6 +2,7 @@
 .secrets
 
 # Generated files
+**/__pycache__/
 home/.config/Kvantum/matugen
 home/.config/gtk-3.0/colors.css
 home/.config/gtk-4.0/colors.css

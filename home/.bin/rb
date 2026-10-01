@@ -1,18 +1,19 @@
 #!/usr/bin/python3
 
 """
-rb — search radio-browser.info and add stations to the MPD queue.
+rb — search onlineradiobox.com and add stations to the MPD queue.
 
 Usage:
   rb <query>            search (5 results by default)
-  rb -l N <query>       show up to N results
-  rb --play <query>     add the chosen station, then start playback
+  rb -l N <query>       show up to N results (max 20, onlineradiobox caps a page at ~20)
+  rb -c CC <query>      search within country CC (e.g. 'rb -c mg vatsy')
+  rb -p <query>         add the chosen station, then start playback
 
 Dependencies: python3, curl, mpc (verified at startup).
 The MPD connection follows $MPD_HOST / $MPD_PORT, otherwise mpc defaults.
 """
 
-import json
+import html
 import os
 import re
 import shutil
@@ -21,13 +22,10 @@ import sys
 import time
 import urllib.parse
 
-API_BASES = [
-    "https://de1.api.radio-browser.info",
-    "https://de2.api.radio-browser.info",
-    "https://all.api.radio-browser.info",
-]
+SEARCH_URL = "https://onlineradiobox.com/search/"
+MAX_PAGE = 20  # onlineradiobox renders at most ~20 results per request
 DEFAULT_LIMIT = 5
-USER_AGENT = "rb/1.0"
+USER_AGENT = "Mozilla/5.0 (X11; Linux x86_64; rv:126.0) Gecko/20100101 Firefox/126.0"
 
 
 def die(msg):
@@ -44,36 +42,85 @@ def require(cmd):
 
 
 # ---------------------------------------------------------------------------
-# search
+# search (onlineradiobox.com HTML)
 # ---------------------------------------------------------------------------
 
 
-def search(query, limit):
-    params = urllib.parse.urlencode(
-        {
-            "name": query,
-            "limit": limit,
-            "order": "clickcount",
-            "reverse": "true",
-            "hidebroken": "true",
-        }
+def _attr(blob, name):
+    """Return the value of an HTML attribute, or ''."""
+    m = re.search(rf'\b{re.escape(name)}="([^"]*)"', blob, re.I)
+    return html.unescape(m.group(1).strip()) if m else ""
+
+
+def _text(blob, class_):
+    """Return the text of the first element with the given class, or ''."""
+    m = re.search(
+        rf'class="[^"]*\b{re.escape(class_)}\b[^"]*"[^>]*>(.*?)</',
+        blob,
+        re.S | re.I,
     )
-    for base in API_BASES:
-        url = f"{base}/json/stations/search?{params}"
-        r = subprocess.run(
-            ["curl", "-sS", "-A", USER_AGENT, "--max-time", "15", url],
-            capture_output=True,
-            text=True,
+    if not m:
+        return ""
+    return html.unescape(re.sub(r"<[^>]+>", "", m.group(1)).strip())
+
+
+def parse_stations(body):
+    """Parse <li class="stations__station"> blocks out of an onlineradiobox page."""
+    stations = []
+    starts = [m.start() for m in re.finditer(r'<li class="stations__station"', body, re.I)]
+    for i, a in enumerate(starts):
+        b = starts[i + 1] if i + 1 < len(starts) else len(body)
+        block = body[a:b]
+
+        stream = _attr(block, "stream")
+        if not stream:
+            continue  # not a playable result row
+        name = _attr(block, "radioName") or _text(block, "station__title__name")
+        # the name attribute may contain HTML entities (e.g. &#39;)
+        name = html.unescape(name)
+        codec = _attr(block, "streamType") or "?"
+        # country: the flag link carries the country name in its title
+        cm = re.search(r'class="[^"]*\bi-flag\b[^"]*"[^>]*title="([^"]*)"', block, re.I)
+        country = html.unescape(cm.group(1).strip()) if cm else ""
+        # listeners: either an attribute on the play button or a metric cell
+        listeners = 0
+        lm = re.search(r'\blisteners="(\d+)"', block, re.I)
+        if lm:
+            listeners = int(lm.group(1))
+        else:
+            tm = re.search(r'class="i-listeners"[^>]*>\s*(\d+)', block, re.I)
+            if tm:
+                listeners = int(tm.group(1))
+
+        stations.append(
+            {
+                "name": name,
+                "country": country,
+                "codec": codec,
+                "bitrate": 0,  # onlineradiobox does not publish bitrate
+                "listeners": listeners,
+                "url": stream,
+                "url_resolved": stream,
+            }
         )
-        if r.returncode != 0:
-            continue
-        try:
-            data = json.loads(r.stdout)
-        except json.JSONDecodeError:
-            continue
-        if isinstance(data, list):
-            return data
-    die("could not reach radio-browser.info")
+    return stations
+
+
+def search(query, limit, country):
+    params = {"q": query, "hits_per_page": str(limit)}
+    if country:
+        params["c"] = country
+    url = f"{SEARCH_URL}?{urllib.parse.urlencode(params)}"
+    r = subprocess.run(
+        ["curl", "-sS", "-A", USER_AGENT, "--max-time", "15", url],
+        capture_output=True,
+        text=True,
+    )
+    if r.returncode != 0 or not r.stdout:
+        die("could not reach onlineradiobox.com")
+    stations = parse_stations(r.stdout)
+    stations.sort(key=lambda s: s.get("listeners", 0), reverse=True)
+    return stations[:limit]  # the site ignores hits_per_page; honour the requested limit here
 
 
 # ---------------------------------------------------------------------------
@@ -168,6 +215,7 @@ def add_station(url, name, play):
 def parse_args(argv):
     limit = DEFAULT_LIMIT
     play = False
+    country = ""
     positional = []
     i = 0
     while i < len(argv):
@@ -182,7 +230,18 @@ def parse_args(argv):
                 die(f"invalid limit: {argv[i]!r}")
             if limit < 1:
                 die("limit must be >= 1")
-        elif a == "--play":
+            if limit > MAX_PAGE:
+                print(f"  note: onlineradiobox caps results at {MAX_PAGE} per request "
+                      f"(requested {limit}, using {MAX_PAGE})")
+                limit = MAX_PAGE
+        elif a in ("-c", "--country"):
+            i += 1
+            if i >= len(argv):
+                die("option -c requires a country code (e.g. rb -c mg vatsy)")
+            country = argv[i].strip().lower()
+            if not re.fullmatch(r"[a-z]{2}", country):
+                die(f"invalid country code: {argv[i]!r} (expected 2 letters, e.g. mg)")
+        elif a in ("-p", "--play"):
             play = True
         elif a in ("-h", "--help"):
             print(__doc__)
@@ -190,7 +249,7 @@ def parse_args(argv):
         else:
             positional.append(a)
         i += 1
-    return " ".join(positional).strip(), limit, play
+    return " ".join(positional).strip(), limit, play, country
 
 
 def select_station(stations):
@@ -198,8 +257,8 @@ def select_station(stations):
     for idx, s in enumerate(stations, 1):
         country = s.get("country") or "-"
         codec = s.get("codec") or "-"
-        bitrate = s.get("bitrate") or 0
-        print(f"  {idx:>2}. {s.get('name') or '?'}  —  {country}  —  {codec} {bitrate} kbps")
+        listeners = s.get("listeners") or 0
+        print(f"  {idx:>2}. {s.get('name') or '?'}  —  {country}  —  {codec}  —  {listeners} listeners")
     while True:
         try:
             raw = input("Pick a number (Enter to cancel): ").strip()
@@ -219,7 +278,7 @@ def select_station(stations):
 
 
 def main():
-    query, limit, play = parse_args(sys.argv[1:])
+    query, limit, play, country = parse_args(sys.argv[1:])
     require("curl")
     require("mpc")
 
@@ -232,9 +291,9 @@ def main():
         if not query:
             die("empty query")
 
-    stations = search(query, limit)
+    stations = search(query, limit, country)
     if not stations:
-        die(f"no results for {query!r}")
+        die(f"no results for {query!r}" + (f" in country '{country}'" if country else ""))
 
     s = select_station(stations)
     if s is None:
