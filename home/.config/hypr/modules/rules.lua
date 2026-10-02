@@ -58,13 +58,13 @@ hl.window_rule({
 
 hl.window_rule({
   name = "code-office-workspace",
-  match = { class = "^(?i).*(code|zed|office).*" },
+  match = { class = "^(?i).*(code|zed|office|obsidian).*" },
   workspace = 3,
 })
 
 hl.window_rule({
   name = "creative-apps-workspace",
-  match = { class = "^(?i).*(gimp|inkscape|kdenlive|audacity|mixxx|rhythmbox|strawberry|obs).*" },
+  match = { class = "^(?i).*(gimp|inkscape|kdenlive|audacity|mixxx|rhythmbox|strawberry|obsproject).*" },
   workspace = 4,
 })
 
