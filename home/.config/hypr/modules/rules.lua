@@ -52,19 +52,19 @@ hl.window_rule({
 -- Workspace assignments
 hl.window_rule({
   name = "browser-workspace",
-  match = { class = "^(?i).*(firefox|brave).*" },
+  match = { class = "^(?i).*(firefox).*" },
   workspace = 2,
 })
 
 hl.window_rule({
   name = "code-office-workspace",
-  match = { class = "^(?i).*(code|zed|office|obsidian).*" },
+  match = { class = "^(?i).*(zed|office|obsidian).*" },
   workspace = 3,
 })
 
 hl.window_rule({
   name = "creative-apps-workspace",
-  match = { class = "^(?i).*(gimp|inkscape|kdenlive|audacity|mixxx|rhythmbox|strawberry|obsproject).*" },
+  match = { class = "^(?i).*(audacity|mixxx|strawberry).*" },
   workspace = 4,
 })
 
