@@ -187,7 +187,10 @@ alias mrv='rmpc volume'
 alias gdrive-backup='rclone copy ~/Documents/ThoSync gdrive:/ThoSync --progress'
 
 # Vault Obsidian (FIT sync)
-alias brain-fix='git -C ~/Documents/Brainsthos fetch origin && git -C ~/Documents/Brainsthos reset --hard origin/main'
+alias obrain-fix='git -C ~/Documents/Brainsthos fetch origin && git -C ~/Documents/Brainsthos reset --hard origin/main'
+
+# paru
+alias p='paru'
 
 # ==============================================================
 # 7. USEFUL FUNCTIONS
