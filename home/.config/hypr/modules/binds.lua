@@ -45,7 +45,8 @@ hl.bind(secondMod .. " + less", hl.dsp.group.prev())
 hl.bind(secondMod .. " + greater", hl.dsp.group.next())
 
 -- Screenshots
-hl.bind("PRINT", hl.dsp.exec_cmd(scripts .. "/screenshot.sh"))
+hl.bind("PRINT", hl.dsp.exec_cmd(scripts .. "/screenshot.sh")) -- quick capture, no annotation
+hl.bind("CTRL + PRINT", hl.dsp.exec_cmd(scripts .. "/screenshot.sh annotate")) -- capture + satty
 
 -- Focus (arrows)
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
